@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6C4CCA7B2C094972002112F0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCA7A2C094972002112F0 /* AppDelegate.m */; };
 		6C4CCA7D2C094973002112F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C4CCA7C2C094973002112F0 /* Assets.xcassets */; };
-		6C4CCA802C094973002112F0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C4CCA7E2C094973002112F0 /* MainMenu.xib */; };
-		6C4CCA822C094973002112F0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCA812C094973002112F0 /* main.m */; };
 		6C4CCA8D2C094973002112F0 /* ImaginationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCA8C2C094973002112F0 /* ImaginationTests.m */; };
 		6C4CCA972C094973002112F0 /* ImaginationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCA962C094973002112F0 /* ImaginationUITests.m */; };
 		6C4CCA992C094973002112F0 /* ImaginationUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCA982C094973002112F0 /* ImaginationUITestsLaunchTests.m */; };
+		6C4CCAA62C0949AE002112F0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCAA52C0949AE002112F0 /* main.cpp */; };
+		6C4CCAAE2C094B9B002112F0 /* Imagination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCAAD2C094B9B002112F0 /* Imagination.cpp */; };
+		6C4CCAAF2C094B9B002112F0 /* Imagination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCAAD2C094B9B002112F0 /* Imagination.cpp */; };
+		6C4CCAB02C094B9B002112F0 /* Imagination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCAAD2C094B9B002112F0 /* Imagination.cpp */; };
+		6C4CCAB32C094BF3002112F0 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C4CCAB22C094BF3002112F0 /* SDL2.framework */; };
+		6C4CCAB42C094BF3002112F0 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C4CCAB22C094BF3002112F0 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,19 +36,33 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		6C4CCAB52C094BF3002112F0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6C4CCAB42C094BF3002112F0 /* SDL2.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		6C4CCA762C094972002112F0 /* Imagination.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imagination.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C4CCA792C094972002112F0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		6C4CCA7A2C094972002112F0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6C4CCA7C2C094973002112F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6C4CCA7F2C094973002112F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		6C4CCA812C094973002112F0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C4CCA832C094973002112F0 /* Imagination.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Imagination.entitlements; sourceTree = "<group>"; };
 		6C4CCA882C094973002112F0 /* ImaginationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImaginationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C4CCA8C2C094973002112F0 /* ImaginationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImaginationTests.m; sourceTree = "<group>"; };
 		6C4CCA922C094973002112F0 /* ImaginationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImaginationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C4CCA962C094973002112F0 /* ImaginationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImaginationUITests.m; sourceTree = "<group>"; };
 		6C4CCA982C094973002112F0 /* ImaginationUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImaginationUITestsLaunchTests.m; sourceTree = "<group>"; };
+		6C4CCAA52C0949AE002112F0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6C4CCAAC2C094B9B002112F0 /* Imagination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Imagination.h; sourceTree = "<group>"; };
+		6C4CCAAD2C094B9B002112F0 /* Imagination.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Imagination.cpp; sourceTree = "<group>"; };
+		6C4CCAB22C094BF3002112F0 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C4CCAB32C094BF3002112F0 /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,10 +94,12 @@
 		6C4CCA6D2C094972002112F0 = {
 			isa = PBXGroup;
 			children = (
+				6C4CCAAB2C094B7E002112F0 /* Engine */,
 				6C4CCA782C094972002112F0 /* Imagination */,
 				6C4CCA8B2C094973002112F0 /* ImaginationTests */,
 				6C4CCA952C094973002112F0 /* ImaginationUITests */,
 				6C4CCA772C094972002112F0 /* Products */,
+				6C4CCAB12C094BF3002112F0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,12 +116,9 @@
 		6C4CCA782C094972002112F0 /* Imagination */ = {
 			isa = PBXGroup;
 			children = (
-				6C4CCA792C094972002112F0 /* AppDelegate.h */,
-				6C4CCA7A2C094972002112F0 /* AppDelegate.m */,
 				6C4CCA7C2C094973002112F0 /* Assets.xcassets */,
-				6C4CCA7E2C094973002112F0 /* MainMenu.xib */,
-				6C4CCA812C094973002112F0 /* main.m */,
 				6C4CCA832C094973002112F0 /* Imagination.entitlements */,
+				6C4CCAA52C0949AE002112F0 /* main.cpp */,
 			);
 			path = Imagination;
 			sourceTree = "<group>";
@@ -123,6 +140,23 @@
 			path = ImaginationUITests;
 			sourceTree = "<group>";
 		};
+		6C4CCAAB2C094B7E002112F0 /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				6C4CCAAD2C094B9B002112F0 /* Imagination.cpp */,
+				6C4CCAAC2C094B9B002112F0 /* Imagination.h */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		6C4CCAB12C094BF3002112F0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C4CCAB22C094BF3002112F0 /* SDL2.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -133,6 +167,7 @@
 				6C4CCA722C094972002112F0 /* Sources */,
 				6C4CCA732C094972002112F0 /* Frameworks */,
 				6C4CCA742C094972002112F0 /* Resources */,
+				6C4CCAB52C094BF3002112F0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -227,7 +262,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C4CCA7D2C094973002112F0 /* Assets.xcassets in Resources */,
-				6C4CCA802C094973002112F0 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,8 +286,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C4CCA822C094973002112F0 /* main.m in Sources */,
-				6C4CCA7B2C094972002112F0 /* AppDelegate.m in Sources */,
+				6C4CCAAE2C094B9B002112F0 /* Imagination.cpp in Sources */,
+				6C4CCAA62C0949AE002112F0 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C4CCAAF2C094B9B002112F0 /* Imagination.cpp in Sources */,
 				6C4CCA8D2C094973002112F0 /* ImaginationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,6 +306,7 @@
 			files = (
 				6C4CCA972C094973002112F0 /* ImaginationUITests.m in Sources */,
 				6C4CCA992C094973002112F0 /* ImaginationUITestsLaunchTests.m in Sources */,
+				6C4CCAB02C094B9B002112F0 /* Imagination.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,17 +324,6 @@
 			targetProxy = 6C4CCA932C094973002112F0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		6C4CCA7E2C094973002112F0 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6C4CCA7F2C094973002112F0 /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6C4CCA9A2C094973002112F0 /* Debug */ = {
@@ -425,6 +450,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
@@ -449,6 +478,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
