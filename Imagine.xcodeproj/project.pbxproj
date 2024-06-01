@@ -7,43 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6C4CCA7D2C094973002112F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C4CCA7C2C094973002112F0 /* Assets.xcassets */; };
-		6C4CCA8D2C094973002112F0 /* ImaginationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCA8C2C094973002112F0 /* ImaginationTests.m */; };
-		6C4CCA972C094973002112F0 /* ImaginationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCA962C094973002112F0 /* ImaginationUITests.m */; };
-		6C4CCA992C094973002112F0 /* ImaginationUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCA982C094973002112F0 /* ImaginationUITestsLaunchTests.m */; };
-		6C4CCAA62C0949AE002112F0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCAA52C0949AE002112F0 /* main.cpp */; };
-		6C4CCAAE2C094B9B002112F0 /* Imagination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCAAD2C094B9B002112F0 /* Imagination.cpp */; };
-		6C4CCAAF2C094B9B002112F0 /* Imagination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCAAD2C094B9B002112F0 /* Imagination.cpp */; };
-		6C4CCAB02C094B9B002112F0 /* Imagination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C4CCAAD2C094B9B002112F0 /* Imagination.cpp */; };
-		6C4CCAB32C094BF3002112F0 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C4CCAB22C094BF3002112F0 /* SDL2.framework */; };
-		6C4CCAB42C094BF3002112F0 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C4CCAB22C094BF3002112F0 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6CE2E2D72C0BCE0F00739BBF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2E2D62C0BCE0F00739BBF /* main.cpp */; };
+		6CE2E2DB2C0BCE5E00739BBF /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */; };
+		6CE2E2DC2C0BCE5E00739BBF /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6CE2E2DF2C0BD12800739BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6C4CCA892C094973002112F0 /* PBXContainerItemProxy */ = {
+		6CE2E2BA2C0BCDD600739BBF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6C4CCA6E2C094972002112F0 /* Project object */;
+			containerPortal = 6CE2E29F2C0BCDD500739BBF /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6C4CCA752C094972002112F0;
-			remoteInfo = Imagination;
+			remoteGlobalIDString = 6CE2E2A62C0BCDD500739BBF;
+			remoteInfo = Imagine;
 		};
-		6C4CCA932C094973002112F0 /* PBXContainerItemProxy */ = {
+		6CE2E2C42C0BCDD600739BBF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6C4CCA6E2C094972002112F0 /* Project object */;
+			containerPortal = 6CE2E29F2C0BCDD500739BBF /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6C4CCA752C094972002112F0;
-			remoteInfo = Imagination;
+			remoteGlobalIDString = 6CE2E2A62C0BCDD500739BBF;
+			remoteInfo = Imagine;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6C4CCAB52C094BF3002112F0 /* Embed Frameworks */ = {
+		6CE2E2DD2C0BCE5E00739BBF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6C4CCAB42C094BF3002112F0 /* SDL2.framework in Embed Frameworks */,
+				6CE2E2DC2C0BCE5E00739BBF /* SDL2.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -51,37 +45,33 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6C4CCA762C094972002112F0 /* Imagination.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imagination.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C4CCA7C2C094973002112F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6C4CCA832C094973002112F0 /* Imagination.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Imagination.entitlements; sourceTree = "<group>"; };
-		6C4CCA882C094973002112F0 /* ImaginationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImaginationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C4CCA8C2C094973002112F0 /* ImaginationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImaginationTests.m; sourceTree = "<group>"; };
-		6C4CCA922C094973002112F0 /* ImaginationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImaginationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C4CCA962C094973002112F0 /* ImaginationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImaginationUITests.m; sourceTree = "<group>"; };
-		6C4CCA982C094973002112F0 /* ImaginationUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImaginationUITestsLaunchTests.m; sourceTree = "<group>"; };
-		6C4CCAA52C0949AE002112F0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		6C4CCAAC2C094B9B002112F0 /* Imagination.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Imagination.h; sourceTree = "<group>"; };
-		6C4CCAAD2C094B9B002112F0 /* Imagination.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Imagination.cpp; sourceTree = "<group>"; };
-		6C4CCAB22C094BF3002112F0 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
+		6CE2E2A72C0BCDD500739BBF /* Imagine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imagine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CE2E2B42C0BCDD600739BBF /* Imagine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Imagine.entitlements; sourceTree = "<group>"; };
+		6CE2E2B92C0BCDD600739BBF /* ImagineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImagineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CE2E2C32C0BCDD600739BBF /* ImagineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImagineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CE2E2D62C0BCE0F00739BBF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6CE2E2D82C0BCE4C00739BBF /* Imagine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Imagine.h; sourceTree = "<group>"; };
+		6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
+		6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6C4CCA732C094972002112F0 /* Frameworks */ = {
+		6CE2E2A42C0BCDD500739BBF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C4CCAB32C094BF3002112F0 /* SDL2.framework in Frameworks */,
+				6CE2E2DB2C0BCE5E00739BBF /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6C4CCA852C094973002112F0 /* Frameworks */ = {
+		6CE2E2B62C0BCDD600739BBF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6C4CCA8F2C094973002112F0 /* Frameworks */ = {
+		6CE2E2C02C0BCDD600739BBF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -91,68 +81,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6C4CCA6D2C094972002112F0 = {
+		6CE2E29E2C0BCDD500739BBF = {
 			isa = PBXGroup;
 			children = (
-				6C4CCAAB2C094B7E002112F0 /* Engine */,
-				6C4CCA782C094972002112F0 /* Imagination */,
-				6C4CCA8B2C094973002112F0 /* ImaginationTests */,
-				6C4CCA952C094973002112F0 /* ImaginationUITests */,
-				6C4CCA772C094972002112F0 /* Products */,
-				6C4CCAB12C094BF3002112F0 /* Frameworks */,
+				6CE2E2A92C0BCDD500739BBF /* Imagine */,
+				6CE2E2A82C0BCDD500739BBF /* Products */,
+				6CE2E2D92C0BCE5E00739BBF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		6C4CCA772C094972002112F0 /* Products */ = {
+		6CE2E2A82C0BCDD500739BBF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6C4CCA762C094972002112F0 /* Imagination.app */,
-				6C4CCA882C094973002112F0 /* ImaginationTests.xctest */,
-				6C4CCA922C094973002112F0 /* ImaginationUITests.xctest */,
+				6CE2E2A72C0BCDD500739BBF /* Imagine.app */,
+				6CE2E2B92C0BCDD600739BBF /* ImagineTests.xctest */,
+				6CE2E2C32C0BCDD600739BBF /* ImagineUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6C4CCA782C094972002112F0 /* Imagination */ = {
+		6CE2E2A92C0BCDD500739BBF /* Imagine */ = {
 			isa = PBXGroup;
 			children = (
-				6C4CCA7C2C094973002112F0 /* Assets.xcassets */,
-				6C4CCA832C094973002112F0 /* Imagination.entitlements */,
-				6C4CCAA52C0949AE002112F0 /* main.cpp */,
+				6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */,
+				6CE2E2B42C0BCDD600739BBF /* Imagine.entitlements */,
+				6CE2E2D62C0BCE0F00739BBF /* main.cpp */,
+				6CE2E2D82C0BCE4C00739BBF /* Imagine.h */,
 			);
-			path = Imagination;
+			path = Imagine;
 			sourceTree = "<group>";
 		};
-		6C4CCA8B2C094973002112F0 /* ImaginationTests */ = {
+		6CE2E2D92C0BCE5E00739BBF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6C4CCA8C2C094973002112F0 /* ImaginationTests.m */,
-			);
-			path = ImaginationTests;
-			sourceTree = "<group>";
-		};
-		6C4CCA952C094973002112F0 /* ImaginationUITests */ = {
-			isa = PBXGroup;
-			children = (
-				6C4CCA962C094973002112F0 /* ImaginationUITests.m */,
-				6C4CCA982C094973002112F0 /* ImaginationUITestsLaunchTests.m */,
-			);
-			path = ImaginationUITests;
-			sourceTree = "<group>";
-		};
-		6C4CCAAB2C094B7E002112F0 /* Engine */ = {
-			isa = PBXGroup;
-			children = (
-				6C4CCAAD2C094B9B002112F0 /* Imagination.cpp */,
-				6C4CCAAC2C094B9B002112F0 /* Imagination.h */,
-			);
-			path = Engine;
-			sourceTree = "<group>";
-		};
-		6C4CCAB12C094BF3002112F0 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6C4CCAB22C094BF3002112F0 /* SDL2.framework */,
+				6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -160,83 +122,83 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6C4CCA752C094972002112F0 /* Imagination */ = {
+		6CE2E2A62C0BCDD500739BBF /* Imagine */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6C4CCA9C2C094973002112F0 /* Build configuration list for PBXNativeTarget "Imagination" */;
+			buildConfigurationList = 6CE2E2CD2C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "Imagine" */;
 			buildPhases = (
-				6C4CCA722C094972002112F0 /* Sources */,
-				6C4CCA732C094972002112F0 /* Frameworks */,
-				6C4CCA742C094972002112F0 /* Resources */,
-				6C4CCAB52C094BF3002112F0 /* Embed Frameworks */,
+				6CE2E2A32C0BCDD500739BBF /* Sources */,
+				6CE2E2A42C0BCDD500739BBF /* Frameworks */,
+				6CE2E2A52C0BCDD500739BBF /* Resources */,
+				6CE2E2DD2C0BCE5E00739BBF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Imagination;
-			productName = Imagination;
-			productReference = 6C4CCA762C094972002112F0 /* Imagination.app */;
+			name = Imagine;
+			productName = Imagine;
+			productReference = 6CE2E2A72C0BCDD500739BBF /* Imagine.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6C4CCA872C094973002112F0 /* ImaginationTests */ = {
+		6CE2E2B82C0BCDD600739BBF /* ImagineTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6C4CCA9F2C094973002112F0 /* Build configuration list for PBXNativeTarget "ImaginationTests" */;
+			buildConfigurationList = 6CE2E2D02C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "ImagineTests" */;
 			buildPhases = (
-				6C4CCA842C094973002112F0 /* Sources */,
-				6C4CCA852C094973002112F0 /* Frameworks */,
-				6C4CCA862C094973002112F0 /* Resources */,
+				6CE2E2B52C0BCDD600739BBF /* Sources */,
+				6CE2E2B62C0BCDD600739BBF /* Frameworks */,
+				6CE2E2B72C0BCDD600739BBF /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6C4CCA8A2C094973002112F0 /* PBXTargetDependency */,
+				6CE2E2BB2C0BCDD600739BBF /* PBXTargetDependency */,
 			);
-			name = ImaginationTests;
-			productName = ImaginationTests;
-			productReference = 6C4CCA882C094973002112F0 /* ImaginationTests.xctest */;
+			name = ImagineTests;
+			productName = ImagineTests;
+			productReference = 6CE2E2B92C0BCDD600739BBF /* ImagineTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6C4CCA912C094973002112F0 /* ImaginationUITests */ = {
+		6CE2E2C22C0BCDD600739BBF /* ImagineUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6C4CCAA22C094973002112F0 /* Build configuration list for PBXNativeTarget "ImaginationUITests" */;
+			buildConfigurationList = 6CE2E2D32C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "ImagineUITests" */;
 			buildPhases = (
-				6C4CCA8E2C094973002112F0 /* Sources */,
-				6C4CCA8F2C094973002112F0 /* Frameworks */,
-				6C4CCA902C094973002112F0 /* Resources */,
+				6CE2E2BF2C0BCDD600739BBF /* Sources */,
+				6CE2E2C02C0BCDD600739BBF /* Frameworks */,
+				6CE2E2C12C0BCDD600739BBF /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6C4CCA942C094973002112F0 /* PBXTargetDependency */,
+				6CE2E2C52C0BCDD600739BBF /* PBXTargetDependency */,
 			);
-			name = ImaginationUITests;
-			productName = ImaginationUITests;
-			productReference = 6C4CCA922C094973002112F0 /* ImaginationUITests.xctest */;
+			name = ImagineUITests;
+			productName = ImagineUITests;
+			productReference = 6CE2E2C32C0BCDD600739BBF /* ImagineUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		6C4CCA6E2C094972002112F0 /* Project object */ = {
+		6CE2E29F2C0BCDD500739BBF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					6C4CCA752C094972002112F0 = {
+					6CE2E2A62C0BCDD500739BBF = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
-					6C4CCA872C094973002112F0 = {
+					6CE2E2B82C0BCDD600739BBF = {
 						CreatedOnToolsVersion = 15.0.1;
-						TestTargetID = 6C4CCA752C094972002112F0;
+						TestTargetID = 6CE2E2A62C0BCDD500739BBF;
 					};
-					6C4CCA912C094973002112F0 = {
+					6CE2E2C22C0BCDD600739BBF = {
 						CreatedOnToolsVersion = 15.0.1;
-						TestTargetID = 6C4CCA752C094972002112F0;
+						TestTargetID = 6CE2E2A62C0BCDD500739BBF;
 					};
 				};
 			};
-			buildConfigurationList = 6C4CCA712C094972002112F0 /* Build configuration list for PBXProject "Imagination" */;
+			buildConfigurationList = 6CE2E2A22C0BCDD500739BBF /* Build configuration list for PBXProject "Imagine" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -244,35 +206,35 @@
 				en,
 				Base,
 			);
-			mainGroup = 6C4CCA6D2C094972002112F0;
-			productRefGroup = 6C4CCA772C094972002112F0 /* Products */;
+			mainGroup = 6CE2E29E2C0BCDD500739BBF;
+			productRefGroup = 6CE2E2A82C0BCDD500739BBF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6C4CCA752C094972002112F0 /* Imagination */,
-				6C4CCA872C094973002112F0 /* ImaginationTests */,
-				6C4CCA912C094973002112F0 /* ImaginationUITests */,
+				6CE2E2A62C0BCDD500739BBF /* Imagine */,
+				6CE2E2B82C0BCDD600739BBF /* ImagineTests */,
+				6CE2E2C22C0BCDD600739BBF /* ImagineUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6C4CCA742C094972002112F0 /* Resources */ = {
+		6CE2E2A52C0BCDD500739BBF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C4CCA7D2C094973002112F0 /* Assets.xcassets in Resources */,
+				6CE2E2DF2C0BD12800739BBF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6C4CCA862C094973002112F0 /* Resources */ = {
+		6CE2E2B72C0BCDD600739BBF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6C4CCA902C094973002112F0 /* Resources */ = {
+		6CE2E2C12C0BCDD600739BBF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -282,51 +244,45 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6C4CCA722C094972002112F0 /* Sources */ = {
+		6CE2E2A32C0BCDD500739BBF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C4CCAAE2C094B9B002112F0 /* Imagination.cpp in Sources */,
-				6C4CCAA62C0949AE002112F0 /* main.cpp in Sources */,
+				6CE2E2D72C0BCE0F00739BBF /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6C4CCA842C094973002112F0 /* Sources */ = {
+		6CE2E2B52C0BCDD600739BBF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C4CCAAF2C094B9B002112F0 /* Imagination.cpp in Sources */,
-				6C4CCA8D2C094973002112F0 /* ImaginationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6C4CCA8E2C094973002112F0 /* Sources */ = {
+		6CE2E2BF2C0BCDD600739BBF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C4CCA972C094973002112F0 /* ImaginationUITests.m in Sources */,
-				6C4CCA992C094973002112F0 /* ImaginationUITestsLaunchTests.m in Sources */,
-				6C4CCAB02C094B9B002112F0 /* Imagination.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6C4CCA8A2C094973002112F0 /* PBXTargetDependency */ = {
+		6CE2E2BB2C0BCDD600739BBF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6C4CCA752C094972002112F0 /* Imagination */;
-			targetProxy = 6C4CCA892C094973002112F0 /* PBXContainerItemProxy */;
+			target = 6CE2E2A62C0BCDD500739BBF /* Imagine */;
+			targetProxy = 6CE2E2BA2C0BCDD600739BBF /* PBXContainerItemProxy */;
 		};
-		6C4CCA942C094973002112F0 /* PBXTargetDependency */ = {
+		6CE2E2C52C0BCDD600739BBF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6C4CCA752C094972002112F0 /* Imagination */;
-			targetProxy = 6C4CCA932C094973002112F0 /* PBXContainerItemProxy */;
+			target = 6CE2E2A62C0BCDD500739BBF /* Imagine */;
+			targetProxy = 6CE2E2C42C0BCDD600739BBF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		6C4CCA9A2C094973002112F0 /* Debug */ = {
+		6CE2E2CB2C0BCDD600739BBF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -387,7 +343,7 @@
 			};
 			name = Debug;
 		};
-		6C4CCA9B2C094973002112F0 /* Release */ = {
+		6CE2E2CC2C0BCDD600739BBF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -441,12 +397,12 @@
 			};
 			name = Release;
 		};
-		6C4CCA9D2C094973002112F0 /* Debug */ = {
+		6CE2E2CE2C0BCDD600739BBF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Imagination/Imagination.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Imagine/Imagine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -463,18 +419,18 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.Imagination;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.Imagine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Debug;
 		};
-		6C4CCA9E2C094973002112F0 /* Release */ = {
+		6CE2E2CF2C0BCDD600739BBF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Imagination/Imagination.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Imagine/Imagine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -491,13 +447,13 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.Imagination;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.Imagine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};
-		6C4CCAA02C094973002112F0 /* Debug */ = {
+		6CE2E2D12C0BCDD600739BBF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -506,14 +462,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImaginationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImagineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Imagination.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Imagination";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Imagine.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Imagine";
 			};
 			name = Debug;
 		};
-		6C4CCAA12C094973002112F0 /* Release */ = {
+		6CE2E2D22C0BCDD600739BBF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -522,81 +478,81 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImaginationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImagineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Imagination.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Imagination";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Imagine.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Imagine";
 			};
 			name = Release;
 		};
-		6C4CCAA32C094973002112F0 /* Debug */ = {
+		6CE2E2D42C0BCDD600739BBF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImaginationUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImagineUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				TEST_TARGET_NAME = Imagination;
+				TEST_TARGET_NAME = Imagine;
 			};
 			name = Debug;
 		};
-		6C4CCAA42C094973002112F0 /* Release */ = {
+		6CE2E2D52C0BCDD600739BBF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImaginationUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImagineUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				TEST_TARGET_NAME = Imagination;
+				TEST_TARGET_NAME = Imagine;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6C4CCA712C094972002112F0 /* Build configuration list for PBXProject "Imagination" */ = {
+		6CE2E2A22C0BCDD500739BBF /* Build configuration list for PBXProject "Imagine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6C4CCA9A2C094973002112F0 /* Debug */,
-				6C4CCA9B2C094973002112F0 /* Release */,
+				6CE2E2CB2C0BCDD600739BBF /* Debug */,
+				6CE2E2CC2C0BCDD600739BBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6C4CCA9C2C094973002112F0 /* Build configuration list for PBXNativeTarget "Imagination" */ = {
+		6CE2E2CD2C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "Imagine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6C4CCA9D2C094973002112F0 /* Debug */,
-				6C4CCA9E2C094973002112F0 /* Release */,
+				6CE2E2CE2C0BCDD600739BBF /* Debug */,
+				6CE2E2CF2C0BCDD600739BBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6C4CCA9F2C094973002112F0 /* Build configuration list for PBXNativeTarget "ImaginationTests" */ = {
+		6CE2E2D02C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "ImagineTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6C4CCAA02C094973002112F0 /* Debug */,
-				6C4CCAA12C094973002112F0 /* Release */,
+				6CE2E2D12C0BCDD600739BBF /* Debug */,
+				6CE2E2D22C0BCDD600739BBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6C4CCAA22C094973002112F0 /* Build configuration list for PBXNativeTarget "ImaginationUITests" */ = {
+		6CE2E2D32C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "ImagineUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6C4CCAA32C094973002112F0 /* Debug */,
-				6C4CCAA42C094973002112F0 /* Release */,
+				6CE2E2D42C0BCDD600739BBF /* Debug */,
+				6CE2E2D52C0BCDD600739BBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 6C4CCA6E2C094972002112F0 /* Project object */;
+	rootObject = 6CE2E29F2C0BCDD500739BBF /* Project object */;
 }
