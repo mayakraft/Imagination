@@ -11,6 +11,11 @@
 		6CE2E2DB2C0BCE5E00739BBF /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */; };
 		6CE2E2DC2C0BCE5E00739BBF /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6CE2E2DF2C0BD12800739BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */; };
+		6CE2E2E12C0BE39C00739BBF /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2E02C0BE39C00739BBF /* SDL2_image.framework */; };
+		6CE2E2E22C0BE39C00739BBF /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2E02C0BE39C00739BBF /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6CE2E2E72C0BEBD100739BBF /* diamond.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2E42C0BEBD100739BBF /* diamond.png */; };
+		6CE2E2E82C0BEBD100739BBF /* copper.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2E52C0BEBD100739BBF /* copper.png */; };
+		6CE2E2E92C0BEBD100739BBF /* book.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2E62C0BEBD100739BBF /* book.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +43,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				6CE2E2DC2C0BCE5E00739BBF /* SDL2.framework in Embed Frameworks */,
+				6CE2E2E22C0BE39C00739BBF /* SDL2_image.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,6 +59,10 @@
 		6CE2E2D82C0BCE4C00739BBF /* Imagine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Imagine.h; sourceTree = "<group>"; };
 		6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
 		6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6CE2E2E02C0BE39C00739BBF /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_image.framework; sourceTree = "<group>"; };
+		6CE2E2E42C0BEBD100739BBF /* diamond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diamond.png; sourceTree = "<group>"; };
+		6CE2E2E52C0BEBD100739BBF /* copper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = copper.png; sourceTree = "<group>"; };
+		6CE2E2E62C0BEBD100739BBF /* book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CE2E2DB2C0BCE5E00739BBF /* SDL2.framework in Frameworks */,
+				6CE2E2E12C0BE39C00739BBF /* SDL2_image.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +114,7 @@
 		6CE2E2A92C0BCDD500739BBF /* Imagine */ = {
 			isa = PBXGroup;
 			children = (
+				6CE2E2E32C0BEBA000739BBF /* images */,
 				6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */,
 				6CE2E2B42C0BCDD600739BBF /* Imagine.entitlements */,
 				6CE2E2D62C0BCE0F00739BBF /* main.cpp */,
@@ -114,9 +126,20 @@
 		6CE2E2D92C0BCE5E00739BBF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6CE2E2E02C0BE39C00739BBF /* SDL2_image.framework */,
 				6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6CE2E2E32C0BEBA000739BBF /* images */ = {
+			isa = PBXGroup;
+			children = (
+				6CE2E2E62C0BEBD100739BBF /* book.png */,
+				6CE2E2E52C0BEBD100739BBF /* copper.png */,
+				6CE2E2E42C0BEBD100739BBF /* diamond.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,7 +246,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CE2E2E72C0BEBD100739BBF /* diamond.png in Resources */,
 				6CE2E2DF2C0BD12800739BBF /* Assets.xcassets in Resources */,
+				6CE2E2E92C0BEBD100739BBF /* book.png in Resources */,
+				6CE2E2E82C0BEBD100739BBF /* copper.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,26 +8,15 @@
 #include <stdio.h>
 #include "Imagine.h"
 
-void draw(ImagineEngine *engine) {
-    SDL_FillRect(engine->surface,
-                 NULL,
-                 SDL_MapRGB(engine->surface->format, 0x00, 0x00, 0x00));
-    SDL_Rect rect1 = SDL_Rect { .x = 10, .y = 10, .w = 100, .h = 100 };
-    SDL_Rect rect2 = SDL_Rect { .x = 110, .y = 10, .w = 100, .h = 100 };
-    SDL_Rect rect3 = SDL_Rect { .x = 210, .y = 10, .w = 100, .h = 100 };
-    // unsigned int color = 0xffffffff;
-    SDL_FillRect(engine->surface, &rect1, 0xff115588);
-    SDL_FillRect(engine->surface, &rect2, 0xffee5533);
-    SDL_FillRect(engine->surface, &rect3, 0xffffbb44);
-}
-
 int main(int argc, char* args[]) {
     ImagineInitParams params = ImagineInitParams {
-        .title = "Imagination Engine",
+        .title = "Imagine Engine",
         .width = 640,
         .height = 480,
     };
     ImagineEngine engine = init(params);
+    
+    SDL_Texture* texture = loadTexture(&engine, "copper.png");
 
     // event will be filled with some kind of input event (if exists)
     // https://wiki.libsdl.org/SDL2/SDL_Event
@@ -39,7 +28,6 @@ int main(int argc, char* args[]) {
                 printf("USER QUIT REQUEST\n");
                 quit = true;
             } else if (e.type == SDL_KEYDOWN) {
-                //Select surfaces based on key press
                 switch (e.key.keysym.sym) {
                     case SDLK_UP:
                         printf("up\n");
@@ -60,8 +48,18 @@ int main(int argc, char* args[]) {
             }
         }
         // update, draw
-        draw(&engine);
-        SDL_UpdateWindowSurface(engine.window);
+        // SDL_UpdateWindowSurface(engine.window);
+
+//        drawRendererTest(&engine);
+//        SDL_RenderPresent(engine.renderer);
+
+        //Clear screen
+        SDL_SetRenderDrawColor(engine.renderer, 0x00, 0x00, 0x00, 0xFF);
+        SDL_RenderClear(engine.renderer);
+        //Render texture to screen
+        SDL_RenderCopy(engine.renderer, texture, NULL, NULL);
+        //Update screen
+        SDL_RenderPresent(engine.renderer);
     }
 
     return 0;
