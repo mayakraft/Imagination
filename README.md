@@ -15,8 +15,8 @@ Download both of these
 
 ### mac osx
 
-1. Place all SDL frameworks, `SDL2.framework`, into the root directory.
-2. Open the xcode project file.
+1. Download and copy all SDL frameworks, `SDL2.framework` `SDL2_image.framework`, into the root directory.
+2. Open the xcode project and build and run
 
 ### linux
 

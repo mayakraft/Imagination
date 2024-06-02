@@ -33,12 +33,12 @@ ImagineEngine initWithSurface(ImagineInitParams params) {
         throw std::runtime_error(SDL_GetError());
     }
     SDL_Window *window = SDL_CreateWindow(
-                                   params.title,
-                                   SDL_WINDOWPOS_UNDEFINED,
-                                   SDL_WINDOWPOS_UNDEFINED,
-                                   params.width,
-                                   params.height,
-                                   SDL_WINDOW_SHOWN);
+                                          params.title,
+                                          SDL_WINDOWPOS_UNDEFINED,
+                                          SDL_WINDOWPOS_UNDEFINED,
+                                          params.width,
+                                          params.height,
+                                          SDL_WINDOW_SHOWN);
     if (window == NULL) {
         throw std::runtime_error(SDL_GetError());
     }
@@ -63,12 +63,12 @@ ImagineEngine init(ImagineInitParams params) {
         throw std::runtime_error(SDL_GetError());
     }
     SDL_Window *window = SDL_CreateWindow(
-                                   params.title,
-                                   SDL_WINDOWPOS_UNDEFINED,
-                                   SDL_WINDOWPOS_UNDEFINED,
-                                   params.width,
-                                   params.height,
-                                   SDL_WINDOW_SHOWN);
+                                          params.title,
+                                          SDL_WINDOWPOS_UNDEFINED,
+                                          SDL_WINDOWPOS_UNDEFINED,
+                                          params.width,
+                                          params.height,
+                                          SDL_WINDOW_SHOWN);
     if (window == NULL) {
         throw std::runtime_error(SDL_GetError());
     }
@@ -111,9 +111,7 @@ SDL_Surface* loadSurface(ImagineEngine* engine, std::string path) {
 }
 
 SDL_Texture* loadTexture(ImagineEngine* engine, std::string path) {
-    // The final texture
     SDL_Texture* newTexture = NULL;
-    // Load image at specified path
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
     if (loadedSurface == NULL) {
         printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());

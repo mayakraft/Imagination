@@ -8,42 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		6CE2E2D72C0BCE0F00739BBF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2E2D62C0BCE0F00739BBF /* main.cpp */; };
-		6CE2E2DB2C0BCE5E00739BBF /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */; };
-		6CE2E2DC2C0BCE5E00739BBF /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6CE2E2DF2C0BD12800739BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */; };
-		6CE2E2E12C0BE39C00739BBF /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2E02C0BE39C00739BBF /* SDL2_image.framework */; };
-		6CE2E2E22C0BE39C00739BBF /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2E02C0BE39C00739BBF /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6CE2E2E72C0BEBD100739BBF /* diamond.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2E42C0BEBD100739BBF /* diamond.png */; };
-		6CE2E2E82C0BEBD100739BBF /* copper.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2E52C0BEBD100739BBF /* copper.png */; };
-		6CE2E2E92C0BEBD100739BBF /* book.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2E62C0BEBD100739BBF /* book.png */; };
+		6CE2E2EB2C0CAEA300739BBF /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */; };
+		6CE2E2EC2C0CAEA300739BBF /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6CE2E2EF2C0CAEA500739BBF /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */; };
+		6CE2E2F02C0CAEA500739BBF /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6CE2E2F42C0CBB2B00739BBF /* images in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2F32C0CBB2B00739BBF /* images */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		6CE2E2BA2C0BCDD600739BBF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6CE2E29F2C0BCDD500739BBF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6CE2E2A62C0BCDD500739BBF;
-			remoteInfo = Imagine;
-		};
-		6CE2E2C42C0BCDD600739BBF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6CE2E29F2C0BCDD500739BBF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6CE2E2A62C0BCDD500739BBF;
-			remoteInfo = Imagine;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
-		6CE2E2DD2C0BCE5E00739BBF /* Embed Frameworks */ = {
+		6CE2E2ED2C0CAEA300739BBF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6CE2E2DC2C0BCE5E00739BBF /* SDL2.framework in Embed Frameworks */,
-				6CE2E2E22C0BE39C00739BBF /* SDL2_image.framework in Embed Frameworks */,
+				6CE2E2EC2C0CAEA300739BBF /* SDL2.framework in Embed Frameworks */,
+				6CE2E2F02C0CAEA500739BBF /* SDL2_image.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,17 +33,13 @@
 
 /* Begin PBXFileReference section */
 		6CE2E2A72C0BCDD500739BBF /* Imagine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imagine.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6CE2E2B42C0BCDD600739BBF /* Imagine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Imagine.entitlements; sourceTree = "<group>"; };
-		6CE2E2B92C0BCDD600739BBF /* ImagineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImagineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6CE2E2C32C0BCDD600739BBF /* ImagineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImagineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CE2E2B42C0BCDD600739BBF /* Imagine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Imagine.entitlements; path = ../osx/Imagine.entitlements; sourceTree = "<group>"; };
 		6CE2E2D62C0BCE0F00739BBF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6CE2E2D82C0BCE4C00739BBF /* Imagine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Imagine.h; sourceTree = "<group>"; };
-		6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
-		6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6CE2E2E02C0BE39C00739BBF /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_image.framework; sourceTree = "<group>"; };
-		6CE2E2E42C0BEBD100739BBF /* diamond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diamond.png; sourceTree = "<group>"; };
-		6CE2E2E52C0BEBD100739BBF /* copper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = copper.png; sourceTree = "<group>"; };
-		6CE2E2E62C0BEBD100739BBF /* book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book.png; sourceTree = "<group>"; };
+		6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../osx/Assets.xcassets; sourceTree = "<group>"; };
+		6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../SDL2.framework; sourceTree = "<group>"; };
+		6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
+		6CE2E2F32C0CBB2B00739BBF /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../images; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,22 +47,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CE2E2DB2C0BCE5E00739BBF /* SDL2.framework in Frameworks */,
-				6CE2E2E12C0BE39C00739BBF /* SDL2_image.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6CE2E2B62C0BCDD600739BBF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6CE2E2C02C0BCDD600739BBF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				6CE2E2EB2C0CAEA300739BBF /* SDL2.framework in Frameworks */,
+				6CE2E2EF2C0CAEA500739BBF /* SDL2_image.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +58,7 @@
 		6CE2E29E2C0BCDD500739BBF = {
 			isa = PBXGroup;
 			children = (
-				6CE2E2A92C0BCDD500739BBF /* Imagine */,
+				6CE2E2A92C0BCDD500739BBF /* src */,
 				6CE2E2A82C0BCDD500739BBF /* Products */,
 				6CE2E2D92C0BCE5E00739BBF /* Frameworks */,
 			);
@@ -105,41 +68,30 @@
 			isa = PBXGroup;
 			children = (
 				6CE2E2A72C0BCDD500739BBF /* Imagine.app */,
-				6CE2E2B92C0BCDD600739BBF /* ImagineTests.xctest */,
-				6CE2E2C32C0BCDD600739BBF /* ImagineUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6CE2E2A92C0BCDD500739BBF /* Imagine */ = {
+		6CE2E2A92C0BCDD500739BBF /* src */ = {
 			isa = PBXGroup;
 			children = (
-				6CE2E2E32C0BEBA000739BBF /* images */,
+				6CE2E2F32C0CBB2B00739BBF /* images */,
 				6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */,
 				6CE2E2B42C0BCDD600739BBF /* Imagine.entitlements */,
 				6CE2E2D62C0BCE0F00739BBF /* main.cpp */,
 				6CE2E2D82C0BCE4C00739BBF /* Imagine.h */,
 			);
-			path = Imagine;
+			name = src;
+			path = ../src;
 			sourceTree = "<group>";
 		};
 		6CE2E2D92C0BCE5E00739BBF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6CE2E2E02C0BE39C00739BBF /* SDL2_image.framework */,
-				6CE2E2DA2C0BCE5E00739BBF /* SDL2.framework */,
+				6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */,
+				6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		6CE2E2E32C0BEBA000739BBF /* images */ = {
-			isa = PBXGroup;
-			children = (
-				6CE2E2E62C0BEBD100739BBF /* book.png */,
-				6CE2E2E52C0BEBD100739BBF /* copper.png */,
-				6CE2E2E42C0BEBD100739BBF /* diamond.png */,
-			);
-			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,7 +104,7 @@
 				6CE2E2A32C0BCDD500739BBF /* Sources */,
 				6CE2E2A42C0BCDD500739BBF /* Frameworks */,
 				6CE2E2A52C0BCDD500739BBF /* Resources */,
-				6CE2E2DD2C0BCE5E00739BBF /* Embed Frameworks */,
+				6CE2E2ED2C0CAEA300739BBF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -162,42 +114,6 @@
 			productName = Imagine;
 			productReference = 6CE2E2A72C0BCDD500739BBF /* Imagine.app */;
 			productType = "com.apple.product-type.application";
-		};
-		6CE2E2B82C0BCDD600739BBF /* ImagineTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6CE2E2D02C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "ImagineTests" */;
-			buildPhases = (
-				6CE2E2B52C0BCDD600739BBF /* Sources */,
-				6CE2E2B62C0BCDD600739BBF /* Frameworks */,
-				6CE2E2B72C0BCDD600739BBF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6CE2E2BB2C0BCDD600739BBF /* PBXTargetDependency */,
-			);
-			name = ImagineTests;
-			productName = ImagineTests;
-			productReference = 6CE2E2B92C0BCDD600739BBF /* ImagineTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		6CE2E2C22C0BCDD600739BBF /* ImagineUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6CE2E2D32C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "ImagineUITests" */;
-			buildPhases = (
-				6CE2E2BF2C0BCDD600739BBF /* Sources */,
-				6CE2E2C02C0BCDD600739BBF /* Frameworks */,
-				6CE2E2C12C0BCDD600739BBF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6CE2E2C52C0BCDD600739BBF /* PBXTargetDependency */,
-			);
-			name = ImagineUITests;
-			productName = ImagineUITests;
-			productReference = 6CE2E2C32C0BCDD600739BBF /* ImagineUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -210,14 +126,6 @@
 				TargetAttributes = {
 					6CE2E2A62C0BCDD500739BBF = {
 						CreatedOnToolsVersion = 15.0.1;
-					};
-					6CE2E2B82C0BCDD600739BBF = {
-						CreatedOnToolsVersion = 15.0.1;
-						TestTargetID = 6CE2E2A62C0BCDD500739BBF;
-					};
-					6CE2E2C22C0BCDD600739BBF = {
-						CreatedOnToolsVersion = 15.0.1;
-						TestTargetID = 6CE2E2A62C0BCDD500739BBF;
 					};
 				};
 			};
@@ -235,8 +143,6 @@
 			projectRoot = "";
 			targets = (
 				6CE2E2A62C0BCDD500739BBF /* Imagine */,
-				6CE2E2B82C0BCDD600739BBF /* ImagineTests */,
-				6CE2E2C22C0BCDD600739BBF /* ImagineUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -246,24 +152,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CE2E2E72C0BEBD100739BBF /* diamond.png in Resources */,
+				6CE2E2F42C0CBB2B00739BBF /* images in Resources */,
 				6CE2E2DF2C0BD12800739BBF /* Assets.xcassets in Resources */,
-				6CE2E2E92C0BEBD100739BBF /* book.png in Resources */,
-				6CE2E2E82C0BEBD100739BBF /* copper.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6CE2E2B72C0BCDD600739BBF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6CE2E2C12C0BCDD600739BBF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,34 +168,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6CE2E2B52C0BCDD600739BBF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6CE2E2BF2C0BCDD600739BBF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		6CE2E2BB2C0BCDD600739BBF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6CE2E2A62C0BCDD500739BBF /* Imagine */;
-			targetProxy = 6CE2E2BA2C0BCDD600739BBF /* PBXContainerItemProxy */;
-		};
-		6CE2E2C52C0BCDD600739BBF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6CE2E2A62C0BCDD500739BBF /* Imagine */;
-			targetProxy = 6CE2E2C42C0BCDD600739BBF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6CE2E2CB2C0BCDD600739BBF /* Debug */ = {
@@ -428,13 +291,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Imagine/Imagine.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Imagine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/..",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -456,13 +319,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Imagine/Imagine.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Imagine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/..",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -476,66 +339,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.Imagine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-			};
-			name = Release;
-		};
-		6CE2E2D12C0BCDD600739BBF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImagineTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Imagine.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Imagine";
-			};
-			name = Debug;
-		};
-		6CE2E2D22C0BCDD600739BBF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImagineTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Imagine.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Imagine";
-			};
-			name = Release;
-		};
-		6CE2E2D42C0BCDD600739BBF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImagineUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				TEST_TARGET_NAME = Imagine;
-			};
-			name = Debug;
-		};
-		6CE2E2D52C0BCDD600739BBF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.ImagineUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				TEST_TARGET_NAME = Imagine;
 			};
 			name = Release;
 		};
@@ -556,24 +359,6 @@
 			buildConfigurations = (
 				6CE2E2CE2C0BCDD600739BBF /* Debug */,
 				6CE2E2CF2C0BCDD600739BBF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6CE2E2D02C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "ImagineTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6CE2E2D12C0BCDD600739BBF /* Debug */,
-				6CE2E2D22C0BCDD600739BBF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6CE2E2D32C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "ImagineUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6CE2E2D42C0BCDD600739BBF /* Debug */,
-				6CE2E2D52C0BCDD600739BBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

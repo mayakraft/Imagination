@@ -16,7 +16,7 @@ int main(int argc, char* args[]) {
     };
     ImagineEngine engine = init(params);
     
-    SDL_Texture* texture = loadTexture(&engine, "copper.png");
+    SDL_Texture* texture = loadTexture(&engine, "images/copper.png");
 
     // event will be filled with some kind of input event (if exists)
     // https://wiki.libsdl.org/SDL2/SDL_Event
