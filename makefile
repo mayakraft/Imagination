@@ -30,13 +30,15 @@ clean:
 	rm bin/imagine
 
 # examples (build: make all, run: make example1)
-all: texture
+all: simple texture
 
 %: ./examples/%.cpp
 	mkdir -p bin/
 	g++ $< -o bin/$@ $(CPPFLAGS) $(INCLUDE) $(LDFLAGS) -Wall -rpath ./
 
 example1:
+	./bin/simple $(ARGS)
+example2:
 	./bin/texture $(ARGS)
 
 # unsure if it's better to write the src files as a literal

@@ -20,35 +20,6 @@ struct ImagineEngine {
 	std::vector<SDL_Joystick*> controllers;
 };
 
-ImagineEngine initWithSurface(ImagineInitParams params) {
-	// if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER) < 0)
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-		throw std::runtime_error(SDL_GetError());
-	}
-	SDL_Window *window = SDL_CreateWindow(params.title,
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
-		params.width,
-		params.height,
-		SDL_WINDOW_SHOWN);
-	if (window == NULL) {
-		throw std::runtime_error(SDL_GetError());
-	}
-	SDL_Surface *surface = SDL_GetWindowSurface(window);
-
-	int imgFlags = IMG_INIT_PNG;
-	if (!(IMG_Init(imgFlags) & imgFlags)) {
-		throw std::runtime_error(IMG_GetError());
-	}
-
-	ImagineEngine engine = ImagineEngine {
-		.window = window,
-		.surface = surface,
-		.controllers = std::vector<SDL_Joystick*>(),
-	};
-	return engine;
-}
-
 ImagineEngine init(ImagineInitParams params) {
 	// if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER) < 0)
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -144,32 +115,5 @@ void dealloc(ImagineEngine* engine) {
 //        SDL_UpdateWindowSurface(engine->window);
 //    }
 //}
-
-void drawSurfaceTest(ImagineEngine *engine) {
-	SDL_FillRect(engine->surface,
-		NULL,
-		SDL_MapRGB(engine->surface->format, 0x00, 0x00, 0x00));
-	SDL_Rect rect1 = SDL_Rect { .x = 10, .y = 10, .w = 100, .h = 100 };
-	SDL_Rect rect2 = SDL_Rect { .x = 110, .y = 10, .w = 100, .h = 100 };
-	SDL_Rect rect3 = SDL_Rect { .x = 210, .y = 10, .w = 100, .h = 100 };
-	SDL_FillRect(engine->surface, &rect1, 0xff115588);
-	SDL_FillRect(engine->surface, &rect2, 0xffee5533);
-	SDL_FillRect(engine->surface, &rect3, 0xffffbb44);
-}
-
-void drawRendererTest(ImagineEngine* engine) {
-	SDL_SetRenderDrawColor(engine->renderer, 0x00, 0x00, 0x00, 0xFF);
-	SDL_RenderClear(engine->renderer);
-	// SDL_RenderFillRect(engine->renderer, NULL);
-	SDL_Rect rect1 = SDL_Rect { .x = 10, .y = 10, .w = 100, .h = 100 };
-	SDL_Rect rect2 = SDL_Rect { .x = 110, .y = 10, .w = 100, .h = 100 };
-	SDL_Rect rect3 = SDL_Rect { .x = 210, .y = 10, .w = 100, .h = 100 };
-	SDL_SetRenderDrawColor(engine->renderer, 0x11, 0x55, 0x88, 0xFF);
-	SDL_RenderFillRect(engine->renderer, &rect1);
-	SDL_SetRenderDrawColor(engine->renderer, 0xee, 0x55, 0x33, 0xFF);
-	SDL_RenderFillRect(engine->renderer, &rect2);
-	SDL_SetRenderDrawColor(engine->renderer, 0xff, 0xbb, 0x44, 0xFF);
-	SDL_RenderFillRect(engine->renderer, &rect3);
-}
 
 #endif

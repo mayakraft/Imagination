@@ -40,12 +40,6 @@ int main(int argc, char* args[]) {
 				}
 			}
 		}
-		// update, draw
-		// SDL_UpdateWindowSurface(engine.window);
-
-		// drawRendererTest(&engine);
-		// SDL_RenderPresent(engine.renderer);
-
 		// Clear screen
 		SDL_SetRenderDrawColor(engine.renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(engine.renderer);

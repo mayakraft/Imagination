@@ -1,6 +1,21 @@
 #include <stdio.h>
 #include "imagine.h"
 
+void drawRendererTest(ImagineEngine* engine) {
+	SDL_SetRenderDrawColor(engine->renderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderClear(engine->renderer);
+	// SDL_RenderFillRect(engine->renderer, NULL);
+	SDL_Rect rect1 = SDL_Rect { .x = 10, .y = 10, .w = 100, .h = 100 };
+	SDL_Rect rect2 = SDL_Rect { .x = 110, .y = 10, .w = 100, .h = 100 };
+	SDL_Rect rect3 = SDL_Rect { .x = 210, .y = 10, .w = 100, .h = 100 };
+	SDL_SetRenderDrawColor(engine->renderer, 0x11, 0x55, 0x88, 0xFF);
+	SDL_RenderFillRect(engine->renderer, &rect1);
+	SDL_SetRenderDrawColor(engine->renderer, 0xee, 0x55, 0x33, 0xFF);
+	SDL_RenderFillRect(engine->renderer, &rect2);
+	SDL_SetRenderDrawColor(engine->renderer, 0xff, 0xbb, 0x44, 0xFF);
+	SDL_RenderFillRect(engine->renderer, &rect3);
+}
+
 int main(int argc, char* args[]) {
 	ImagineInitParams params = ImagineInitParams {
 		.title = "Imagine Engine",
