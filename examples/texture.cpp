@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "imagine.h"
+#include "../src/imagine.h"
 
 int main(int argc, char* args[]) {
 	ImagineInitParams params = ImagineInitParams {
@@ -9,7 +9,7 @@ int main(int argc, char* args[]) {
 	};
 	ImagineEngine engine = init(params);
 
-	// SDL_Texture* texture = loadTexture(&engine, "images/copper.png");
+	SDL_Texture* texture = loadTexture(&engine, "examples/images/copper.png");
 
 	// event will be filled with some kind of input event (if exists)
 	// https://wiki.libsdl.org/SDL2/SDL_Event
@@ -43,17 +43,16 @@ int main(int argc, char* args[]) {
 		// update, draw
 		// SDL_UpdateWindowSurface(engine.window);
 
+		// drawRendererTest(&engine);
+		// SDL_RenderPresent(engine.renderer);
+
 		// Clear screen
 		SDL_SetRenderDrawColor(engine.renderer, 0x00, 0x00, 0x00, 0xFF);
 		SDL_RenderClear(engine.renderer);
-
-		drawRendererTest(&engine);
-		SDL_RenderPresent(engine.renderer);
-
 		// Render texture to screen
-		// SDL_RenderCopy(engine.renderer, texture, NULL, NULL);
+		SDL_RenderCopy(engine.renderer, texture, NULL, NULL);
 		// Update screen
-		// SDL_RenderPresent(engine.renderer);
+		SDL_RenderPresent(engine.renderer);
 	}
 
 	return 0;

@@ -35,11 +35,11 @@
 		6CE2E2A72C0BCDD500739BBF /* Imagine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imagine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CE2E2B42C0BCDD600739BBF /* Imagine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Imagine.entitlements; path = ../osx/Imagine.entitlements; sourceTree = "<group>"; };
 		6CE2E2D62C0BCE0F00739BBF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		6CE2E2D82C0BCE4C00739BBF /* Imagine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Imagine.h; sourceTree = "<group>"; };
 		6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../osx/Assets.xcassets; sourceTree = "<group>"; };
 		6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../SDL2.framework; sourceTree = "<group>"; };
 		6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
 		6CE2E2F32C0CBB2B00739BBF /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../images; sourceTree = "<group>"; };
+		6CE424082C0CCAB40080EEED /* imagine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = imagine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +79,7 @@
 				6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */,
 				6CE2E2B42C0BCDD600739BBF /* Imagine.entitlements */,
 				6CE2E2D62C0BCE0F00739BBF /* main.cpp */,
-				6CE2E2D82C0BCE4C00739BBF /* Imagine.h */,
+				6CE424082C0CCAB40080EEED /* imagine.h */,
 			);
 			name = src;
 			path = ../src;
