@@ -1,3 +1,5 @@
+.cache/
 bin/
+glew/
 SDL2*.framework/
 **/xcuserdata/*

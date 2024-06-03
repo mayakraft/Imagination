@@ -1,13 +1,14 @@
 #include <stdio.h>
-#include "../src/imagine.h"
+#include "../src/engine.h"
 
 int main(int argc, char* args[]) {
-	ImagineInitParams params = ImagineInitParams {
-		.title = "Imagine Engine",
+	InitParams params = InitParams {
+		.flags = SDL_INIT_EVERYTHING,
+		.title = "Game Engine",
 		.width = 640,
 		.height = 480,
 	};
-	ImagineEngine engine = init(params);
+	GameEngine engine = init(params);
 
 	SDL_Texture* texture = loadTexture(&engine, "examples/images/copper.png");
 
@@ -18,8 +19,9 @@ int main(int argc, char* args[]) {
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) {
-				printf("USER QUIT REQUEST\n");
 				quit = true;
+				dealloc(&engine);
+				return 0;
 			} else if (e.type == SDL_KEYDOWN) {
 				switch (e.key.keysym.sym) {
 					case SDLK_UP:

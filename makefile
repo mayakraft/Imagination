@@ -1,13 +1,25 @@
 # Linux (default)
-EXE = imagine
+
+EXE = engine
+
 CPPFLAGS = -std=c++17
-INCLUDE = -I./SDL2.framework/Headers -I./SDL2_image.framework/Headers -F./
-LDFLAGS = -framework SDL2 -framework SDL2_image
+
+INCLUDE = -I./SDL2.framework/Headers \
+ -I./SDL2_image.framework/Headers \
+ -I./glew/include \
+ -F./ \
+
+LIBS = -framework SDL2 \
+ -framework SDL2_image \
+ -lGL \
+ -lGLEW
+
+LDFLAGS = -Wall -rpath ./
 
 # Windows (cygwin)
 ifeq "$(OS)" "Windows_NT"
-	EXE = imagine.exe
-	LDFLAGS = -framework SDL2 -framework SDL2_image
+	EXE = engine.exe
+	# LIBS =
 endif
 
 # OSX (OSTYPE not being declared)
@@ -16,30 +28,33 @@ ifndef OSTYPE
   #export OSTYPE
 endif
 ifeq ($(OSTYPE),darwin)
-	LDFLAGS = -framework SDL2 -framework SDL2_image
+	LIBS = -framework SDL2 \
+ -framework SDL2_image \
+ -framework OpenGL \
+ -lGLEW
 endif
 
 $(EXE): ./src/*.cpp
 	mkdir -p bin/
-	g++ -o bin/$@ $< -Wall $(CPPFLAGS) $(INCLUDE) $(LDFLAGS) -rpath ./
+	g++ -o bin/$@ $< $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
 
 run:
 	./bin/$(EXE) $(ARGS)
 
 clean:
-	rm bin/imagine
+	rm bin/engine
 
 # examples (build: make all, run: make example1)
-all: simple texture
+all: surface texture
 
 %: ./examples/%.cpp
 	mkdir -p bin/
-	g++ $< -o bin/$@ $(CPPFLAGS) $(INCLUDE) $(LDFLAGS) -Wall -rpath ./
+	g++ $< -o bin/$@ $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
 
-example1:
-	./bin/simple $(ARGS)
-example2:
+run1:
+	./bin/surface $(ARGS)
+run2:
 	./bin/texture $(ARGS)
 
 # unsure if it's better to write the src files as a literal
-#	g++ -o bin/$@ ./src/*.cpp -Wall $(CPPFLAGS) $(INCLUDE) $(LDFLAGS) -rpath ./
+#	g++ -o bin/$@ ./src/*.cpp $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)

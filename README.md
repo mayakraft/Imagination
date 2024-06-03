@@ -1,15 +1,25 @@
 # Game Engine
 
-custom game engine in C++ using the [SDL2 framework](https://www.libsdl.org/)
+cross-platform C++ game engine in modern OpenGL
 
 # developers
 
-This project uses
+Dependencies
 
 - [SDL2](https://github.com/libsdl-org/SDL/releases)
 - [SDL2 Image](https://github.com/libsdl-org/SDL_image/releases)
+- [GLEW](https://github.com/nigels-com/glew/releases)
 
-Download both of these
+Install GLEW into your system by following the instructions. Download the SDL frameworks and place them in the top level folder. Your project folder structure should looke like this
+
+```
+game-engine/
+|
+|-- src
+|-- osx
+|-- SDL2.framework
+|-- SDL2_image.framework
+```
 
 ### windows
 

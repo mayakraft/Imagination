@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6CBDCEFE2C0DF2240078BDAB /* images in Resources */ = {isa = PBXBuildFile; fileRef = 6CBDCEFD2C0DF2240078BDAB /* images */; };
+		6CBDCF002C0DF23E0078BDAB /* 8x8.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CBDCEFF2C0DF23E0078BDAB /* 8x8.png */; };
 		6CE2E2D72C0BCE0F00739BBF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2E2D62C0BCE0F00739BBF /* main.cpp */; };
 		6CE2E2DF2C0BD12800739BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */; };
 		6CE2E2EB2C0CAEA300739BBF /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */; };
 		6CE2E2EC2C0CAEA300739BBF /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6CE2E2EF2C0CAEA500739BBF /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */; };
 		6CE2E2F02C0CAEA500739BBF /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6CE2E2F42C0CBB2B00739BBF /* images in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2F32C0CBB2B00739BBF /* images */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,14 +33,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6CE2E2A72C0BCDD500739BBF /* Imagine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imagine.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6CE2E2B42C0BCDD600739BBF /* Imagine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Imagine.entitlements; path = ../osx/Imagine.entitlements; sourceTree = "<group>"; };
+		6CBDCEFD2C0DF2240078BDAB /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../examples/images; sourceTree = "<group>"; };
+		6CBDCEFF2C0DF23E0078BDAB /* 8x8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8x8.png; sourceTree = "<group>"; };
+		6CE2E2A72C0BCDD500739BBF /* GameEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CE2E2B42C0BCDD600739BBF /* GameEngine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = GameEngine.entitlements; path = ../osx/GameEngine.entitlements; sourceTree = "<group>"; };
 		6CE2E2D62C0BCE0F00739BBF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../osx/Assets.xcassets; sourceTree = "<group>"; };
 		6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../SDL2.framework; sourceTree = "<group>"; };
 		6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
-		6CE2E2F32C0CBB2B00739BBF /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../images; sourceTree = "<group>"; };
-		6CE424082C0CCAB40080EEED /* imagine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = imagine.h; sourceTree = "<group>"; };
+		6CE424082C0CCAB40080EEED /* engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +69,7 @@
 		6CE2E2A82C0BCDD500739BBF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6CE2E2A72C0BCDD500739BBF /* Imagine.app */,
+				6CE2E2A72C0BCDD500739BBF /* GameEngine.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -75,11 +77,12 @@
 		6CE2E2A92C0BCDD500739BBF /* src */ = {
 			isa = PBXGroup;
 			children = (
-				6CE2E2F32C0CBB2B00739BBF /* images */,
+				6CBDCEFD2C0DF2240078BDAB /* images */,
 				6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */,
-				6CE2E2B42C0BCDD600739BBF /* Imagine.entitlements */,
+				6CE2E2B42C0BCDD600739BBF /* GameEngine.entitlements */,
+				6CBDCEFF2C0DF23E0078BDAB /* 8x8.png */,
 				6CE2E2D62C0BCE0F00739BBF /* main.cpp */,
-				6CE424082C0CCAB40080EEED /* imagine.h */,
+				6CE424082C0CCAB40080EEED /* engine.h */,
 			);
 			name = src;
 			path = ../src;
@@ -97,9 +100,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6CE2E2A62C0BCDD500739BBF /* Imagine */ = {
+		6CE2E2A62C0BCDD500739BBF /* GameEngine */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6CE2E2CD2C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "Imagine" */;
+			buildConfigurationList = 6CE2E2CD2C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "GameEngine" */;
 			buildPhases = (
 				6CE2E2A32C0BCDD500739BBF /* Sources */,
 				6CE2E2A42C0BCDD500739BBF /* Frameworks */,
@@ -110,9 +113,9 @@
 			);
 			dependencies = (
 			);
-			name = Imagine;
-			productName = Imagine;
-			productReference = 6CE2E2A72C0BCDD500739BBF /* Imagine.app */;
+			name = GameEngine;
+			productName = GameEngine;
+			productReference = 6CE2E2A72C0BCDD500739BBF /* GameEngine.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -129,7 +132,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6CE2E2A22C0BCDD500739BBF /* Build configuration list for PBXProject "Imagine" */;
+			buildConfigurationList = 6CE2E2A22C0BCDD500739BBF /* Build configuration list for PBXProject "GameEngine" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -142,7 +145,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6CE2E2A62C0BCDD500739BBF /* Imagine */,
+				6CE2E2A62C0BCDD500739BBF /* GameEngine */,
 			);
 		};
 /* End PBXProject section */
@@ -152,7 +155,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CE2E2F42C0CBB2B00739BBF /* images in Resources */,
+				6CBDCF002C0DF23E0078BDAB /* 8x8.png in Resources */,
+				6CBDCEFE2C0DF2240078BDAB /* images in Resources */,
 				6CE2E2DF2C0BD12800739BBF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,7 +295,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Imagine.entitlements;
+				CODE_SIGN_ENTITLEMENTS = GameEngine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -308,7 +312,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.Imagine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.gameEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
@@ -319,7 +323,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Imagine.entitlements;
+				CODE_SIGN_ENTITLEMENTS = GameEngine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -336,7 +340,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.Imagine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.gameEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
@@ -345,7 +349,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6CE2E2A22C0BCDD500739BBF /* Build configuration list for PBXProject "Imagine" */ = {
+		6CE2E2A22C0BCDD500739BBF /* Build configuration list for PBXProject "GameEngine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CE2E2CB2C0BCDD600739BBF /* Debug */,
@@ -354,7 +358,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6CE2E2CD2C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "Imagine" */ = {
+		6CE2E2CD2C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "GameEngine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6CE2E2CE2C0BCDD600739BBF /* Debug */,

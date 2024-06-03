@@ -1,5 +1,21 @@
 #include <stdio.h>
-#include "../src/imagine.h"
+#include "../src/engine.h"
+
+SDL_Surface* loadSurface(SDL_Surface* surface, std::string path) {
+	// The final optimized image
+	SDL_Surface* optimizedSurface = NULL;
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	if (loadedSurface == NULL) {
+		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+	} else {
+		optimizedSurface = SDL_ConvertSurface(loadedSurface, surface->format, 0);
+		if (optimizedSurface == NULL) {
+			printf( "Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+		}
+		SDL_FreeSurface(loadedSurface);
+	}
+	return optimizedSurface;
+}
 
 void drawSurfaceTest(SDL_Surface *surface) {
 	SDL_FillRect(surface,
@@ -18,7 +34,7 @@ int main(int argc, char* args[]) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		throw std::runtime_error(SDL_GetError());
 	}
-	SDL_Window *window = SDL_CreateWindow("Imagine Engine",
+	SDL_Window *window = SDL_CreateWindow("Game Engine",
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
 		640,
@@ -41,8 +57,13 @@ int main(int argc, char* args[]) {
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) {
-				printf("USER QUIT REQUEST\n");
 				quit = true;
+				if (surface != NULL) SDL_FreeSurface(surface);
+				if (window != NULL) SDL_DestroyWindow(window);
+				surface = NULL;
+				window = NULL;
+				SDL_Quit();
+				return 0;
 			}
 		}
 

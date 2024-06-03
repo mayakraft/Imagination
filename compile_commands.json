@@ -3,23 +3,24 @@
     "arguments": [
       "/usr/bin/g++",
       "-c",
-      "-Wall",
       "-std=c++17",
       "-I./SDL2.framework/Headers",
       "-I./SDL2_image.framework/Headers",
+      "-I./glew/include",
       "-F./",
       "-framework",
       "SDL2",
       "-framework",
       "SDL2_image",
+      "-Wall",
       "-rpath",
       "./",
       "-o",
-      "bin/imagine",
+      "bin/engine",
       "src/main.cpp"
     ],
-    "directory": "/Users/Maya/Code/Imagine",
-    "file": "/Users/Maya/Code/Imagine/src/main.cpp",
-    "output": "/Users/Maya/Code/Imagine/bin/imagine"
+    "directory": "/Users/Maya/Code/GameEngine",
+    "file": "/Users/Maya/Code/GameEngine/src/main.cpp",
+    "output": "/Users/Maya/Code/GameEngine/bin/engine"
   }
 ]
