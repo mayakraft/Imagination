@@ -1,6 +1,18 @@
 #include <stdio.h>
 #include "SDL2/SDL_render.h"
 #include "engine.h"
+//#include <CoreFoundation/CoreFoundation.h>
+
+void macBundlePath() {
+//    CFBundleRef mainBundle = CFBundleGetMainBundle();
+//    CFURLRef resourcesURL = CFBundleCopyBundleURL(mainBundle);
+//    CFStringRef str = CFURLCopyFileSystemPath( resourcesURL, kCFURLPOSIXPathStyle );
+//    CFRelease(resourcesURL);
+//    char path[PATH_MAX];
+//    CFStringGetCString( str, path, FILENAME_MAX, kCFStringEncodingASCII );
+//    CFRelease(str);
+//    printf(path);
+}
 
 void drawQuad(GameEngine *engine, SDL_Texture *texture) {
 	SDL_Color col{ 0xff, 0xff, 0xff, 0xff };
@@ -48,8 +60,12 @@ int main(int argc, char* args[]) {
 		.width = 640,
 		.height = 640,
 	};
+
 	GameEngine engine = initProgrammable(params);
-	// GameEngine engine = initCopy(params);
+	ShaderProgram program = createProgram(
+		"./src/shaders/simple.vert",
+		// "./src/shaders/simple.frag");
+		"./src/shaders/kaleidoscope.frag");
 
 	// SDL_Texture* texture = loadTexture(&engine, "./src/8x8.png");
 
@@ -89,7 +105,7 @@ int main(int argc, char* args[]) {
 		// SDL_RenderClear(engine.renderer);
 		// drawTriangle(&engine, texture);
 		// SDL_RenderPresent(engine.renderer);
-		render();
+		render(&program);
 		//Update screen
 		SDL_GL_SwapWindow(engine.window);
 

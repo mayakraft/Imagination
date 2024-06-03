@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C7B24DE2C0E7FF0007D7B2E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B24DD2C0E7FF0007D7B2E /* OpenGL.framework */; };
+		6C7B24E02C0E809B007D7B2E /* libGLEW.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B24DF2C0E809B007D7B2E /* libGLEW.dylib */; };
+		6C7B24E12C0E809B007D7B2E /* libGLEW.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B24DF2C0E809B007D7B2E /* libGLEW.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6C7B24E32C0E8139007D7B2E /* shaders in Resources */ = {isa = PBXBuildFile; fileRef = 6C7B24E22C0E8139007D7B2E /* shaders */; };
 		6CBDCEFE2C0DF2240078BDAB /* images in Resources */ = {isa = PBXBuildFile; fileRef = 6CBDCEFD2C0DF2240078BDAB /* images */; };
 		6CBDCF002C0DF23E0078BDAB /* 8x8.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CBDCEFF2C0DF23E0078BDAB /* 8x8.png */; };
 		6CE2E2D72C0BCE0F00739BBF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2E2D62C0BCE0F00739BBF /* main.cpp */; };
@@ -25,6 +29,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				6CE2E2EC2C0CAEA300739BBF /* SDL2.framework in Embed Frameworks */,
+				6C7B24E12C0E809B007D7B2E /* libGLEW.dylib in Embed Frameworks */,
 				6CE2E2F02C0CAEA500739BBF /* SDL2_image.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -33,6 +38,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6C7B24DC2C0E7FA6007D7B2E /* openGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = openGL.h; sourceTree = "<group>"; };
+		6C7B24DD2C0E7FF0007D7B2E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		6C7B24DF2C0E809B007D7B2E /* libGLEW.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.dylib; path = ../../../../../usr/local/lib/libGLEW.dylib; sourceTree = "<group>"; };
+		6C7B24E22C0E8139007D7B2E /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders; path = ../src/shaders; sourceTree = SOURCE_ROOT; };
 		6CBDCEFD2C0DF2240078BDAB /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../examples/images; sourceTree = "<group>"; };
 		6CBDCEFF2C0DF23E0078BDAB /* 8x8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8x8.png; sourceTree = "<group>"; };
 		6CE2E2A72C0BCDD500739BBF /* GameEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,7 +59,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CE2E2EB2C0CAEA300739BBF /* SDL2.framework in Frameworks */,
+				6C7B24E02C0E809B007D7B2E /* libGLEW.dylib in Frameworks */,
 				6CE2E2EF2C0CAEA500739BBF /* SDL2_image.framework in Frameworks */,
+				6C7B24DE2C0E7FF0007D7B2E /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,12 +88,14 @@
 		6CE2E2A92C0BCDD500739BBF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				6C7B24E22C0E8139007D7B2E /* shaders */,
 				6CBDCEFD2C0DF2240078BDAB /* images */,
 				6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */,
 				6CE2E2B42C0BCDD600739BBF /* GameEngine.entitlements */,
 				6CBDCEFF2C0DF23E0078BDAB /* 8x8.png */,
 				6CE2E2D62C0BCE0F00739BBF /* main.cpp */,
 				6CE424082C0CCAB40080EEED /* engine.h */,
+				6C7B24DC2C0E7FA6007D7B2E /* openGL.h */,
 			);
 			name = src;
 			path = ../src;
@@ -91,6 +104,8 @@
 		6CE2E2D92C0BCE5E00739BBF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6C7B24DF2C0E809B007D7B2E /* libGLEW.dylib */,
+				6C7B24DD2C0E7FF0007D7B2E /* OpenGL.framework */,
 				6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */,
 				6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */,
 			);
@@ -156,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CBDCF002C0DF23E0078BDAB /* 8x8.png in Resources */,
+				6C7B24E32C0E8139007D7B2E /* shaders in Resources */,
 				6CBDCEFE2C0DF2240078BDAB /* images in Resources */,
 				6CE2E2DF2C0BD12800739BBF /* Assets.xcassets in Resources */,
 			);
@@ -304,6 +320,7 @@
 					"$(PROJECT_DIR)/..",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -311,6 +328,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.gameEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -332,6 +350,7 @@
 					"$(PROJECT_DIR)/..",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -339,6 +358,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.gameEngine;
 				PRODUCT_NAME = "$(TARGET_NAME)";

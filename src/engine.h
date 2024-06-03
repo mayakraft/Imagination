@@ -9,16 +9,7 @@
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
-#include "primitives.h"
 #include "openGL.h"
-
-// namespace {}
-
-// Graphics program
-GLuint gProgramID = 0;
-GLint gVertexPos2DLocation = -1;
-GLuint gVBO = 0;
-GLuint gIBO = 0;
 
 struct InitParams {
 	unsigned int flags;
@@ -84,10 +75,10 @@ GameEngine initProgrammable(InitParams params) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-  SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-  SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
-  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-  SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
 	SDL_Window *window = SDL_CreateWindow(params.title,
 		SDL_WINDOWPOS_UNDEFINED,
@@ -123,21 +114,11 @@ GameEngine initProgrammable(InitParams params) {
 		throw std::runtime_error(SDL_GetError());
 	}
 
-	// initialize OpenGL
-	if (!initGL(&gProgramID, &gVertexPos2DLocation, &gVBO, &gIBO)) {
-		throw std::runtime_error("Unable to initialize OpenGL");
-	}
-
 	// initialize SDL_image
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
 		throw std::runtime_error(IMG_GetError());
 	}
-
-	// printf("gProgramID %u\n", gProgramID);
-	// printf("gVertexPos2DLocation %d\n", gVertexPos2DLocation);
-	// printf("gVBO %u\n", gVBO);
-	// printf("gIBO %u\n", gIBO);
 
 	return GameEngine {
 		.window = window,
@@ -145,53 +126,6 @@ GameEngine initProgrammable(InitParams params) {
 		.controllers = std::vector<SDL_Joystick*>(),
 	};
 }
-
-// GameEngine initCopy(InitParams params) {
-// 	//Initialize SDL
-// 	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
-// 		throw std::runtime_error(SDL_GetError());
-// 	}
-// 	//Use OpenGL 3.1 core
-// 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-// 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-// 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
-// 	//Create window
-// 	SDL_Window* window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
-// 	if(window == NULL) {
-// 		throw std::runtime_error(SDL_GetError());
-// 	}
-// 	//Create context
-// 	SDL_GLContext gContext = SDL_GL_CreateContext(window);
-// 	if(gContext == NULL) {
-// 		throw std::runtime_error(SDL_GetError());
-// 	}
-
-// 	//Initialize GLEW
-// 	glewExperimental = GL_TRUE;
-// 	GLenum glewError = glewInit();
-// 	if( glewError != GLEW_OK )
-// 	{
-// 		printf( "Error initializing GLEW! %s\n", glewGetErrorString( glewError ) );
-// 	}
-
-// 	//Use Vsync
-// 	if( SDL_GL_SetSwapInterval( 1 ) < 0 )
-// 	{
-// 		printf( "Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError() );
-// 	}
-
-// 	//Initialize OpenGL
-// 	if (!initGL(&gProgramID, &gVertexPos2DLocation, &gVBO, &gIBO)) {
-// 		printf( "Unable to initialize OpenGL!\n" );
-// 	}
-
-// 	return GameEngine {
-// 		.window = window,
-// 		// .renderer = renderer,
-// 		.controllers = std::vector<SDL_Joystick*>(),
-// 	};
-// }
 
 SDL_Texture* loadTexture(GameEngine* engine, std::string path) {
 	SDL_Texture* newTexture = NULL;
@@ -261,28 +195,41 @@ void viewportTest(GameEngine *engine, SDL_Texture *texture) {
 	SDL_RenderPresent( engine->renderer );
 }
 
-void render() {
+uint frame = 0;
+
+void render(ShaderProgram* program) {
+	frame += 1;
 	//Clear color buffer
 	glClear(GL_COLOR_BUFFER_BIT);
 	//Bind program
-	glUseProgram(gProgramID);
+	glUseProgram(program->programID);
 	//Enable vertex position
-	glEnableVertexAttribArray(gVertexPos2DLocation);
+	glEnableVertexAttribArray(program->positionAttribute);
 	//Set vertex data
-	glBindBuffer(GL_ARRAY_BUFFER, gVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, program->vbo);
 	// printf("gVertexPos2DLocation %d\n", gVertexPos2DLocation);
 	glVertexAttribPointer(
-		gVertexPos2DLocation,
+		program->positionAttribute,
 		2,
 		GL_FLOAT,
 		GL_FALSE,
 		2 * sizeof(GLfloat),
 		NULL);
+	// uniforms
+	GLint timeLocation = glGetUniformLocation(program->programID, "u_time");
+	if (timeLocation >= 0) {
+		glUniform1f(timeLocation, frame * 0.01);
+	}
+	GLint resLocation = glGetUniformLocation(program->programID, "u_resolution");
+	if (resLocation >= 0) {
+		glUniform2f(resLocation, 640.0, 640.0);
+	}
+
 	//Set index data and render
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, program->ibo);
 	glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, NULL);
 	//Disable vertex position
-	glDisableVertexAttribArray(gVertexPos2DLocation);
+	glDisableVertexAttribArray(program->positionAttribute);
 	//Unbind program
 	glUseProgram(NULL);
 }

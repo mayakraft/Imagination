@@ -1,11 +1,18 @@
 #ifndef initialize_h
 #define initialize_h
 
-#include <stdio.h>
 #include <GL/glew.h>
+#include <OpenGL/OpenGL.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <stdexcept>
-// #include <string.h>
+
+struct ShaderProgram {
+	GLuint programID;
+	GLint positionAttribute;
+	GLuint vbo;
+	GLuint ibo;
+};
 
 char *readFile(const char *filename) {
 	char *buffer = 0;
@@ -60,7 +67,7 @@ GLuint loadShader(char *vertex_path, char *fragment_path) {
 	glLinkProgram(program);
 	glGetProgramiv(program, GL_LINK_STATUS, &result);
 	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
-	if(logLength){
+	if (logLength) {
 		char programError[logLength]; programError[0] = 0;
 		glGetProgramInfoLog(program, logLength, NULL, &programError[0]);
 		printf("LINKER %s", &programError[0]);
@@ -117,28 +124,17 @@ void printShaderLog(GLuint shader) {
 	}
 }
 
-bool initGL(GLuint* programID, GLint* vertexPos2DLocation, GLuint* vbo, GLuint* ibo) {
-	GLuint gProgramID = 0;
-	GLint gVertexPos2DLocation = -1;
+ShaderProgram createProgram(const char *vertex_path, const char *fragment_path) {
 	GLuint gVBO = 0;
 	GLuint gIBO = 0;
-	// Success flag
-	bool success = true;
-
 	// https://discourse.libsdl.org/t/lazy-foo-sdl-and-modern-opengl-tutorial-vao/23020
 	GLuint vaoId = 0;
 	glGenVertexArrays(1, &vaoId);
 	glBindVertexArray(vaoId);
-
 	// Generate program
-	gProgramID = glCreateProgram();
-	// Create vertex shader
+	GLuint gProgramID = glCreateProgram();
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-
-	const char* vertPath = "./src/shaders/simple.vert";
-	const char* fragPath = "./src/shaders/simple.frag";
-	const GLchar* vertexShaderSource = readFile(vertPath);
-
+	const GLchar* vertexShaderSource = readFile(vertex_path);
 	// Set vertex source
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 	// Compile vertex source
@@ -147,74 +143,71 @@ bool initGL(GLuint* programID, GLint* vertexPos2DLocation, GLuint* vbo, GLuint* 
 	GLint vShaderCompiled = GL_FALSE;
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vShaderCompiled);
 	if (vShaderCompiled != GL_TRUE) {
-		printf("Unable to compile vertex shader %d!\n", vertexShader);
 		printShaderLog(vertexShader);
-		success = false;
-	} else {
-		// Attach vertex shader to program
-		glAttachShader(gProgramID, vertexShader);
-		// Create fragment shader
-		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-		// Get fragment source
-		const GLchar* fragmentShaderSource = readFile(fragPath);
-		// Set fragment source
-		glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-		// Compile fragment source
-		glCompileShader(fragmentShader);
-		// Check fragment shader for errors
-		GLint fShaderCompiled = GL_FALSE;
-		glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fShaderCompiled);
-		if (fShaderCompiled != GL_TRUE) {
-			printf("Unable to compile fragment shader %d!\n", fragmentShader);
-			printShaderLog(fragmentShader);
-			success = false;
-		} else {
-			// Attach fragment shader to program
-			glAttachShader(gProgramID, fragmentShader);
-			// Link program
-			glLinkProgram(gProgramID);
-			// Check for errors
-			GLint programSuccess = GL_TRUE;
-			glGetProgramiv(gProgramID, GL_LINK_STATUS, &programSuccess);
-			if (programSuccess != GL_TRUE) {
-				printf("Error linking program %d!\n", gProgramID);
-				printProgramLog(gProgramID);
-				success = false;
-			} else {
-				//Get vertex attribute location
-				gVertexPos2DLocation = glGetAttribLocation(gProgramID, "pos");
-				if (gVertexPos2DLocation == -1) {
-					printf("pos is not a valid glsl program variable!\n");
-					success = false;
-				} else {
-					// Initialize clear color
-					glClearColor(0.1f, 0.3f, 0.6f, 1.0f);
-					// VBO data
-					GLfloat vertexData[] = {
-						-0.5f, -0.5f,
-						0.5f, -0.5f,
-						0.5f,  0.5f,
-						-0.5f,  0.5f
-					};
-					//IBO data
-					GLuint indexData[] = { 0, 1, 2, 3 };
-					//Create VBO
-					glGenBuffers(1, &gVBO);
-					glBindBuffer(GL_ARRAY_BUFFER, gVBO);
-					glBufferData(GL_ARRAY_BUFFER, 2 * 4 * sizeof(GLfloat), vertexData, GL_STATIC_DRAW);
-					//Create IBO
-					glGenBuffers(1, &gIBO);
-					glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIBO);
-					glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), indexData, GL_STATIC_DRAW);
-				}
-			}
-		}
+		throw std::runtime_error("Unable to compile vertex shader");
 	}
-	*programID = gProgramID;
-	*vertexPos2DLocation = gVertexPos2DLocation;
-	*vbo = gVBO;
-	*ibo = gIBO;
-	return success;
+	// Attach vertex shader to program
+	glAttachShader(gProgramID, vertexShader);
+	// Create fragment shader
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	// Get fragment source
+	const GLchar* fragmentShaderSource = readFile(fragment_path);
+	// Set fragment source
+	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	// Compile fragment source
+	glCompileShader(fragmentShader);
+	// Check fragment shader for errors
+	GLint fShaderCompiled = GL_FALSE;
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fShaderCompiled);
+	if (fShaderCompiled != GL_TRUE) {
+		printf("Unable to compile fragment shader %d!\n", fragmentShader);
+		printShaderLog(fragmentShader);
+		throw std::runtime_error("Unable to compile fragment shader");
+	}
+	// Attach fragment shader to program
+	glAttachShader(gProgramID, fragmentShader);
+	// Link program
+	glLinkProgram(gProgramID);
+	// Check for errors
+	GLint programSuccess = GL_TRUE;
+	glGetProgramiv(gProgramID, GL_LINK_STATUS, &programSuccess);
+	if (programSuccess != GL_TRUE) {
+		printProgramLog(gProgramID);
+		throw std::runtime_error("Error linking program");
+	}
+
+	// vertex attribute location
+	GLint gPositionAttribute = glGetAttribLocation(gProgramID, "pos");
+	if (gPositionAttribute == -1) {
+		throw std::runtime_error("invalid attrib location");
+	}
+
+	// Initialize clear color
+	glClearColor(0.1f, 0.3f, 0.6f, 1.0f);
+	// VBO data
+	GLfloat vertexData[] = {
+		-0.85f, -0.85f,
+		0.85f, -0.85f,
+		0.85f, 0.85f,
+		-0.85f, 0.85f
+	};
+	// IBO data
+	GLuint indexData[] = { 0, 1, 2, 3 };
+	// Create VBO
+	glGenBuffers(1, &gVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, gVBO);
+	glBufferData(GL_ARRAY_BUFFER, 2 * 4 * sizeof(GLfloat), vertexData, GL_STATIC_DRAW);
+	// Create IBO
+	glGenBuffers(1, &gIBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), indexData, GL_STATIC_DRAW);
+
+	return ShaderProgram {
+		.programID = gProgramID,
+		.positionAttribute = gPositionAttribute,
+		.vbo = gVBO,
+		.ibo = gIBO,
+	};
 }
 
 #endif
