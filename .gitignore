@@ -3,3 +3,6 @@ bin/
 glew/
 SDL2*.framework/
 **/xcuserdata/*
+win/.vs/
+win/game-engine/
+win/SDL2.dll
