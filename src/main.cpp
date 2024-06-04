@@ -1,6 +1,10 @@
 #include <stdio.h>
+#ifdef _WIN32
+#include "SDL_render.h"
+#else
 #include "SDL2/SDL_render.h"
-#include "engine.h"
+#endif
+#include "engine.cpp"
 //#include <CoreFoundation/CoreFoundation.h>
 
 void macBundlePath() {
@@ -22,7 +26,7 @@ void drawQuad(GameEngine *engine, SDL_Texture *texture) {
 			{{ 1.f, 1.f },	col,	{ 0.0f, 1.0f }},
 			{{ 0.f, 1.f },	col,	{ 1.0f, 1.0f }},
 		};
-		std::array<int, 6> indexList = { 0, 1, 2, 2, 3, 1 };
+		std::vector<int> indexList = { 0, 1, 2, 2, 3, 1 };
 		SDL_RenderGeometry(engine->renderer, texture, verticies.data(), (int)verticies.size(), indexList.data(), (int)indexList.size());
 }
 
@@ -33,7 +37,7 @@ void drawTriangle(GameEngine *engine, SDL_Texture *texture) {
 			{{ 550.f, 450.f },	col,	{ 1.0f, 0.0f }},
 			{{ 300.f, 50.f },	col,	{ 0.0f, 1.0f }},
 		};
-		std::array<int, 3> indexList = { 0, 1, 2 };
+		std::vector<int> indexList = { 0, 1, 2 };
 		SDL_RenderGeometry(engine->renderer, texture, verticies.data(), (int)verticies.size(), indexList.data(), (int)indexList.size());
 }
 
@@ -61,11 +65,13 @@ int main(int argc, char* args[]) {
 		.height = 640,
 	};
 
+	// std::string shaderDir = "../shaders/";
+	std::string shaderDir = "./shaders/";
+
 	GameEngine engine = initProgrammable(params);
 	ShaderProgram program = createProgram(
-		"./src/shaders/simple.vert",
-		// "./src/shaders/simple.frag");
-		"./src/shaders/kaleidoscope.frag");
+		(shaderDir + "simple.vert").c_str(),
+		(shaderDir + "kaleidoscope.frag").c_str());
 
 	// SDL_Texture* texture = loadTexture(&engine, "./src/8x8.png");
 

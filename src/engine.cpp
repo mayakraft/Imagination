@@ -5,17 +5,24 @@
 #include <string>
 #include <stdio.h>
 #include <GL/glew.h>
+#ifdef _WIN32
+//#include <OpenGL/gl.h> // gl3.h
+#include <SDL_opengl.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#else
 #include <OpenGL/gl.h> // gl3.h
 #include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
-#include "openGL.h"
+#endif
+#include "openGL.cpp"
 
 struct InitParams {
 	unsigned int flags;
+	const char* title;
 	int width;
 	int height;
-	const char* title;
 };
 
 struct GameEngineFixed {
@@ -177,17 +184,17 @@ void viewportTest(GameEngine *engine, SDL_Texture *texture) {
 	SDL_Rect topLeftViewport;
 	topLeftViewport.x = 0;
 	topLeftViewport.y = 0;
-	topLeftViewport.w = SCREEN_WIDTH / 2;
-	topLeftViewport.h = SCREEN_HEIGHT / 2;
+	topLeftViewport.w = (int)(SCREEN_WIDTH / 2.0);
+	topLeftViewport.h = (int)(SCREEN_HEIGHT / 2.0);
 	SDL_RenderSetViewport( engine->renderer, &topLeftViewport );
 	//Render texture to screen
 	SDL_RenderCopy( engine->renderer, texture, NULL, NULL );
 	//Bottom viewport
 	SDL_Rect bottomViewport;
 	bottomViewport.x = 0;
-	bottomViewport.y = SCREEN_HEIGHT / 2;
+	bottomViewport.y = (int)SCREEN_HEIGHT / 2;
 	bottomViewport.w = SCREEN_WIDTH;
-	bottomViewport.h = SCREEN_HEIGHT / 2;
+	bottomViewport.h = (int)SCREEN_HEIGHT / 2;
 	SDL_RenderSetViewport( engine->renderer, &bottomViewport );
 	//Render texture to screen
 	SDL_RenderCopy( engine->renderer, texture, NULL, NULL );
@@ -195,7 +202,7 @@ void viewportTest(GameEngine *engine, SDL_Texture *texture) {
 	SDL_RenderPresent( engine->renderer );
 }
 
-uint frame = 0;
+unsigned int frame = 0;
 
 void render(ShaderProgram* program) {
 	frame += 1;

@@ -1,6 +1,11 @@
 #ifndef primitives_h
 #define primitives_h
 
+#ifdef _WIN32
+#define _USE_MATH_DEFINES
+#endif
+
+#include <stdlib.h>
 #include <math.h>
 
 int _sphere_stacks = 20; // 7;

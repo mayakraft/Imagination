@@ -1,8 +1,10 @@
 #ifndef initialize_h
 #define initialize_h
 
+// _CRT_SECURE_NO_WARNINGS
+
 #include <GL/glew.h>
-#include <OpenGL/OpenGL.h>
+// #include <OpenGL/OpenGL.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdexcept>
@@ -17,7 +19,12 @@ struct ShaderProgram {
 char *readFile(const char *filename) {
 	char *buffer = 0;
 	long length;
-	FILE *f = fopen(filename, "rb");
+	FILE* f;
+#ifdef _WIN32
+	fopen_s(&f, filename, "rb");
+#else
+	f = fopen(filename, "rb");
+#endif
 	if (f == NULL) { throw std::runtime_error("shader file does not exist"); }
 	fseek(f, 0, SEEK_END);
 	length = ftell(f);
@@ -29,53 +36,53 @@ char *readFile(const char *filename) {
 	return buffer;
 }
 
-GLuint loadShader(char *vertex_path, char *fragment_path) {
-	// GLenum err = glewInit();
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	char *vSource = readFile(vertex_path);
-	char *fSource = readFile(fragment_path);
-	GLint result = GL_FALSE;
-	int logLength;
-	// vertex
-	glShaderSource(vertexShader, 1, (const char *const *)&vSource, NULL);
-	glCompileShader(vertexShader);
-	// Check vertex shader
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &result);
-	glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &logLength);
-	if(logLength){
-		char errorLog[logLength];
-		glGetShaderInfoLog(vertexShader, logLength, NULL, &errorLog[0]);
-		printf("VERTEX SHADER COMPILE %s", &errorLog[0]);
-	}
-	// fragment
-	glShaderSource(fragmentShader, 1, (const char *const *)&fSource, NULL);
-	glCompileShader(fragmentShader);
-	// Check fragment shader
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &result);
-	glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &logLength);
-	if(logLength){
-		char errorLog[logLength];
-		glGetShaderInfoLog(fragmentShader, logLength, NULL, &errorLog[0]);
-		printf("FRAGMENT SHADER COMPILE %s", &errorLog[0]);
-	}
-	free(vSource);
-	free(fSource);
-	GLuint program = glCreateProgram();
-	glAttachShader(program, vertexShader);
-	glAttachShader(program, fragmentShader);
-	glLinkProgram(program);
-	glGetProgramiv(program, GL_LINK_STATUS, &result);
-	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
-	if (logLength) {
-		char programError[logLength]; programError[0] = 0;
-		glGetProgramInfoLog(program, logLength, NULL, &programError[0]);
-		printf("LINKER %s", &programError[0]);
-	}
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-	return program;
-}
+//GLuint loadShader(char *vertex_path, char *fragment_path) {
+//	// GLenum err = glewInit();
+//	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+//	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+//	char *vSource = readFile(vertex_path);
+//	char *fSource = readFile(fragment_path);
+//	GLint result = GL_FALSE;
+//	int logLength;
+//	// vertex
+//	glShaderSource(vertexShader, 1, (const char *const *)&vSource, NULL);
+//	glCompileShader(vertexShader);
+//	// Check vertex shader
+//	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &result);
+//	glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &logLength);
+//	if(logLength){
+//		char errorLog[logLength];
+//		glGetShaderInfoLog(vertexShader, logLength, NULL, &errorLog[0]);
+//		printf("VERTEX SHADER COMPILE %s", &errorLog[0]);
+//	}
+//	// fragment
+//	glShaderSource(fragmentShader, 1, (const char *const *)&fSource, NULL);
+//	glCompileShader(fragmentShader);
+//	// Check fragment shader
+//	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &result);
+//	glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &logLength);
+//	if(logLength){
+//		char errorLog[logLength];
+//		glGetShaderInfoLog(fragmentShader, logLength, NULL, &errorLog[0]);
+//		printf("FRAGMENT SHADER COMPILE %s", &errorLog[0]);
+//	}
+//	free(vSource);
+//	free(fSource);
+//	GLuint program = glCreateProgram();
+//	glAttachShader(program, vertexShader);
+//	glAttachShader(program, fragmentShader);
+//	glLinkProgram(program);
+//	glGetProgramiv(program, GL_LINK_STATUS, &result);
+//	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
+//	if (logLength) {
+//		char programError[logLength]; programError[0] = 0;
+//		glGetProgramInfoLog(program, logLength, NULL, &programError[0]);
+//		printf("LINKER %s", &programError[0]);
+//	}
+//	glDeleteShader(vertexShader);
+//	glDeleteShader(fragmentShader);
+//	return program;
+//}
 
 void printProgramLog(GLuint program) {
 	// Make sure name is shader

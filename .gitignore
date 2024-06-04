@@ -1,8 +1,12 @@
+# macos linux
 .cache/
 bin/
-glew/
 SDL2*.framework/
 **/xcuserdata/*
+
+# windows
 win/.vs/
 win/game-engine/
-win/SDL2.dll
+win/x64/
+win/x86/
+external/

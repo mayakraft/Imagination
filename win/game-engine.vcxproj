@@ -20,9 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\camera.h" />
-    <ClInclude Include="..\src\engine.h" />
+    <ClInclude Include="..\src\engine.cpp" />
     <ClInclude Include="..\src\math.h" />
-    <ClInclude Include="..\src\openGL.h" />
+    <ClInclude Include="..\src\openGL.cpp" />
     <ClInclude Include="..\src\primitives.h" />
   </ItemGroup>
   <ItemGroup>
@@ -81,8 +81,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Maya\Code\SDL2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Maya\Code\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\external\SDL2\include;$(SolutionDir)..\external\SDL2_image\include;$(SolutionDir)..\external\GLEW\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\external\SDL2\lib\x64;$(SolutionDir)..\external\SDL2_image\lib\x64;$(SolutionDir)..\external\GLEW\lib\Release\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)..\external\SDL2\include;$(SolutionDir)..\external\SDL2_image\include;$(SolutionDir)..\external\GLEW\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)..\external\SDL2\lib\x64;$(SolutionDir)..\external\SDL2_image\lib\x64;$(SolutionDir)..\external\GLEW\lib\Release\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -118,13 +122,21 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Maya\Code\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\external\SDL2\lib\x64;$(SolutionDir)..\external\SDL2_image\lib\x64;$(SolutionDir)..\external\glew\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;glew32.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /F/R/Y/I $(SolutionDir)..\shaders $(OutDir)shaders
+xcopy /Y $(SolutionDir)..\external\SDL2\lib\x64\SDL2.dll $(OutDir)
+xcopy /Y $(SolutionDir)..\external\SDL2_image\lib\x64\SDL2_image.dll $(OutDir)
+xcopy /Y $(SolutionDir)..\external\GLEW\bin\Release\x64\glew32.dll $(OutDir)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -134,13 +146,22 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\external\SDL2\lib\x64;$(SolutionDir)..\external\SDL2_image\lib\x64;$(SolutionDir)..\external\glew\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;glew32.lib;glew32s.lib;opengl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /F/R/Y/I $(SolutionDir)..\shaders $(OutDir)shaders
+xcopy /Y $(SolutionDir)..\external\SDL2\lib\x64\SDL2.dll $(OutDir)
+xcopy /Y $(SolutionDir)..\external\SDL2_image\lib\x64\SDL2_image.dll $(OutDir)
+xcopy /Y $(SolutionDir)..\external\GLEW\bin\Release\x64\glew32.dll $(OutDir)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
