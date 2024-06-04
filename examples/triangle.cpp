@@ -1,16 +1,18 @@
 #include <stdio.h>
 #include "../src/engine.h"
+#include "../src/draw.h"
 
 int main(int argc, char* args[]) {
 	InitParams params = InitParams {
+		// .flags = SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER,
 		.flags = SDL_INIT_EVERYTHING,
 		.title = "Game Engine",
 		.width = 640,
-		.height = 480,
+		.height = 640,
 	};
-	GameEngine engine = initFixedFunction(params);
 
-	SDL_Texture* texture = loadTexture(&engine, "examples/images/copper.png");
+	GameEngine engine = initFixedFunction(params);
+	SDL_Texture* texture = loadTexture(&engine, "./src/8x8.png");
 
 	// event will be filled with some kind of input event (if exists)
 	// https://wiki.libsdl.org/SDL2/SDL_Event
@@ -20,16 +22,13 @@ int main(int argc, char* args[]) {
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) {
 				quit = true;
-				dealloc(&engine);
-				return 0;
 			}
 		}
-		// Clear screen
-		SDL_SetRenderDrawColor(engine.renderer, 0x00, 0x00, 0x00, 0xFF);
+
+		// Basic draw test
+		SDL_SetRenderDrawColor(engine.renderer, 0x30, 0x30, 0x30, 0xFF);
 		SDL_RenderClear(engine.renderer);
-		// Render texture to screen
-		SDL_RenderCopy(engine.renderer, texture, NULL, NULL);
-		// Update screen
+		drawTriangle(&engine, texture);
 		SDL_RenderPresent(engine.renderer);
 	}
 

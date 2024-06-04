@@ -16,7 +16,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 #endif
-#include "openGL.cpp"
+#include "openGL.h"
 
 struct InitParams {
 	unsigned int flags;
@@ -38,6 +38,20 @@ struct GameEngine {
 	std::vector<SDL_Joystick*> controllers;
 };
 
+void retinaDisplay(SDL_Renderer *renderer, int windowWidth, int windowHeight) {
+	int rw = 0, rh = 0;
+	SDL_GetRendererOutputSize(renderer, &rw, &rh);
+	if (rw != windowWidth) {
+		float widthScale = (float)rw / (float) windowWidth;
+		float heightScale = (float)rh / (float) windowHeight;
+		if(widthScale != heightScale) {
+			fprintf(stderr, "WARNING: width scale != height scale\n");
+		}
+		// printf("adjusting retina scale %f %f\n", widthScale, heightScale);
+		SDL_RenderSetScale(renderer, widthScale, heightScale);
+	}
+}
+
 GameEngine initFixedFunction(InitParams params) {
 	if (SDL_Init(params.flags) < 0) {
 		throw std::runtime_error(SDL_GetError());
@@ -48,7 +62,8 @@ GameEngine initFixedFunction(InitParams params) {
 		SDL_WINDOWPOS_UNDEFINED,
 		params.width,
 		params.height,
-		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
+	// SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN
 	if (window == NULL) { throw std::runtime_error(SDL_GetError()); }
 
 	SDL_Renderer *renderer = SDL_CreateRenderer(
@@ -57,13 +72,15 @@ GameEngine initFixedFunction(InitParams params) {
 		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == NULL) { throw std::runtime_error(SDL_GetError()); }
 
+	retinaDisplay(renderer, params.width, params.height);
+
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
 		throw std::runtime_error(IMG_GetError());
 	}
 
 	// Initialize renderer color
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	// SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
 	return GameEngine {
 		.window = window,
@@ -92,7 +109,7 @@ GameEngine initProgrammable(InitParams params) {
 		SDL_WINDOWPOS_UNDEFINED,
 		params.width,
 		params.height,
-		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
 	if (window == NULL) { throw std::runtime_error(SDL_GetError()); }
 
 	// On MacOS, this needs to be called immediately after SDL_CreateWindow,
@@ -184,8 +201,8 @@ void viewportTest(GameEngine *engine, SDL_Texture *texture) {
 	SDL_Rect topLeftViewport;
 	topLeftViewport.x = 0;
 	topLeftViewport.y = 0;
-	topLeftViewport.w = (int)(SCREEN_WIDTH / 2.0);
-	topLeftViewport.h = (int)(SCREEN_HEIGHT / 2.0);
+	topLeftViewport.w = (int)SCREEN_WIDTH / 2;
+	topLeftViewport.h = (int)SCREEN_HEIGHT / 2;
 	SDL_RenderSetViewport( engine->renderer, &topLeftViewport );
 	//Render texture to screen
 	SDL_RenderCopy( engine->renderer, texture, NULL, NULL );

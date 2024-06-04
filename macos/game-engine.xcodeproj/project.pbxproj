@@ -7,30 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6C7B24DE2C0E7FF0007D7B2E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B24DD2C0E7FF0007D7B2E /* OpenGL.framework */; };
-		6C7B24E02C0E809B007D7B2E /* libGLEW.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B24DF2C0E809B007D7B2E /* libGLEW.dylib */; };
-		6C7B24E12C0E809B007D7B2E /* libGLEW.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B24DF2C0E809B007D7B2E /* libGLEW.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		6C7B24E32C0E8139007D7B2E /* shaders in Resources */ = {isa = PBXBuildFile; fileRef = 6C7B24E22C0E8139007D7B2E /* shaders */; };
-		6CBDCEFE2C0DF2240078BDAB /* images in Resources */ = {isa = PBXBuildFile; fileRef = 6CBDCEFD2C0DF2240078BDAB /* images */; };
-		6CBDCF002C0DF23E0078BDAB /* 8x8.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CBDCEFF2C0DF23E0078BDAB /* 8x8.png */; };
-		6CE2E2D72C0BCE0F00739BBF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2E2D62C0BCE0F00739BBF /* main.cpp */; };
-		6CE2E2DF2C0BD12800739BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */; };
-		6CE2E2EB2C0CAEA300739BBF /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */; };
-		6CE2E2EC2C0CAEA300739BBF /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6CE2E2EF2C0CAEA500739BBF /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */; };
-		6CE2E2F02C0CAEA500739BBF /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6C7B24F42C0FA6D9007D7B2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C7B24F32C0FA6D9007D7B2E /* Assets.xcassets */; };
+		6C7B250F2C0FA801007D7B2E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C7B25092C0FA801007D7B2E /* main.cpp */; };
+		6C7B25112C0FA814007D7B2E /* shaders in Resources */ = {isa = PBXBuildFile; fileRef = 6C7B25102C0FA814007D7B2E /* shaders */; };
+		6C7B25142C0FA835007D7B2E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B25132C0FA835007D7B2E /* SDL2.framework */; };
+		6C7B25152C0FA835007D7B2E /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B25132C0FA835007D7B2E /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6C7B25182C0FA838007D7B2E /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B25172C0FA838007D7B2E /* SDL2_image.framework */; };
+		6C7B25192C0FA838007D7B2E /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B25172C0FA838007D7B2E /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6C7B251B2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B251A2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib */; };
+		6C7B251C2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B251A2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6C7B251E2C0FAB9C007D7B2E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B251D2C0FAB9C007D7B2E /* OpenGL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6CE2E2ED2C0CAEA300739BBF /* Embed Frameworks */ = {
+		6C7B25162C0FA835007D7B2E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6CE2E2EC2C0CAEA300739BBF /* SDL2.framework in Embed Frameworks */,
-				6C7B24E12C0E809B007D7B2E /* libGLEW.dylib in Embed Frameworks */,
-				6CE2E2F02C0CAEA500739BBF /* SDL2_image.framework in Embed Frameworks */,
+				6C7B25152C0FA835007D7B2E /* SDL2.framework in Embed Frameworks */,
+				6C7B251C2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib in Embed Frameworks */,
+				6C7B25192C0FA838007D7B2E /* SDL2_image.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,76 +36,82 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6C7B24DC2C0E7FA6007D7B2E /* openGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = openGL.h; sourceTree = "<group>"; };
-		6C7B24DD2C0E7FF0007D7B2E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		6C7B24DF2C0E809B007D7B2E /* libGLEW.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.dylib; path = ../../../../../usr/local/lib/libGLEW.dylib; sourceTree = "<group>"; };
-		6C7B24E22C0E8139007D7B2E /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders; path = ../src/shaders; sourceTree = SOURCE_ROOT; };
-		6CBDCEFD2C0DF2240078BDAB /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../examples/images; sourceTree = "<group>"; };
-		6CBDCEFF2C0DF23E0078BDAB /* 8x8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8x8.png; sourceTree = "<group>"; };
-		6CE2E2A72C0BCDD500739BBF /* GameEngine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameEngine.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6CE2E2B42C0BCDD600739BBF /* GameEngine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = GameEngine.entitlements; path = ../osx/GameEngine.entitlements; sourceTree = "<group>"; };
-		6CE2E2D62C0BCE0F00739BBF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../osx/Assets.xcassets; sourceTree = "<group>"; };
-		6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../SDL2.framework; sourceTree = "<group>"; };
-		6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
-		6CE424082C0CCAB40080EEED /* engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
+		6C7B24ED2C0FA6D8007D7B2E /* game-engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "game-engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C7B24F32C0FA6D9007D7B2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6C7B24FA2C0FA6D9007D7B2E /* game_engine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = game_engine.entitlements; sourceTree = "<group>"; };
+		6C7B25032C0FA801007D7B2E /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
+		6C7B25062C0FA801007D7B2E /* math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
+		6C7B25082C0FA801007D7B2E /* primitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = primitives.h; sourceTree = "<group>"; };
+		6C7B25092C0FA801007D7B2E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6C7B250A2C0FA801007D7B2E /* draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = draw.h; sourceTree = "<group>"; };
+		6C7B250B2C0FA801007D7B2E /* fs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fs.h; sourceTree = "<group>"; };
+		6C7B25102C0FA814007D7B2E /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders; path = ../shaders; sourceTree = "<group>"; };
+		6C7B25132C0FA835007D7B2E /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../SDL2.framework; sourceTree = "<group>"; };
+		6C7B25172C0FA838007D7B2E /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
+		6C7B251A2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
+		6C7B251D2C0FAB9C007D7B2E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		6C7B251F2C0FAC22007D7B2E /* openGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = openGL.h; sourceTree = "<group>"; };
+		6C7B25202C0FAC22007D7B2E /* engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6CE2E2A42C0BCDD500739BBF /* Frameworks */ = {
+		6C7B24EA2C0FA6D8007D7B2E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CE2E2EB2C0CAEA300739BBF /* SDL2.framework in Frameworks */,
-				6C7B24E02C0E809B007D7B2E /* libGLEW.dylib in Frameworks */,
-				6CE2E2EF2C0CAEA500739BBF /* SDL2_image.framework in Frameworks */,
-				6C7B24DE2C0E7FF0007D7B2E /* OpenGL.framework in Frameworks */,
+				6C7B25142C0FA835007D7B2E /* SDL2.framework in Frameworks */,
+				6C7B251E2C0FAB9C007D7B2E /* OpenGL.framework in Frameworks */,
+				6C7B251B2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib in Frameworks */,
+				6C7B25182C0FA838007D7B2E /* SDL2_image.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6CE2E29E2C0BCDD500739BBF = {
+		6C7B24E42C0FA6D8007D7B2E = {
 			isa = PBXGroup;
 			children = (
-				6CE2E2A92C0BCDD500739BBF /* src */,
-				6CE2E2A82C0BCDD500739BBF /* Products */,
-				6CE2E2D92C0BCE5E00739BBF /* Frameworks */,
+				6C7B25102C0FA814007D7B2E /* shaders */,
+				6C7B25022C0FA801007D7B2E /* src */,
+				6C7B24F32C0FA6D9007D7B2E /* Assets.xcassets */,
+				6C7B24FA2C0FA6D9007D7B2E /* game_engine.entitlements */,
+				6C7B24EE2C0FA6D8007D7B2E /* Products */,
+				6C7B25122C0FA835007D7B2E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		6CE2E2A82C0BCDD500739BBF /* Products */ = {
+		6C7B24EE2C0FA6D8007D7B2E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6CE2E2A72C0BCDD500739BBF /* GameEngine.app */,
+				6C7B24ED2C0FA6D8007D7B2E /* game-engine.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6CE2E2A92C0BCDD500739BBF /* src */ = {
+		6C7B25022C0FA801007D7B2E /* src */ = {
 			isa = PBXGroup;
 			children = (
-				6C7B24E22C0E8139007D7B2E /* shaders */,
-				6CBDCEFD2C0DF2240078BDAB /* images */,
-				6CE2E2DE2C0BD12800739BBF /* Assets.xcassets */,
-				6CE2E2B42C0BCDD600739BBF /* GameEngine.entitlements */,
-				6CBDCEFF2C0DF23E0078BDAB /* 8x8.png */,
-				6CE2E2D62C0BCE0F00739BBF /* main.cpp */,
-				6CE424082C0CCAB40080EEED /* engine.h */,
-				6C7B24DC2C0E7FA6007D7B2E /* openGL.h */,
+				6C7B25032C0FA801007D7B2E /* camera.h */,
+				6C7B25062C0FA801007D7B2E /* math.h */,
+				6C7B25202C0FAC22007D7B2E /* engine.h */,
+				6C7B251F2C0FAC22007D7B2E /* openGL.h */,
+				6C7B25082C0FA801007D7B2E /* primitives.h */,
+				6C7B25092C0FA801007D7B2E /* main.cpp */,
+				6C7B250A2C0FA801007D7B2E /* draw.h */,
+				6C7B250B2C0FA801007D7B2E /* fs.h */,
 			);
 			name = src;
 			path = ../src;
 			sourceTree = "<group>";
 		};
-		6CE2E2D92C0BCE5E00739BBF /* Frameworks */ = {
+		6C7B25122C0FA835007D7B2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6C7B24DF2C0E809B007D7B2E /* libGLEW.dylib */,
-				6C7B24DD2C0E7FF0007D7B2E /* OpenGL.framework */,
-				6CE2E2EE2C0CAEA500739BBF /* SDL2_image.framework */,
-				6CE2E2EA2C0CAEA300739BBF /* SDL2.framework */,
+				6C7B251D2C0FAB9C007D7B2E /* OpenGL.framework */,
+				6C7B251A2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib */,
+				6C7B25172C0FA838007D7B2E /* SDL2_image.framework */,
+				6C7B25132C0FA835007D7B2E /* SDL2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -115,39 +119,39 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6CE2E2A62C0BCDD500739BBF /* GameEngine */ = {
+		6C7B24EC2C0FA6D8007D7B2E /* game-engine */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6CE2E2CD2C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "GameEngine" */;
+			buildConfigurationList = 6C7B24FD2C0FA6D9007D7B2E /* Build configuration list for PBXNativeTarget "game-engine" */;
 			buildPhases = (
-				6CE2E2A32C0BCDD500739BBF /* Sources */,
-				6CE2E2A42C0BCDD500739BBF /* Frameworks */,
-				6CE2E2A52C0BCDD500739BBF /* Resources */,
-				6CE2E2ED2C0CAEA300739BBF /* Embed Frameworks */,
+				6C7B24E92C0FA6D8007D7B2E /* Sources */,
+				6C7B24EA2C0FA6D8007D7B2E /* Frameworks */,
+				6C7B24EB2C0FA6D8007D7B2E /* Resources */,
+				6C7B25162C0FA835007D7B2E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = GameEngine;
-			productName = GameEngine;
-			productReference = 6CE2E2A72C0BCDD500739BBF /* GameEngine.app */;
+			name = "game-engine";
+			productName = "game-engine";
+			productReference = 6C7B24ED2C0FA6D8007D7B2E /* game-engine.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		6CE2E29F2C0BCDD500739BBF /* Project object */ = {
+		6C7B24E52C0FA6D8007D7B2E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					6CE2E2A62C0BCDD500739BBF = {
+					6C7B24EC2C0FA6D8007D7B2E = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
 				};
 			};
-			buildConfigurationList = 6CE2E2A22C0BCDD500739BBF /* Build configuration list for PBXProject "GameEngine" */;
+			buildConfigurationList = 6C7B24E82C0FA6D8007D7B2E /* Build configuration list for PBXProject "game-engine" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -155,43 +159,41 @@
 				en,
 				Base,
 			);
-			mainGroup = 6CE2E29E2C0BCDD500739BBF;
-			productRefGroup = 6CE2E2A82C0BCDD500739BBF /* Products */;
+			mainGroup = 6C7B24E42C0FA6D8007D7B2E;
+			productRefGroup = 6C7B24EE2C0FA6D8007D7B2E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6CE2E2A62C0BCDD500739BBF /* GameEngine */,
+				6C7B24EC2C0FA6D8007D7B2E /* game-engine */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6CE2E2A52C0BCDD500739BBF /* Resources */ = {
+		6C7B24EB2C0FA6D8007D7B2E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CBDCF002C0DF23E0078BDAB /* 8x8.png in Resources */,
-				6C7B24E32C0E8139007D7B2E /* shaders in Resources */,
-				6CBDCEFE2C0DF2240078BDAB /* images in Resources */,
-				6CE2E2DF2C0BD12800739BBF /* Assets.xcassets in Resources */,
+				6C7B24F42C0FA6D9007D7B2E /* Assets.xcassets in Resources */,
+				6C7B25112C0FA814007D7B2E /* shaders in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6CE2E2A32C0BCDD500739BBF /* Sources */ = {
+		6C7B24E92C0FA6D8007D7B2E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CE2E2D72C0BCE0F00739BBF /* main.cpp in Sources */,
+				6C7B250F2C0FA801007D7B2E /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		6CE2E2CB2C0BCDD600739BBF /* Debug */ = {
+		6C7B24FB2C0FA6D9007D7B2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -252,7 +254,7 @@
 			};
 			name = Debug;
 		};
-		6CE2E2CC2C0BCDD600739BBF /* Release */ = {
+		6C7B24FC2C0FA6D9007D7B2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -306,23 +308,20 @@
 			};
 			name = Release;
 		};
-		6CE2E2CE2C0BCDD600739BBF /* Debug */ = {
+		6C7B24FE2C0FA6D9007D7B2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = GameEngine.entitlements;
+				CODE_SIGN_ENTITLEMENTS = game_engine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/..",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/..";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSMainNibFile = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -330,29 +329,26 @@
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.gameEngine;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mayakraft.game-engine";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Debug;
 		};
-		6CE2E2CF2C0BCDD600739BBF /* Release */ = {
+		6C7B24FF2C0FA6D9007D7B2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = GameEngine.entitlements;
+				CODE_SIGN_ENTITLEMENTS = game_engine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/..",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/..";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSMainNibFile = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -360,7 +356,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mayakraft.gameEngine;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mayakraft.game-engine";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
@@ -369,25 +365,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6CE2E2A22C0BCDD500739BBF /* Build configuration list for PBXProject "GameEngine" */ = {
+		6C7B24E82C0FA6D8007D7B2E /* Build configuration list for PBXProject "game-engine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6CE2E2CB2C0BCDD600739BBF /* Debug */,
-				6CE2E2CC2C0BCDD600739BBF /* Release */,
+				6C7B24FB2C0FA6D9007D7B2E /* Debug */,
+				6C7B24FC2C0FA6D9007D7B2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6CE2E2CD2C0BCDD600739BBF /* Build configuration list for PBXNativeTarget "GameEngine" */ = {
+		6C7B24FD2C0FA6D9007D7B2E /* Build configuration list for PBXNativeTarget "game-engine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6CE2E2CE2C0BCDD600739BBF /* Debug */,
-				6CE2E2CF2C0BCDD600739BBF /* Release */,
+				6C7B24FE2C0FA6D9007D7B2E /* Debug */,
+				6C7B24FF2C0FA6D9007D7B2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 6CE2E29F2C0BCDD500739BBF /* Project object */;
+	rootObject = 6C7B24E52C0FA6D8007D7B2E /* Project object */;
 }

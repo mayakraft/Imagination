@@ -1,28 +1,27 @@
-# Linux (default)
+#
+# building the library's empty example
+#
 
+# linux (default)
 EXE = engine
-
 CPPFLAGS = -std=c++17
-
 INCLUDE = -I./SDL2.framework/Headers \
  -I./SDL2_image.framework/Headers \
  -I./glew/include \
- -F./ \
-
+ -F./
 LIBS = -framework SDL2 \
  -framework SDL2_image \
  -lGL \
  -lGLEW
-
 LDFLAGS = -Wall -rpath ./
 
-# Windows (cygwin)
+# windows (cygwin)
 ifeq "$(OS)" "Windows_NT"
 	EXE = engine.exe
 	# LIBS =
 endif
 
-# OSX (OSTYPE not being declared)
+# osx (OSTYPE not being declared)
 ifndef OSTYPE
   OSTYPE = $(shell uname -s|awk '{print tolower($$0)}')
   #export OSTYPE
@@ -34,7 +33,8 @@ ifeq ($(OSTYPE),darwin)
  -lGLEW
 endif
 
-$(EXE): ./src/*.cpp
+# $(EXE): ./src/*.cpp
+$(EXE): ./src/main.cpp
 	mkdir -p bin/
 	g++ -o bin/$@ $< $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
 
@@ -44,17 +44,26 @@ run:
 clean:
 	rm bin/engine
 
-# examples (build: make all, run: make example1)
-all: surface texture
+#
+# building the library's examples
+# build with: make all
+# run with: make run1 (where 1 is any number)
+#
+
+all: mystify surface texture shader
 
 %: ./examples/%.cpp
 	mkdir -p bin/
 	g++ $< -o bin/$@ $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
 
+run0:
+	./bin/mystify $(ARGS)
 run1:
 	./bin/surface $(ARGS)
 run2:
 	./bin/texture $(ARGS)
+run3:
+	./bin/shader $(ARGS)
 
 # unsure if it's better to write the src files as a literal
 #	g++ -o bin/$@ ./src/*.cpp $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
