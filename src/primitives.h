@@ -88,15 +88,7 @@ const unsigned int _platonic_num_lines[6] = {
 const unsigned int _platonic_num_faces[6] = {
 	4, 8, 12, 20, 36, 4
 };//{4,8,6,20,12,4};
-const float* _platonic_point_arrays[6] = {
-	_tetrahedron_points,_octahedron_points,_hexahedron_points,_icosahedron_points,_dodecahedron_points,_tetrahedron_dual_points
-};
-const unsigned short* _platonic_line_array[6] = {
-	_tetrahedron_lines,_octahedron_lines,_hexahedron_lines,_icosahedron_lines,_dodecahedron_lines,_tetrahedron_dual_lines
-};
-const unsigned short* _platonic_face_array[6] = {
-	_tetrahedron_faces,_octahedron_faces,_hexahedron_triangle_faces,_icosahedron_faces,_dodecahedron_triangle_faces,_tetrahedron_dual_faces
-};
+
 const int _platonic_dual_index[6] = { 5,2,1,4,3,0 };
 
 void initPrimitives(){

@@ -8,12 +8,10 @@ int main(int argc, char* args[]) {
 		.width = 640,
 		.height = 480,
 	};
-	GameEngine engine = initFixedFunction(params);
 
+	GameEngine engine = init2D(params);
 	SDL_Texture* texture = loadTexture(&engine, "examples/images/copper.png");
 
-	// event will be filled with some kind of input event (if exists)
-	// https://wiki.libsdl.org/SDL2/SDL_Event
 	SDL_Event e;
 	bool quit = false;
 	while (!quit) {
@@ -33,5 +31,6 @@ int main(int argc, char* args[]) {
 		SDL_RenderPresent(engine.renderer);
 	}
 
+	dealloc(&engine);
 	return 0;
 }

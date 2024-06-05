@@ -1,58 +1,48 @@
 #ifndef game_engine_h
 #define game_engine_h
 
-#include <vector>
-#include <string>
-#include <stdio.h>
+#include "SDL2/SDL_render.h"
+#include <stdexcept>
 #include <GL/glew.h>
 #ifdef _WIN32
-//#include <OpenGL/gl.h> // gl3.h
-#include <SDL_opengl.h>
 #include <SDL.h>
 #include <SDL_image.h>
 #else
-#include <OpenGL/gl.h> // gl3.h
-#include <SDL2/SDL_opengl.h>
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 #endif
-#include "openGL.h"
+
+// #include <OpenGL/gl.h> // gl3.h
+// #include <SDL2/SDL_opengl.h>
 
 struct InitParams {
 	unsigned int flags;
 	const char* title;
 	int width;
 	int height;
-};
-
-struct GameEngineFixed {
-	SDL_Window* window;
-	SDL_Surface* surface;
-	SDL_Renderer* renderer;
-	std::vector<SDL_Joystick*> controllers;
+	bool disableShaders;
 };
 
 struct GameEngine {
 	SDL_Window* window;
-	SDL_Renderer* renderer;
-	std::vector<SDL_Joystick*> controllers;
+	SDL_Renderer* renderer; // only by calling init2D
+	float pixelScale;
 };
 
-void retinaDisplay(SDL_Renderer *renderer, int windowWidth, int windowHeight) {
-	int rw = 0, rh = 0;
-	SDL_GetRendererOutputSize(renderer, &rw, &rh);
-	if (rw != windowWidth) {
-		float widthScale = (float)rw / (float) windowWidth;
-		float heightScale = (float)rh / (float) windowHeight;
-		if(widthScale != heightScale) {
-			fprintf(stderr, "WARNING: width scale != height scale\n");
-		}
-		// printf("adjusting retina scale %f %f\n", widthScale, heightScale);
-		SDL_RenderSetScale(renderer, widthScale, heightScale);
-	}
+float setRendererPixelScale(SDL_Window* window, SDL_Renderer *renderer) {
+	int winW, winH, renW, renH;
+	SDL_GetWindowSize(window, &winW, &winH);
+	SDL_GetRendererOutputSize(renderer, &renW, &renH);
+	if (renW == winW) { return 1.0; }
+	float widthScale = (float)renW / (float) winW;
+	float heightScale = (float)renH / (float) winH;
+	SDL_RenderSetScale(renderer, widthScale, heightScale);
+	return widthScale;
 }
 
-GameEngine initFixedFunction(InitParams params) {
+// Initialize an SDL window and renderer for a fixed-function
+// pipeline OpenGL renderer.
+GameEngine init2D(InitParams params) {
 	if (SDL_Init(params.flags) < 0) {
 		throw std::runtime_error(SDL_GetError());
 	}
@@ -72,37 +62,43 @@ GameEngine initFixedFunction(InitParams params) {
 		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == NULL) { throw std::runtime_error(SDL_GetError()); }
 
-	retinaDisplay(renderer, params.width, params.height);
+	float pixelScale = setRendererPixelScale(window, renderer);
 
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
 		throw std::runtime_error(IMG_GetError());
 	}
 
-	// Initialize renderer color
-	// SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-
 	return GameEngine {
 		.window = window,
 		.renderer = renderer,
-		.controllers = std::vector<SDL_Joystick*>(),
+		.pixelScale = pixelScale,
 	};
 }
 
-GameEngine initProgrammable(InitParams params) {
+// Initialize GLEW and an SDL window for a programmable pipeline
+// using OpenGL making accessible shaders.
+GameEngine init3D(InitParams params) {
 	// SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
 	if (SDL_Init(params.flags) < 0) {
 		throw std::runtime_error(SDL_GetError());
 	}
 
-	// need at least OpenGL 3.1. using 4.1
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+	if (params.disableShaders) {
+		// should we specify a version?
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
+	} else {
+		// need at least OpenGL 3.1
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	}
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
 	SDL_Window *window = SDL_CreateWindow(params.title,
 		SDL_WINDOWPOS_UNDEFINED,
@@ -118,19 +114,20 @@ GameEngine initProgrammable(InitParams params) {
 	SDL_GLContext context = SDL_GL_CreateContext(window);
 	if (context == NULL) { throw std::runtime_error(SDL_GetError()); }
 
-	// SDL_Renderer *renderer = SDL_CreateRenderer(
-	// 	window,
-	// 	-1,
-	// 	SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	// if (renderer == NULL) { throw std::runtime_error(SDL_GetError()); }
+	int getW, getH;
+	int getGLW, getGLH;
+	SDL_GetWindowSize(window, &getW, &getH);
+	SDL_GL_GetDrawableSize(window, &getGLW, &getGLH);
+	// printf("SDL_GetWindowSize %d, %d\n", getW, getH);
+	// printf("SDL_GL_GetDrawableSize %d, %d\n", getGLW, getGLH);
+	float pixelScale = (float)getGLW / (float)getW;
 
 	// initialize GLEW
 	glewExperimental = GL_TRUE;
 	GLenum glewError = glewInit();
 	if (glewError != GLEW_OK) {
 		const char* errorChar = reinterpret_cast<char const*>(glewGetErrorString(glewError));
-		std::string errorString(errorChar);
-		throw std::runtime_error(errorString);
+		throw std::runtime_error(errorChar);
 	}
 
 	// use vsync
@@ -146,21 +143,20 @@ GameEngine initProgrammable(InitParams params) {
 
 	return GameEngine {
 		.window = window,
-		// .renderer = renderer,
-		.controllers = std::vector<SDL_Joystick*>(),
+		.pixelScale = pixelScale,
 	};
 }
 
-SDL_Texture* loadTexture(GameEngine* engine, std::string path) {
+SDL_Texture* loadTexture(GameEngine* engine, const char* path) {
 	SDL_Texture* newTexture = NULL;
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	SDL_Surface* loadedSurface = IMG_Load(path);
 	if (loadedSurface == NULL) {
-		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+		printf("Unable to load image %s! SDL_image Error: %s\n", path, IMG_GetError());
 	} else {
 		// Create texture from surface pixels
 		newTexture = SDL_CreateTextureFromSurface(engine->renderer, loadedSurface);
 		if (newTexture == NULL) {
-			printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+			printf("Unable to create texture from %s! SDL Error: %s\n", path, SDL_GetError());
 		}
 		// Get rid of old loaded surface
 		SDL_FreeSurface(loadedSurface);
@@ -217,45 +213,6 @@ void viewportTest(GameEngine *engine, SDL_Texture *texture) {
 	SDL_RenderCopy( engine->renderer, texture, NULL, NULL );
 	//Update screen
 	SDL_RenderPresent( engine->renderer );
-}
-
-unsigned int frame = 0;
-
-void render(ShaderProgram* program) {
-	frame += 1;
-	//Clear color buffer
-	glClear(GL_COLOR_BUFFER_BIT);
-	//Bind program
-	glUseProgram(program->programID);
-	//Enable vertex position
-	glEnableVertexAttribArray(program->positionAttribute);
-	//Set vertex data
-	glBindBuffer(GL_ARRAY_BUFFER, program->vbo);
-	// printf("gVertexPos2DLocation %d\n", gVertexPos2DLocation);
-	glVertexAttribPointer(
-		program->positionAttribute,
-		2,
-		GL_FLOAT,
-		GL_FALSE,
-		2 * sizeof(GLfloat),
-		NULL);
-	// uniforms
-	GLint timeLocation = glGetUniformLocation(program->programID, "u_time");
-	if (timeLocation >= 0) {
-		glUniform1f(timeLocation, frame * 0.01);
-	}
-	GLint resLocation = glGetUniformLocation(program->programID, "u_resolution");
-	if (resLocation >= 0) {
-		glUniform2f(resLocation, 640.0, 640.0);
-	}
-
-	//Set index data and render
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, program->ibo);
-	glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, NULL);
-	//Disable vertex position
-	glDisableVertexAttribArray(program->positionAttribute);
-	//Unbind program
-	glUseProgram(NULL);
 }
 
 #endif

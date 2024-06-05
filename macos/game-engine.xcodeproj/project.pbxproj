@@ -50,8 +50,8 @@
 		6C7B25172C0FA838007D7B2E /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
 		6C7B251A2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		6C7B251D2C0FAB9C007D7B2E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		6C7B251F2C0FAC22007D7B2E /* openGL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = openGL.h; sourceTree = "<group>"; };
 		6C7B25202C0FAC22007D7B2E /* engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
+		6CD795692C10985B002ACAAA /* shader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +95,8 @@
 				6C7B25032C0FA801007D7B2E /* camera.h */,
 				6C7B25062C0FA801007D7B2E /* math.h */,
 				6C7B25202C0FAC22007D7B2E /* engine.h */,
-				6C7B251F2C0FAC22007D7B2E /* openGL.h */,
 				6C7B25082C0FA801007D7B2E /* primitives.h */,
+				6CD795692C10985B002ACAAA /* shader.h */,
 				6C7B25092C0FA801007D7B2E /* main.cpp */,
 				6C7B250A2C0FA801007D7B2E /* draw.h */,
 				6C7B250B2C0FA801007D7B2E /* fs.h */,

@@ -1,16 +1,22 @@
 #include <stdio.h>
-#include "../src/engine.h"
+#include <stdexcept>
+#ifdef _WIN32
+#include <SDL.h>
+#include <SDL_image.h>
+#else
+#include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
+#endif
 
-SDL_Surface* loadSurface(SDL_Surface* surface, std::string path) {
-	// The final optimized image
+SDL_Surface* loadSurface(SDL_Surface* surface, const char* path) {
 	SDL_Surface* optimizedSurface = NULL;
-	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	SDL_Surface* loadedSurface = IMG_Load(path);
 	if (loadedSurface == NULL) {
-		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+		printf("Unable to load image %s! SDL_image Error: %s\n", path, IMG_GetError());
 	} else {
 		optimizedSurface = SDL_ConvertSurface(loadedSurface, surface->format, 0);
 		if (optimizedSurface == NULL) {
-			printf( "Unable to optimize image %s! SDL Error: %s\n", path.c_str(), SDL_GetError() );
+			printf("Unable to optimize image %s! SDL Error: %s\n", path, SDL_GetError());
 		}
 		SDL_FreeSurface(loadedSurface);
 	}
@@ -30,8 +36,7 @@ void drawSurfaceTest(SDL_Surface *surface) {
 }
 
 int main(int argc, char* args[]) {
-	// if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER) < 0)
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		throw std::runtime_error(SDL_GetError());
 	}
 	SDL_Window *window = SDL_CreateWindow("Game Engine",
@@ -50,27 +55,21 @@ int main(int argc, char* args[]) {
 		throw std::runtime_error(IMG_GetError());
 	}
 
-	// event will be filled with some kind of input event (if exists)
-	// https://wiki.libsdl.org/SDL2/SDL_Event
 	SDL_Event e;
 	bool quit = false;
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT) {
-				quit = true;
-				if (surface != NULL) SDL_FreeSurface(surface);
-				if (window != NULL) SDL_DestroyWindow(window);
-				surface = NULL;
-				window = NULL;
-				SDL_Quit();
-				return 0;
-			}
+			if (e.type == SDL_QUIT) { quit = true; }
 		}
 
-		// update, draw
 		drawSurfaceTest(surface);
 		SDL_UpdateWindowSurface(window);
 	}
 
+	if (surface != NULL) SDL_FreeSurface(surface);
+	if (window != NULL) SDL_DestroyWindow(window);
+	surface = NULL;
+	window = NULL;
+	SDL_Quit();
 	return 0;
 }

@@ -10,7 +10,7 @@ Dependencies
 - [SDL2 Image](https://github.com/libsdl-org/SDL_image/releases)
 - [GLEW](https://github.com/nigels-com/glew/releases)
 
-### windows
+## windows
 
 Create a directory in the project root called "external".
 
@@ -39,7 +39,7 @@ game-engine/
 
 Open the Visual Studio project and build and run.
 
-### macos
+## macos
 
 Install GLEW into your system, download SDL and place locally in the project folder.
 
@@ -64,8 +64,8 @@ game-engine/
 
 run `make` and `make run`, or open the Xcode project and build and run.
 
-### linux
+## linux
 
 # license
 
-GPLv3
+Apache

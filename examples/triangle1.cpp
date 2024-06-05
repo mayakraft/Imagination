@@ -1,13 +1,13 @@
-#include <string>
-#include <vector>
-#include <stdio.h>
-#include "engine.h"
-// #include "draw.h"
-#include "shader.h"
+// this demonstrates rendering a triangle
+// using the hardware accelerated SDL Texture
+// this approach is 2D only.
+#include <math.h>
+#include "../src/engine.h"
 
 int main(int argc, char* args[]) {
 	int SCREEN = 640;
 	int frame = 0;
+	bool showTexture = false;
 
 	InitParams params = InitParams {
 		.flags = SDL_INIT_VIDEO,
@@ -17,12 +17,16 @@ int main(int argc, char* args[]) {
 	};
 
 	GameEngine engine = init2D(params);
+	SDL_Texture* texture = loadTexture(&engine, "examples/images/wall.png");
 
 	SDL_Event e;
 	bool quit = false;
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) { quit = true; }
+			else if (e.type == SDL_KEYDOWN) {
+				showTexture = !showTexture;
+			}
 		}
 
 		float r = (SCREEN / 3.0);
@@ -45,7 +49,11 @@ int main(int argc, char* args[]) {
 
 		SDL_SetRenderDrawColor(engine.renderer, 0x29, 0x2D, 0x2B, 0xFF);
 		SDL_RenderClear(engine.renderer);
-        SDL_RenderGeometry(engine.renderer, NULL, vertices, 3, indices, 3);
+		if (showTexture) {
+			SDL_RenderGeometry(engine.renderer, texture, vertices, 3, indices, 3);
+		} else {
+			SDL_RenderGeometry(engine.renderer, NULL, vertices, 3, indices, 3);
+		}
 		SDL_RenderPresent(engine.renderer);
 
 		frame += 1;

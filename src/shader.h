@@ -188,13 +188,16 @@ ShaderProgram createProgram(const char *vertex_path, const char *fragment_path) 
 	}
 
 	// Initialize clear color
-	glClearColor(0.1f, 0.3f, 0.6f, 1.0f);
+	// glClearColor(0.1f, 0.3f, 0.6f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
 	// VBO data
+	float scale = 1.0f; // 0.85f;
 	GLfloat vertexData[] = {
-		-0.85f, -0.85f,
-		0.85f, -0.85f,
-		0.85f, 0.85f,
-		-0.85f, 0.85f
+		-scale, -scale,
+		scale, -scale,
+		scale, scale,
+		-scale, scale
 	};
 	// IBO data
 	GLuint indexData[] = { 0, 1, 2, 3 };

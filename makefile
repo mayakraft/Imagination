@@ -50,20 +50,26 @@ clean:
 # run with: make run1 (where 1 is any number)
 #
 
-all: mystify surface texture shader
+all: triangle1 triangle2 triangle3 mystify surface texture shader
 
 %: ./examples/%.cpp
 	mkdir -p bin/
 	g++ $< -o bin/$@ $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
 
-run0:
-	./bin/mystify $(ARGS)
 run1:
-	./bin/surface $(ARGS)
+	./bin/triangle1 $(ARGS)
 run2:
-	./bin/texture $(ARGS)
+	./bin/triangle2 $(ARGS)
 run3:
+	./bin/triangle3 $(ARGS)
+run4:
+	./bin/mystify $(ARGS)
+run5:
 	./bin/shader $(ARGS)
+run6:
+	./bin/texture $(ARGS)
+# run3:
+# 	./bin/surface $(ARGS)
 
 # unsure if it's better to write the src files as a literal
 #	g++ -o bin/$@ ./src/*.cpp $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
