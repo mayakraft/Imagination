@@ -1,7 +1,6 @@
 #ifndef game_engine_h
 #define game_engine_h
 
-#include "SDL2/SDL_render.h"
 #include <stdexcept>
 #include <GL/glew.h>
 #ifdef _WIN32
