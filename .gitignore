@@ -2,7 +2,7 @@
 .cache/
 bin/
 SDL2*.framework/
-**/xcuserdata/*
+**/xcuserdata/
 
 # windows
 win/.vs/

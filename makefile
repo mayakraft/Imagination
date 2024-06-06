@@ -46,11 +46,11 @@ clean:
 
 #
 # building the library's examples
-# build with: make all
+# build with: make examples
 # run with: make run1 (where 1 is any number)
 #
 
-all: triangle1 triangle2 triangle3 mystify surface texture shader
+examples: triangle1 triangle2 triangle3 mystify surface texture shader polyhedra
 
 %: ./examples/%.cpp
 	mkdir -p bin/
@@ -68,6 +68,8 @@ run5:
 	./bin/shader $(ARGS)
 run6:
 	./bin/texture $(ARGS)
+run7:
+	./bin/polyhedra $(ARGS)
 # run3:
 # 	./bin/surface $(ARGS)
 
