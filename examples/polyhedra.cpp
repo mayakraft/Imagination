@@ -1,10 +1,11 @@
-// this demonstrates rendering a triangle
-// using the fixed-function pipeline
-// and very old OpenGL syntax style.
+// this is old OpenGL 2.0 syntax style
 #include <math.h>
 #include "../src/engine.h"
 #include "../src/primitives.h"
-#include "../src/draw.h"
+#include "../src/drawgl.h"
+#include "../src/math.h"
+#include "SDL2/SDL_events.h"
+#include "SDL2/SDL_keyboard.h"
 #include "SDL2/SDL_opengl.h"
 
 static const GLfloat colors20[] = {
@@ -46,18 +47,33 @@ int main(int argc, char* args[]) {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
+	// projection matrix
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0f, 1.0, 0.1f, 100.0f);
+	GLfloat perspective[16];
+	makePerspectiveMatrix4(45, 1.0 / 1.0, 0.1f, 100.0f, perspective);
+	glLoadMatrixf(perspective);
+
+	// model view matrix
 	glMatrixMode (GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0, -3, -1, 0, 0, 0, 0, 0, 1);
+	GLfloat lookat[16];
+	makeLookAtMatrix4(0, 1, -3, 0, 0, 0, 0, 1, 0, lookat);
+	glLoadMatrixf(lookat);
 
 	SDL_Event e;
 	bool quit = false;
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) { quit = true; }
+			else if (e.type == SDL_KEYDOWN) {
+				// printf( "%c (0x%04X)\n", (char)e.key.keysym.sym, e.key.keysym.sym );
+				switch (e.key.keysym.sym) {
+					case SDLK_f:
+					// SDL_SetWindowFullscreen(engine.window, SDL_WINDOW_FULLSCREEN);
+					break;
+				}
+			}
 		}
 
 		glPushMatrix();

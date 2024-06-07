@@ -146,6 +146,10 @@ GameEngine init3D(InitParams params) {
 	};
 }
 
+// void setFullScreen(GameEngine *engine) {
+// 	SDL_SetWindowFullscreen(engine->window, SDL_WINDOW_FULLSCREEN);
+// }
+
 SDL_Texture* loadTexture(GameEngine* engine, const char* path) {
 	SDL_Texture* newTexture = NULL;
 	SDL_Surface* loadedSurface = IMG_Load(path);
