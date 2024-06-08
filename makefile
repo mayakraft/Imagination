@@ -50,7 +50,8 @@ clean:
 # run with: make run1 (where 1 is any number)
 #
 
-examples: triangle1 triangle2 triangle3 mystify surface texture shader polyhedra
+examples: maze3d
+# triangle1 triangle2 triangle3 mystify surface texture shader polyhedra glTexture
 
 %: ./examples/%.cpp
 	mkdir -p bin/
@@ -70,8 +71,8 @@ run6:
 	./bin/texture $(ARGS)
 run7:
 	./bin/polyhedra $(ARGS)
-# run3:
-# 	./bin/surface $(ARGS)
+run8:
+	./bin/maze3d $(ARGS)
 
 # unsure if it's better to write the src files as a literal
 #	g++ -o bin/$@ ./src/*.cpp $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)

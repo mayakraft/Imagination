@@ -49,9 +49,11 @@ int main(int argc, char* args[]) {
 	};
 
 	GameEngine engine = init3D(params);
-	ShaderProgram program = createProgram(
-		"./shaders/simple.vert",
-		"./shaders/kaleidoscope.frag");
+	char* vertex = readFile("./shaders/simple.vert");
+	char* fragment = readFile("./shaders/kaleidoscope.frag");
+	ShaderProgram program = createProgram(vertex, fragment);
+	free(vertex);
+	free(fragment);
 
 	SDL_Event e;
 	bool quit = false;
@@ -63,7 +65,7 @@ int main(int argc, char* args[]) {
 		}
 
 		// Initialize clear color
-			glClearColor(0.1f, 0.3f, 0.6f, 1.0f);
+		glClearColor(0.1f, 0.3f, 0.6f, 1.0f);
 
 		float scale = engine.pixelScale;
 		render(&program, frame * 0.01, SCREEN * scale, SCREEN * scale);

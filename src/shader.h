@@ -1,19 +1,24 @@
 #ifndef initialize_h
 #define initialize_h
 
+#include "SDL2/SDL_stdinc.h"
 #include <GL/glew.h>
 // #include <OpenGL/OpenGL.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdexcept>
+#include <sys/types.h>
 
 struct ShaderProgram {
 	GLuint programID;
 	GLint positionAttribute;
 	GLuint vbo;
 	GLuint ibo;
+	GLuint vertexShader;
+	GLuint fragmentShader;
 };
 
+// make sure to free the returned value after you are done using it
 char *readFile(const char *filename) {
 	char *buffer = 0;
 	long length;
@@ -129,48 +134,44 @@ void printShaderLog(GLuint shader) {
 	}
 }
 
-ShaderProgram createProgram(const char *vertex_path, const char *fragment_path) {
+// GL_FRAGMENT_SHADER 0x8B30, GL_VERTEX_SHADER 0x8B31
+GLuint compileShader(unsigned short type, const GLchar* shaderSource) {
+	// Create shader
+	GLuint shader = glCreateShader(type);
+	// Set source
+	glShaderSource(shader, 1, &shaderSource, NULL);
+	// Compile source
+	glCompileShader(shader);
+	// Check shader for errors
+	GLint didCompile = GL_FALSE;
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &didCompile);
+	if (didCompile != GL_TRUE) {
+		printf("Unable to compile shader (%d) %d!\n", type, shader);
+		printShaderLog(shader);
+		throw std::runtime_error("Unable to compile shader");
+	}
+	return shader;
+}
+
+ShaderProgram createProgram(
+	const GLchar* vertexShaderSource,
+	const GLchar* fragmentShaderSource) {
 	GLuint gVBO = 0;
 	GLuint gIBO = 0;
+
 	// https://discourse.libsdl.org/t/lazy-foo-sdl-and-modern-opengl-tutorial-vao/23020
 	GLuint vaoId = 0;
 	glGenVertexArrays(1, &vaoId);
 	glBindVertexArray(vaoId);
 	// Generate program
 	GLuint gProgramID = glCreateProgram();
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	const GLchar* vertexShaderSource = readFile(vertex_path);
-	// Set vertex source
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	// Compile vertex source
-	glCompileShader(vertexShader);
-	// Check vertex shader for errors
-	GLint vShaderCompiled = GL_FALSE;
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vShaderCompiled);
-	if (vShaderCompiled != GL_TRUE) {
-		printShaderLog(vertexShader);
-		throw std::runtime_error("Unable to compile vertex shader");
-	}
-	// Attach vertex shader to program
+	// create and attach vertex shader to program
+	GLuint vertexShader = compileShader(GL_VERTEX_SHADER, vertexShaderSource);
 	glAttachShader(gProgramID, vertexShader);
-	// Create fragment shader
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	// Get fragment source
-	const GLchar* fragmentShaderSource = readFile(fragment_path);
-	// Set fragment source
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	// Compile fragment source
-	glCompileShader(fragmentShader);
-	// Check fragment shader for errors
-	GLint fShaderCompiled = GL_FALSE;
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fShaderCompiled);
-	if (fShaderCompiled != GL_TRUE) {
-		printf("Unable to compile fragment shader %d!\n", fragmentShader);
-		printShaderLog(fragmentShader);
-		throw std::runtime_error("Unable to compile fragment shader");
-	}
-	// Attach fragment shader to program
+	// create and attach fragment shader to program
+	GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
 	glAttachShader(gProgramID, fragmentShader);
+
 	// Link program
 	glLinkProgram(gProgramID);
 	// Check for errors
@@ -215,7 +216,16 @@ ShaderProgram createProgram(const char *vertex_path, const char *fragment_path) 
 		.positionAttribute = gPositionAttribute,
 		.vbo = gVBO,
 		.ibo = gIBO,
+		.vertexShader = vertexShader,
+		.fragmentShader = fragmentShader,
 	};
+}
+
+void deallocProgram(ShaderProgram *program) {
+	// these two can happen earlier
+	glDetachShader(program->programID, program->vertexShader);
+	glDetachShader(program->programID, program->fragmentShader);
+	glDeleteProgram(program->programID);
 }
 
 #endif
