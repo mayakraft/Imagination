@@ -73,6 +73,15 @@ GLuint loadTexture(unsigned char *data, int width, int height){
 	return texture;
 }
 
+enum MoveType {
+	walk,
+	rotateLeft,
+	rotateRight,
+};
+
+float tween = 0.0;
+float direction = 0;
+
 int main(int argc, char **argv) {
 	srand(time(NULL));
 	int SCREEN = 640;
@@ -90,8 +99,6 @@ int main(int argc, char **argv) {
 
 	maze m = maze::init(MAZE_SIZE);
 
-	glEnable(GL_TEXTURE_2D);
-
 	SDL_Surface* wall = IMG_Load("examples/images/wall.png");
 	GLuint wallTexture = loadTexture((unsigned char*)wall->pixels, 32, 32);
 	SDL_Surface* floor = IMG_Load("examples/images/floor.png");
@@ -99,6 +106,7 @@ int main(int argc, char **argv) {
 	SDL_Surface* ceiling = IMG_Load("examples/images/ceiling.png");
 	GLuint ceilingTexture = loadTexture((unsigned char*)ceiling->pixels, 32, 32);
 
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
@@ -172,6 +180,8 @@ int main(int argc, char **argv) {
 		0, 0,
 	};
 
+	node camera { .x = 0, .y = 0 };
+
 	SDL_Event e;
 	bool quit = false;
 	while (!quit) {
@@ -182,6 +192,22 @@ int main(int argc, char **argv) {
 				switch (e.key.keysym.sym) {
 					case SDLK_f:
 					// SDL_SetWindowFullscreen(engine.window, SDL_WINDOW_FULLSCREEN);
+					break;
+					case SDLK_LEFT:
+					direction -= 1;
+					break;
+					case SDLK_RIGHT:
+					direction += 1;
+					break;
+					case SDLK_UP:
+					camera.x += cos(direction);
+					camera.y += sin(direction);
+					break;
+					case SDLK_DOWN:
+					camera.x -= cos(direction);
+					camera.y -= sin(direction);
+					break;
+					default:
 					break;
 				}
 			}
@@ -194,22 +220,16 @@ int main(int argc, char **argv) {
 		glColor4f(1.0, 1.0, 1.0, 1.0);
 
 		// model view matrix
-		float pos[] = { (MAZE_SIZE / 2.0f) + 0.5f, frame * 0.01f, 0.5 };
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		GLfloat lookat[16];
+		float pos[] = { camera.x + 0.5f, camera.y + 0.5f, 0.5f };
 		makeLookAtMatrix4(
-			pos[0], pos[1], pos[2],
-			pos[0], pos[1] + 1, pos[2],
+			pos[0], pos[1], 0.5,
+			pos[0], pos[1] + 1, 0.5,
 			0, 0, 1,
 			lookat);
 		glLoadMatrixf(lookat);
-
-		// glPushMatrix();
-		// glRotatef(frame / 4.0, 0, 0, 1);
-
-		// glPushMatrix();
-		// glTranslatef(-MAZE_SIZE / 2.0, -MAZE_SIZE / 2.0, 0);
 
 		// floor
 		glBindTexture(GL_TEXTURE_2D, floorTexture);
@@ -243,9 +263,6 @@ int main(int argc, char **argv) {
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glBindTexture(GL_TEXTURE_2D, 0);
-
-		// glPopMatrix(); // translate
-		// glPopMatrix(); // rotate
 
 		SDL_GL_SwapWindow(engine.window);
 

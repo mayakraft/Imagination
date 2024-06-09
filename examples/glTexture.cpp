@@ -1,16 +1,5 @@
-#include <math.h>
 #include "../src/engine.h"
-#include "../src/primitives.h"
-#include "../src/drawgl.h"
 #include "../src/math.h"
-#include "SDL2/SDL_events.h"
-#include "SDL2/SDL_keyboard.h"
-#include "SDL2/SDL_opengl.h"
-
-#include "SDL2/SDL_pixels.h"
-#include "SDL2/SDL_render.h"
-#include "SDL2/SDL_surface.h"
-
 
 unsigned char* getTextureData(const char * filename, int width, int height){
 	FILE * file;
@@ -31,6 +20,7 @@ unsigned char* getTextureData(const char * filename, int width, int height){
 	}
 	return data;
 }
+
 GLuint loadTextureFileBGR(const char * filename, int width, int height){
 	GLuint texture;
 	unsigned char *data = getTextureData(filename, width, height);
@@ -43,6 +33,7 @@ GLuint loadTextureFileBGR(const char * filename, int width, int height){
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return texture;
 }
+
 GLuint loadTextureFile(const char * filename, int width, int height){
 	GLuint texture;
 	unsigned char *data = getTextureData(filename, width, height);
@@ -59,6 +50,7 @@ GLuint loadTextureFile(const char * filename, int width, int height){
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return texture;
 }
+
 GLuint loadTextureFileSmooth(const char * filename, int width, int height){
 	GLuint texture;
 	unsigned char * data = getTextureData(filename, width, height);
