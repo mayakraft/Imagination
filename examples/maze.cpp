@@ -56,6 +56,7 @@ struct place {
 	unsigned char encode() {
 		return top | (right << 1) | (bottom << 2) | (left << 3);
 	}
+	// this character represents the walkable path
 	std::string getChar() {
 		switch (encode()) {
 			case 0: return " ";
@@ -122,6 +123,7 @@ struct board {
 		}
 	}
 
+	// this prints the walkable path. the dual of the wall graph.
 	std::string toString() {
 		std::string str;
 		for (int i = 0; i < size * size; i++) {

@@ -5,6 +5,9 @@
       location = "group:game-engine.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:example-maze3d.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:example-polyhedra.xcodeproj">
    </FileRef>
    <FileRef

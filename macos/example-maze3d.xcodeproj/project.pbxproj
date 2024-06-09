@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C4FC6FF2C15338000167D24 /* examples in Resources */ = {isa = PBXBuildFile; fileRef = 6C4FC6FE2C15338000167D24 /* examples */; };
 		6C9D3E4D2C11BDA900005B23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C9D3E4C2C11BDA900005B23 /* Assets.xcassets */; };
-		6C9D3E5A2C11BE1C00005B23 /* mystify.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C9D3E592C11BE1C00005B23 /* mystify.cpp */; };
+		6C9D3E5A2C11BE1C00005B23 /* maze3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C9D3E592C11BE1C00005B23 /* maze3d.cpp */; };
 		6C9D3E5E2C11BE2A00005B23 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9D3E5C2C11BE2A00005B23 /* SDL2.framework */; };
 		6C9D3E5F2C11BE2A00005B23 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9D3E5C2C11BE2A00005B23 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6C9D3E602C11BE2A00005B23 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9D3E5D2C11BE2A00005B23 /* SDL2_image.framework */; };
@@ -17,16 +18,6 @@
 		6C9D3E652C11BE4F00005B23 /* libGLEW.2.2.0.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9D3E632C11BE4F00005B23 /* libGLEW.2.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6C9D3E6E2C11BE8700005B23 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9D3E6D2C11BE8700005B23 /* OpenGL.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		6C4FC6F52C15321F00167D24 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6C4FC6F12C15321F00167D24 /* example-maze3d.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6C9D3E462C11BDA800005B23;
-			remoteInfo = "example-maze3d";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		6C9D3E622C11BE2A00005B23 /* Embed Frameworks */ = {
@@ -45,11 +36,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6C4FC6F12C15321F00167D24 /* example-maze3d.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "example-maze3d.xcodeproj"; sourceTree = "<group>"; };
-		6C9D3E462C11BDA800005B23 /* example-mystify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-mystify.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C4FC6FE2C15338000167D24 /* examples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = examples; path = ../examples; sourceTree = "<group>"; };
+		6C9D3E462C11BDA800005B23 /* example-maze3d.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-maze3d.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C9D3E4C2C11BDA900005B23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C9D3E532C11BDA900005B23 /* game_engine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = game_engine.entitlements; sourceTree = "<group>"; };
-		6C9D3E592C11BE1C00005B23 /* mystify.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mystify.cpp; path = ../examples/mystify.cpp; sourceTree = "<group>"; };
+		6C9D3E592C11BE1C00005B23 /* maze3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = maze3d.cpp; path = ../examples/maze3d.cpp; sourceTree = "<group>"; };
 		6C9D3E5C2C11BE2A00005B23 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../SDL2.framework; sourceTree = "<group>"; };
 		6C9D3E5D2C11BE2A00005B23 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
 		6C9D3E632C11BE4F00005B23 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
@@ -71,30 +62,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6C4FC6F22C15321F00167D24 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6C4FC6F62C15321F00167D24 /* example-maze3d.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		6C9D3E3D2C11BDA800005B23 = {
 			isa = PBXGroup;
 			children = (
 				6C9D3E4C2C11BDA900005B23 /* Assets.xcassets */,
 				6C9D3E532C11BDA900005B23 /* game_engine.entitlements */,
-				6C9D3E592C11BE1C00005B23 /* mystify.cpp */,
+				6C9D3E592C11BE1C00005B23 /* maze3d.cpp */,
+				6C4FC6FE2C15338000167D24 /* examples */,
 				6C9D3E472C11BDA800005B23 /* Products */,
 				6C9D3E5B2C11BE2A00005B23 /* Frameworks */,
-				6C4FC6F12C15321F00167D24 /* example-maze3d.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
 		6C9D3E472C11BDA800005B23 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6C9D3E462C11BDA800005B23 /* example-mystify.app */,
+				6C9D3E462C11BDA800005B23 /* example-maze3d.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,9 +96,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6C9D3E452C11BDA800005B23 /* example-mystify */ = {
+		6C9D3E452C11BDA800005B23 /* example-maze3d */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6C9D3E562C11BDA900005B23 /* Build configuration list for PBXNativeTarget "example-mystify" */;
+			buildConfigurationList = 6C9D3E562C11BDA900005B23 /* Build configuration list for PBXNativeTarget "example-maze3d" */;
 			buildPhases = (
 				6C9D3E422C11BDA800005B23 /* Sources */,
 				6C9D3E432C11BDA800005B23 /* Frameworks */,
@@ -126,9 +109,9 @@
 			);
 			dependencies = (
 			);
-			name = "example-mystify";
-			productName = "example-mystify";
-			productReference = 6C9D3E462C11BDA800005B23 /* example-mystify.app */;
+			name = "example-maze3d";
+			productName = "example-maze3d";
+			productReference = 6C9D3E462C11BDA800005B23 /* example-maze3d.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -145,7 +128,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6C9D3E412C11BDA800005B23 /* Build configuration list for PBXProject "example-mystify" */;
+			buildConfigurationList = 6C9D3E412C11BDA800005B23 /* Build configuration list for PBXProject "example-maze3d" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -156,28 +139,12 @@
 			mainGroup = 6C9D3E3D2C11BDA800005B23;
 			productRefGroup = 6C9D3E472C11BDA800005B23 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 6C4FC6F22C15321F00167D24 /* Products */;
-					ProjectRef = 6C4FC6F12C15321F00167D24 /* example-maze3d.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
-				6C9D3E452C11BDA800005B23 /* example-mystify */,
+				6C9D3E452C11BDA800005B23 /* example-maze3d */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		6C4FC6F62C15321F00167D24 /* example-maze3d.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "example-maze3d.app";
-			remoteRef = 6C4FC6F52C15321F00167D24 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6C9D3E442C11BDA800005B23 /* Resources */ = {
@@ -185,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C9D3E4D2C11BDA900005B23 /* Assets.xcassets in Resources */,
+				6C4FC6FF2C15338000167D24 /* examples in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,7 +163,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C9D3E5A2C11BE1C00005B23 /* mystify.cpp in Sources */,
+				6C9D3E5A2C11BE1C00005B23 /* maze3d.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,7 +306,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mayakraft.example-mystify";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mayakraft.example-maze3d";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
@@ -365,7 +333,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mayakraft.example-mystify";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mayakraft.example-maze3d";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
@@ -374,7 +342,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6C9D3E412C11BDA800005B23 /* Build configuration list for PBXProject "example-mystify" */ = {
+		6C9D3E412C11BDA800005B23 /* Build configuration list for PBXProject "example-maze3d" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6C9D3E542C11BDA900005B23 /* Debug */,
@@ -383,7 +351,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6C9D3E562C11BDA900005B23 /* Build configuration list for PBXNativeTarget "example-mystify" */ = {
+		6C9D3E562C11BDA900005B23 /* Build configuration list for PBXNativeTarget "example-maze3d" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6C9D3E572C11BDA900005B23 /* Debug */,

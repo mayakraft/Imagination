@@ -1,15 +1,6 @@
 #include <math.h>
 #include "../src/engine.h"
-#include "../src/primitives.h"
-#include "../src/drawgl.h"
 #include "../src/math.h"
-#include "SDL2/SDL_events.h"
-#include "SDL2/SDL_keyboard.h"
-#include "SDL2/SDL_opengl.h"
-
-#include "SDL2/SDL_pixels.h"
-#include "SDL2/SDL_render.h"
-#include "SDL2/SDL_surface.h"
 #include "maze.cpp"
 
 float WALL_TEX_SCALE = 3.0f;
@@ -38,37 +29,19 @@ std::vector<float> makeWallTexCoords() {
 	};
 }
 
-// GLuint loadTexture(void* pixels, int width, int height){
-// 	GLuint texture;
-// 	glGenTextures(1, &texture);
-// 	glBindTexture(GL_TEXTURE_2D, texture);
-// 	// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-// 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-// 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-// 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-// 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-// 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-// 	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, pixels);
-// 	// GL_RGBA
-// 	glBindTexture(GL_TEXTURE_2D, 0);
-// 	return texture;
-// }
-
-GLuint loadTexture(unsigned char *data, int width, int height){
+// very strange: macos from makefile requires GL_BGRA, xcode requires GL_RGB
+GLuint loadTexture(unsigned char *data, int width, int height) {
+	unsigned short format = GL_BGRA;
+	// unsigned short format = GL_RGB;
 	GLuint texture;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
-	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_BGRA, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return texture;
 }
@@ -79,14 +52,11 @@ enum MoveType {
 	rotateRight,
 };
 
-float tween = 0.0;
-float direction = 0;
-
 int main(int argc, char **argv) {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	int SCREEN = 640;
 	int MAZE_SIZE = 8;
-	int frame = 0;
+	// int frame = 0;
 
 	InitParams params = InitParams {
 		.flags = SDL_INIT_VIDEO,
@@ -98,6 +68,10 @@ int main(int argc, char **argv) {
 	GameEngine engine = init3D(params);
 
 	maze m = maze::init(MAZE_SIZE);
+	// open two places, the start and end
+	m.places[0].left = 1;
+	m.places[MAZE_SIZE * MAZE_SIZE - 1].right = 1;
+	// printf("%s", m.toString().c_str());
 
 	SDL_Surface* wall = IMG_Load("examples/images/wall.png");
 	GLuint wallTexture = loadTexture((unsigned char*)wall->pixels, 32, 32);
@@ -130,16 +104,29 @@ int main(int argc, char **argv) {
 	for (int y = 0; y < m.size; y++) {
 		for (int x = 0; x < m.size; x++) {
 			place p = m.places[m.coord(x, y)];
-			if (p.right) {
+			if (!p.right) {
 				auto rightWall = makeWall(x + 1, y, x + 1, y + 1);
 				auto wallUV = makeWallTexCoords();
 				verticesList.insert(verticesList.end(), rightWall.begin(), rightWall.end());
 				texCoordsList.insert(texCoordsList.end(), wallUV.begin(), wallUV.end());
 			}
-			if (p.bottom) {
+			if (!p.bottom) {
 				auto bottomWall = makeWall(x, y + 1, x + 1, y + 1);
 				auto wallUV = makeWallTexCoords();
 				verticesList.insert(verticesList.end(), bottomWall.begin(), bottomWall.end());
+				texCoordsList.insert(texCoordsList.end(), wallUV.begin(), wallUV.end());
+			}
+			// special cases
+			if (x == 0 && !p.left) {
+				auto leftWall = makeWall(x, y, x, y + 1);
+				auto wallUV = makeWallTexCoords();
+				verticesList.insert(verticesList.end(), leftWall.begin(), leftWall.end());
+				texCoordsList.insert(texCoordsList.end(), wallUV.begin(), wallUV.end());
+			}
+			if (y == 0 && !p.top) {
+				auto topWall = makeWall(x, y, x + 1, y);
+				auto wallUV = makeWallTexCoords();
+				verticesList.insert(verticesList.end(), topWall.begin(), topWall.end());
 				texCoordsList.insert(texCoordsList.end(), wallUV.begin(), wallUV.end());
 			}
 		}
@@ -180,37 +167,54 @@ int main(int argc, char **argv) {
 		0, 0,
 	};
 
-	node camera { .x = 0, .y = 0 };
+	// float tween = 0.0;
+	float direction = 0;
+	float camera[2] = { 0, 0 };
+	bool arrowKeys[4] = { 0, 0, 0, 0 };
 
 	SDL_Event e;
 	bool quit = false;
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) { quit = true; }
+			else if (e.type == SDL_KEYUP) {
+				switch (e.key.keysym.sym) {
+					case SDLK_LEFT: arrowKeys[3] = false; break;
+					case SDLK_RIGHT: arrowKeys[1] = false; break;
+					case SDLK_UP: arrowKeys[0] = false; break;
+					case SDLK_DOWN: arrowKeys[2] = false; break;
+					default: break;
+				}
+			}
 			else if (e.type == SDL_KEYDOWN) {
 				// printf( "%c (0x%04X)\n", (char)e.key.keysym.sym, e.key.keysym.sym );
 				switch (e.key.keysym.sym) {
 					case SDLK_f:
 					// SDL_SetWindowFullscreen(engine.window, SDL_WINDOW_FULLSCREEN);
 					break;
-					case SDLK_LEFT:
-					direction -= 1;
-					break;
-					case SDLK_RIGHT:
-					direction += 1;
-					break;
-					case SDLK_UP:
-					camera.x += cos(direction);
-					camera.y += sin(direction);
-					break;
-					case SDLK_DOWN:
-					camera.x -= cos(direction);
-					camera.y -= sin(direction);
-					break;
+					case SDLK_LEFT: arrowKeys[3] = true; break;
+					case SDLK_RIGHT: arrowKeys[1] = true; break;
+					case SDLK_UP: arrowKeys[0] = true; break;
+					case SDLK_DOWN: arrowKeys[2] = true; break;
 					default:
 					break;
 				}
 			}
+		}
+
+		if (arrowKeys[0]) {
+			camera[0] += 0.05f * cos(direction);
+			camera[1] += 0.05f * sin(direction);
+		}
+		if (arrowKeys[2]) {
+			camera[0] -= 0.05f * cos(direction);
+			camera[1] -= 0.05f * sin(direction);
+		}
+		if (arrowKeys[1]) {
+			direction -= 0.05;
+		}
+		if (arrowKeys[3]) {
+			direction += 0.05;
 		}
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -223,10 +227,15 @@ int main(int argc, char **argv) {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		GLfloat lookat[16];
-		float pos[] = { camera.x + 0.5f, camera.y + 0.5f, 0.5f };
+		float pos[] = { camera[0] + 0.5f, camera[1] + 0.5f, 0.5f };
+		float forwardPoint[] = {
+			camera[0] + 0.5f + cos(direction),
+			camera[1] + 0.5f + sin(direction),
+			0.5f,
+		};
 		makeLookAtMatrix4(
 			pos[0], pos[1], 0.5,
-			pos[0], pos[1] + 1, 0.5,
+			forwardPoint[0], forwardPoint[1], 0.5,
 			0, 0, 1,
 			lookat);
 		glLoadMatrixf(lookat);
@@ -259,17 +268,15 @@ int main(int argc, char **argv) {
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, vertices);
 		glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
-		glDrawArrays(GL_TRIANGLES, 0, verticesList.size() / 3);
+		glDrawArrays(GL_TRIANGLES, 0, verticesList.size() / 3.0);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		SDL_GL_SwapWindow(engine.window);
 
-		frame += 1;
+		// frame += 1;
 	}
-
-	// printf("%s", m.toString().c_str());
 
 	SDL_FreeSurface(wall);
 	m.dealloc();
