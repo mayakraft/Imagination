@@ -8,12 +8,12 @@
 std::default_random_engine engine = std::default_random_engine {};
 
 // low is inclusive, high is exclusive
-int randInt(int low, int high) { return rand() % (high - low) + low; }
+int randInt(int low, int high) { return rand() % (high - low) + low; };
 
 // direction encoding: 0, 1, 2, 3 relate to: top right bottom left (clockwise)
 unsigned char oppositeDir(unsigned char direction) {
 	return (direction + 2) % 4;
-}
+};
 
 // get the numbers 0, 1, 2, 3 (all directions), in a scrambled order
 std::vector<unsigned char> scrambleIntegers(int low, int high) {
@@ -21,7 +21,7 @@ std::vector<unsigned char> scrambleIntegers(int low, int high) {
 	for (int i = low; i < high; i++) { ints.push_back(i); }
 	std::shuffle(std::begin(ints), std::end(ints), engine);
 	return ints;
-}
+};
 
 std::vector<unsigned char> allDirections(int currentDirection) {
 	std::vector<unsigned char> dirs = scrambleIntegers(0, 4);
@@ -32,14 +32,9 @@ std::vector<unsigned char> allDirections(int currentDirection) {
 		dirs.insert(dirs.begin(), last);
 	}
 	return dirs;
-}
-
-// positive integers only.
-// x:-1 y:-1 denotes an invalid node
-struct node {
-	int x;
-	int y;
 };
+
+struct coord { int x; int y; };
 
 // top, right, bottom, left:
 //   0 means wall
@@ -84,44 +79,61 @@ struct board {
 	int size;
 	place* places;
 
-	static board init(int sidecount) {
-		board b;
-		b.size = sidecount;
-		b.places = (place*)calloc(b.size * b.size, sizeof(place));
-		return b;
+	board () {
+		size = 8;
+		places = (place*)calloc(size * size, sizeof(place));
 	}
 
-	void dealloc() { free(places); }
+	board(int s) : size{s} {
+		places = (place*)calloc(size * size, sizeof(place));
+	}
 
-	int coord(int x, int y) { return y * size + x; }
+	~board() {
+		free(places);
+	}
 
-	node stepNode(node n, unsigned char direction) {
-		node step = node { .x = n.x, .y = n.y };
+	place* getPlace(int x, int y) { return &places[y * size + x]; }
+
+	coord stepNode(coord n, unsigned char direction) {
+		coord step = coord { .x = n.x, .y = n.y };
 		if (direction == 0) step.y = n.y - 1;
 		if (direction == 1) step.x = n.x + 1;
 		if (direction == 2) step.y = n.y + 1;
 		if (direction == 3) step.x = n.x - 1;
 		return step;
-	}
+	};
 
-	bool isValid(node n) {
+	bool isValid(coord n) {
 		return n.x >= 0 && n.y >= 0 && n.x < size && n.y < size;
-	}
+	};
 
-	bool isVisited(node n) {
-		return places[coord(n.x, n.y)].visited;
-	}
+	bool isVisited(coord n) {
+		return getPlace(n.x, n.y)->visited;
+	};
 
-	void openWall(node n, unsigned char direction) {
-		int i = coord(n.x, n.y);
-		switch (direction) {
-			case 0: places[i].top = 1; break;
-			case 1: places[i].right = 1; break;
-			case 2: places[i].bottom = 1; break;
-			case 3: places[i].left = 1; break;
-			default: break;
-		}
-	}
+	void openWall(coord n, unsigned char direction) {
+		// switch statement is throwing off the linter/parser for some reason
+		// switch (direction) {
+		// 	case 0: getPlace(n.x, n.y)->top = 1; break;
+		// 	case 1: getPlace(n.x, n.y)->right = 1; break;
+		// 	case 2: getPlace(n.x, n.y)->bottom = 1; break;
+		// 	case 3: getPlace(n.x, n.y)->left = 1; break;
+		// 	default: break;
+		// };
+		if (direction == 0) { getPlace(n.x, n.y)->top = 1; }
+		else if (direction == 1) { getPlace(n.x, n.y)->right = 1; }
+		else if (direction == 2) { getPlace(n.x, n.y)->bottom = 1; }
+		else if (direction == 3) { getPlace(n.x, n.y)->left = 1; }
+	};
+
+	bool isOpen(coord n, unsigned char direction) {
+		if (!isValid(stepNode(n, direction))) { return false; }
+		if (direction == 0) { return getPlace(n.x, n.y)->top; }
+		else if (direction == 1) { return getPlace(n.x, n.y)->right; }
+		else if (direction == 2) { return getPlace(n.x, n.y)->bottom; }
+		else if (direction == 3) { return getPlace(n.x, n.y)->left; }
+		return false;
+	};
 
 	// this prints the walkable path. the dual of the wall graph.
 	std::string toString() {
@@ -131,14 +143,14 @@ struct board {
 			if ((i + 1) % size == 0) str += "\n";
 		}
 		return str;
-	}
+	};
 };
 
 // random starting place, the direction of the path tries to match
 // the previous direction, with some tendency to change direction,
 // even if it's not blocked.
-void populate(board *maze, node current, int lastDirection) {
-	maze->places[maze->coord(current.x, current.y)].visited = true;
+void buildMazeRecurse(board *maze, coord current, int lastDirection) {
+	maze->getPlace(current.x, current.y)->visited = true;
 	// at this current location, get a list of all possible directions
 	// we will recurse into each direction. only at the moment of recursion
 	// ensure that the path is clear (currently a wall and unvisited)
@@ -147,30 +159,74 @@ void populate(board *maze, node current, int lastDirection) {
 		: allDirections(lastDirection);
 
 	for (int dir : dirs) {
-		node next = maze->stepNode(current, dir);
-		// the node is valid if it's inside the board and it's unvisited
+		coord next = maze->stepNode(current, dir);
+		// the coord is valid if it's inside the board and it's unvisited
 		bool valid = maze->isValid(next) && !maze->isVisited(next);
 		if (!valid) { continue; }
 		maze->openWall(current, dir);
 		maze->openWall(next, oppositeDir(dir));
-		populate(maze, next, dir);
+		buildMazeRecurse(maze, next, dir);
+	}
+};
+
+struct maze : board {
+	maze(int sidecount) : board(sidecount) {
+		srand(time(NULL));
+		engine.seed(time(NULL));
+		coord first = coord {
+			.x = randInt(0, size),
+			.y = randInt(0, size),
+		};
+		buildMazeRecurse(this, first, randInt(0, 4));
+	}
+};
+
+struct node {
+	coord c;
+	node *children[4];
+};
+
+void pathRecurse(board *maze, node *t) {
+	coord current = coord { .x = t->c.x, .y = t->c.y };
+	if (maze->getPlace(current.x, current.y)->visited) { return; }
+	maze->getPlace(current.x, current.y)->visited = true;
+	// iterate over all directions, recurse into each one if it is
+	// a: valid (no wall between, not outside the maze)
+	// a: unvisited at time of recurse
+	unsigned char directions[] = { 0, 1, 2, 3 };
+	// t.children = (node*)calloc(4, sizeof(node))
+	for (int i = 0; i < 4; i++) {
+		if (!maze->isOpen(current, directions[i])) { continue; }
+		coord next = maze->stepNode(current, directions[i]);
+		if (maze->getPlace(next.x, next.y)->visited) { continue; }
+		node *nextTree = (node*)calloc(1, sizeof(node));
+		nextTree->c = next;
+		t->children[i] = nextTree;
+		pathRecurse(maze, nextTree);
+	}
+};
+
+node pathMaze(board *maze, coord start) {
+	node root = node { .c = start };
+	// clear all "visited" flags. mark the root visited
+	int max = maze->size * maze->size;
+	for (int i = 0; i < max; i++) { maze->places[i].visited = false; }
+	pathRecurse(maze, &root);
+	return root;
+};
+
+void linearizeRecurse(node *n, std::vector<coord>*linear) {
+	linear->push_back(n->c);
+	unsigned char directions[] = { 0, 1, 2, 3 };
+	for (auto dir : directions) {
+		if (n->children[dir] == NULL) { continue; }
+		linearizeRecurse(n->children[dir], linear);
+		linear->push_back(n->c);
 	}
 }
 
-struct maze : board {
-	static maze init(int sidecount) {
-		maze m;
-		m.size = sidecount;
-		m.places = (place*)calloc(m.size * m.size, sizeof(place));
-
-		srand(time(NULL));
-		engine.seed(time(NULL));
-		node first = node {
-			.x = randInt(0, m.size),
-			.y = randInt(0, m.size),
-		};
-		populate(&m, first, randInt(0, 4));
-
-		return m;
-	}
+std::vector<coord> linearizeMaze(node *root) {
+	std::vector<coord> linearization = std::vector<coord>();
+	linearizeRecurse(root, &linearization);
+	return linearization;
 };

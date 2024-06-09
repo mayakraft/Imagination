@@ -39,6 +39,16 @@ float setRendererPixelScale(SDL_Window* window, SDL_Renderer *renderer) {
 	return widthScale;
 }
 
+void setFullscreenGL(GameEngine *engine, float *aspect) {
+	SDL_SetWindowFullscreen(engine->window, SDL_WINDOW_FULLSCREEN);
+	// SDL_SetWindowFullscreen(engine->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	int resizeW, resizeH;
+	SDL_GetWindowSize(engine->window, &resizeW, &resizeH);
+	glViewport(0, 0, resizeW * engine->pixelScale, resizeH * engine->pixelScale);
+
+	if (aspect != NULL) { *aspect = (float)resizeW / resizeH; }
+}
+
 // Initialize an SDL window and renderer for a fixed-function
 // pipeline OpenGL renderer.
 GameEngine init2D(InitParams params) {

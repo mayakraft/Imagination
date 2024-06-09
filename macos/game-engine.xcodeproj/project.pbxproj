@@ -19,16 +19,6 @@
 		6C7B251E2C0FAB9C007D7B2E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B251D2C0FAB9C007D7B2E /* OpenGL.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		6C9D3E6A2C11BE6900005B23 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6C9D3E662C11BE6900005B23 /* example-mystify.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6C9D3E462C11BDA800005B23;
-			remoteInfo = "example-mystify";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		6C7B25162C0FA835007D7B2E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -53,7 +43,6 @@
 		6C7B25062C0FA801007D7B2E /* math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = math.h; sourceTree = "<group>"; };
 		6C7B25082C0FA801007D7B2E /* primitives.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = primitives.h; sourceTree = "<group>"; };
 		6C7B25092C0FA801007D7B2E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		6C7B250A2C0FA801007D7B2E /* draw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = draw.h; sourceTree = "<group>"; };
 		6C7B250B2C0FA801007D7B2E /* fs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fs.h; sourceTree = "<group>"; };
 		6C7B25102C0FA814007D7B2E /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders; path = ../shaders; sourceTree = "<group>"; };
 		6C7B25132C0FA835007D7B2E /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../SDL2.framework; sourceTree = "<group>"; };
@@ -61,7 +50,7 @@
 		6C7B251A2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		6C7B251D2C0FAB9C007D7B2E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		6C7B25202C0FAC22007D7B2E /* engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
-		6C9D3E662C11BE6900005B23 /* example-mystify.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "example-mystify.xcodeproj"; sourceTree = "<group>"; };
+		6CA14C1A2C16545400C936B8 /* drawgl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = drawgl.h; sourceTree = "<group>"; };
 		6CD795692C10985B002ACAAA /* shader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,7 +72,6 @@
 		6C7B24E42C0FA6D8007D7B2E = {
 			isa = PBXGroup;
 			children = (
-				6C9D3E662C11BE6900005B23 /* example-mystify.xcodeproj */,
 				6C7B25102C0FA814007D7B2E /* shaders */,
 				6C7B25022C0FA801007D7B2E /* src */,
 				6C7B24F32C0FA6D9007D7B2E /* Assets.xcassets */,
@@ -108,9 +96,9 @@
 				6C7B25062C0FA801007D7B2E /* math.h */,
 				6C7B25202C0FAC22007D7B2E /* engine.h */,
 				6C7B25082C0FA801007D7B2E /* primitives.h */,
+				6CA14C1A2C16545400C936B8 /* drawgl.h */,
 				6CD795692C10985B002ACAAA /* shader.h */,
 				6C7B25092C0FA801007D7B2E /* main.cpp */,
-				6C7B250A2C0FA801007D7B2E /* draw.h */,
 				6C7B250B2C0FA801007D7B2E /* fs.h */,
 			);
 			name = src;
@@ -126,14 +114,6 @@
 				6C7B25132C0FA835007D7B2E /* SDL2.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		6C9D3E672C11BE6900005B23 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6C9D3E6B2C11BE6900005B23 /* example-mystify.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,28 +162,12 @@
 			mainGroup = 6C7B24E42C0FA6D8007D7B2E;
 			productRefGroup = 6C7B24EE2C0FA6D8007D7B2E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 6C9D3E672C11BE6900005B23 /* Products */;
-					ProjectRef = 6C9D3E662C11BE6900005B23 /* example-mystify.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				6C7B24EC2C0FA6D8007D7B2E /* game-engine */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		6C9D3E6B2C11BE6900005B23 /* example-mystify.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "example-mystify.app";
-			remoteRef = 6C9D3E6A2C11BE6900005B23 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6C7B24EB2C0FA6D8007D7B2E /* Resources */ = {
@@ -364,6 +328,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mayakraft.game-engine";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -391,6 +356,7 @@
 					"@executable_path/../Frameworks",
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mayakraft.game-engine";
 				PRODUCT_NAME = "$(TARGET_NAME)";
