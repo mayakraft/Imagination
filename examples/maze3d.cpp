@@ -1,7 +1,8 @@
 #include <math.h>
 #include "../src/engine.h"
 #include "../src/math.h"
-#include "maze.cpp"
+#include "../src/textures.h"
+#include "./misc/maze.c"
 
 float WALL_TEX_SCALE = 3.0f;
 float FLOOR_TEX_SCALE = 1.0f;
@@ -37,27 +38,6 @@ std::vector<float> makeWallTexCoords() {
 	};
 }
 
-// GL_BGRA: macos makefile
-// GL_RGB: macos xcode
-GLuint loadTexture(
-	unsigned char *data,
-	int width,
-	int height,
-	unsigned short format = GL_BGRA) {
-	// unsigned short format = GL_RGB;
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return texture;
-}
-
 int main(int argc, char **argv) {
 	srand((unsigned int)time(NULL));
 	int SCREEN = 640;
@@ -73,8 +53,13 @@ int main(int argc, char **argv) {
 	};
 	GameEngine engine = init3D(params);
 
+	auto ints = scrambleIntegers(0, 10);
+	for (int i = 0; i < 10; i++) { printf("%d ", ints[i]); }
+	printf("\n");
+
 	// board m = buildMaze(MAZE_SIZE);
 	maze m = maze(MAZE_SIZE);
+	printf("%s", m.toString().c_str());
 	// open two places, the start and end
 	// m.places[0].left = 1;
 	// m.places[MAZE_SIZE * MAZE_SIZE - 1].right = 1;
@@ -83,12 +68,9 @@ int main(int argc, char **argv) {
 	node tree = pathMaze(&m, start);
 	std::vector<coord> path = linearizeMaze(&tree);
 
-	SDL_Surface* wallSrf = IMG_Load("examples/images/wall.png");
-	SDL_Surface* floorSrf = IMG_Load("examples/images/floor.png");
-	SDL_Surface* ceilingSrf = IMG_Load("examples/images/ceiling.png");
-	GLuint wallTexture = loadTexture((unsigned char*)wallSrf->pixels, 32, 32); //, GL_RGB);
-	GLuint floorTexture = loadTexture((unsigned char*)floorSrf->pixels, 64, 64); //, GL_RGBA);
-	GLuint ceilingTexture = loadTexture((unsigned char*)ceilingSrf->pixels, 32, 32); //, GL_RGB);
+	GLuint wallTexture = loadGLTextureFromFile("examples/images/wall.png");
+	GLuint floorTexture = loadGLTextureFromFile("examples/images/floor.png");
+	GLuint ceilingTexture = loadGLTextureFromFile("examples/images/ceiling.png");
 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
@@ -314,9 +296,6 @@ int main(int argc, char **argv) {
 		// frame += 1;
 	}
 
-	SDL_FreeSurface(ceilingSrf);
-	SDL_FreeSurface(floorSrf);
-	SDL_FreeSurface(wallSrf);
 	dealloc(&engine);
 	return 0;
 }

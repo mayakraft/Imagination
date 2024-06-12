@@ -1,5 +1,4 @@
-#ifndef camera_h
-#define camera_h
+#pragma once
 
 #include <math.h>
 // #include <OpenGL/OpenGL.h>
@@ -73,5 +72,3 @@ void orthoPerspective(float x, float y, float width, float height){
 	}
 	glMatrixMode(GL_MODELVIEW);
 }
-
-#endif

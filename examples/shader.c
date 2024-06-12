@@ -34,21 +34,20 @@ void render(ShaderProgram* program, float time, float screenW, float screenH) {
 	// Disable vertex position
 	glDisableVertexAttribArray(program->positionAttribute);
 	// Unbind program
-	glUseProgram(NULL);
+	glUseProgram(0);
 }
 
 int main(int argc, char* args[]) {
 	int SCREEN = 640;
 	int frame = 0;
 
-	InitParams params = InitParams {
-		.flags = SDL_INIT_VIDEO,
-		.title = "Game Engine",
-		.width = SCREEN,
-		.height = SCREEN,
-	};
-
+	InitParams params;
+	params.flags = SDL_INIT_VIDEO;
+	params.title = "Game Engine";
+	params.width = SCREEN;
+	params.height = SCREEN;
 	GameEngine engine = init3D(params);
+
 	char* vertex = readFile("./shaders/simple.vert");
 	char* fragment = readFile("./shaders/kaleidoscope.frag");
 	ShaderProgram program = createProgram(vertex, fragment);
@@ -56,10 +55,10 @@ int main(int argc, char* args[]) {
 	free(fragment);
 
 	SDL_Event e;
-	bool quit = false;
+	char quit = 0;
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT) { quit = true; }
+			if (e.type == SDL_QUIT) { quit = 1; }
 		}
 
 		// Initialize clear color

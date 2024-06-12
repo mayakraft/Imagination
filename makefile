@@ -2,8 +2,13 @@
 # building the library's empty example
 #
 
+# c or c++
+# LANG = C++
+LANG = C
+
 # linux (default)
 EXE = engine
+CFLAGS = -std=c17
 CPPFLAGS = -std=c++17
 INCLUDE = -I./SDL2.framework/Headers \
  -I./SDL2_image.framework/Headers \
@@ -33,10 +38,19 @@ ifeq ($(OSTYPE),darwin)
  -lGLEW
 endif
 
+ifeq ($(LANG), C++)
+CC = g++
+FLAGS = $(CPPFLAGS)
+else
+CC = gcc
+FLAGS = $(CFLAGS)
+endif
+
+
 # $(EXE): ./src/*.cpp
-$(EXE): ./src/main.cpp
+$(EXE): ./src/main.c
 	mkdir -p bin/
-	g++ -o bin/$@ $< $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
+	$(CC) -o bin/$@ $< $(FLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
 
 run:
 	./bin/$(EXE) $(ARGS)
@@ -50,12 +64,12 @@ clean:
 # run with: make run1 (where 1 is any number)
 #
 
-examples: maze3d
-# triangle1 triangle2 triangle3 mystify surface texture shader polyhedra glTexture
+examples: triangle1 triangle2 shader polyhedra mystify
+# triangle3  surface texture maze3d
 
-%: ./examples/%.cpp
+%: ./examples/%.c
 	mkdir -p bin/
-	g++ $< -o bin/$@ $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
+	$(CC) $< -o bin/$@ $(FLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
 
 run1:
 	./bin/triangle1 $(ARGS)
@@ -64,15 +78,15 @@ run2:
 run3:
 	./bin/triangle3 $(ARGS)
 run4:
-	./bin/mystify $(ARGS)
+	./bin/texture $(ARGS)
 run5:
 	./bin/shader $(ARGS)
 run6:
-	./bin/texture $(ARGS)
-run7:
 	./bin/polyhedra $(ARGS)
+run7:
+	./bin/mystify $(ARGS)
 run8:
 	./bin/maze3d $(ARGS)
 
 # unsure if it's better to write the src files as a literal
-#	g++ -o bin/$@ ./src/*.cpp $(CPPFLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
+#	g++ -o bin/$@ ./src/*.cpp $(FLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)

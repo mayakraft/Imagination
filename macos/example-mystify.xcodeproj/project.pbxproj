@@ -52,7 +52,7 @@
 		6C9D3E592C11BE1C00005B23 /* mystify.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mystify.cpp; path = ../examples/mystify.cpp; sourceTree = "<group>"; };
 		6C9D3E5C2C11BE2A00005B23 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../SDL2.framework; sourceTree = "<group>"; };
 		6C9D3E5D2C11BE2A00005B23 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
-		6C9D3E632C11BE4F00005B23 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
+		6C9D3E632C11BE4F00005B23 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = /usr/local/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		6C9D3E6D2C11BE8700005B23 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 

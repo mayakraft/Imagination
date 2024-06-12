@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "../src/engine.h"
+#include "../src/textures.h"
 
 int main(int argc, char* args[]) {
 	InitParams params = InitParams {
@@ -10,7 +11,7 @@ int main(int argc, char* args[]) {
 	};
 
 	GameEngine engine = init2D(params);
-	SDL_Texture* texture = loadTexture(&engine, "examples/images/copper.png");
+	SDL_Texture* texture = loadSDLTexture(engine.renderer, "examples/images/copper.png");
 
 	SDL_Event e;
 	bool quit = false;

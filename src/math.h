@@ -1,5 +1,4 @@
-#ifndef math_h
-#define math_h
+#pragma once
 
 #include <stdlib.h>
 #include <math.h>
@@ -207,5 +206,3 @@ void setMat4FromMat3(float *m4, float *m3){
 	m4[8] = m3[6]; m4[9] = m3[7]; m4[10] = m3[8]; m4[11] = 0;
 	m4[12] = 0; m4[13] = 0; m4[14] = 0; m4[15] = 1;
 }
-
-#endif

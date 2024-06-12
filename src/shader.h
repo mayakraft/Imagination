@@ -1,22 +1,19 @@
-#ifndef initialize_h
-#define initialize_h
+#pragma once
 
-#include "SDL2/SDL_stdinc.h"
 #include <GL/glew.h>
 // #include <OpenGL/OpenGL.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdexcept>
 #include <sys/types.h>
 
-struct ShaderProgram {
+typedef struct ShaderProgram {
 	GLuint programID;
 	GLint positionAttribute;
 	GLuint vbo;
 	GLuint ibo;
 	GLuint vertexShader;
 	GLuint fragmentShader;
-};
+} ShaderProgram;
 
 // make sure to free the returned value after you are done using it
 char *readFile(const char *filename) {
@@ -28,7 +25,10 @@ char *readFile(const char *filename) {
 #else
 	f = fopen(filename, "rb");
 #endif
-	if (f == NULL) { throw std::runtime_error("shader file does not exist"); }
+	if (f == NULL) {
+		fputs("shader file does not exist", stderr);
+		return NULL;
+	}
 	fseek(f, 0, SEEK_END);
 	length = ftell(f);
 	fseek(f, 0, SEEK_SET);
@@ -95,16 +95,13 @@ void printProgramLog(GLuint program) {
 		int maxLength = infoLogLength;
 		// Get info string length
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
-		// Allocate string
-		char* infoLog = new char[ maxLength ];
+		char infoLog[maxLength];
 		// Get info log
 		glGetProgramInfoLog(program, maxLength, &infoLogLength, infoLog);
 		if (infoLogLength > 0) {
 			//Print Log
 			printf( "%s\n", infoLog );
 		}
-		//Deallocate string
-		delete[] infoLog;
 	} else {
 		printf( "Name %d is not a program\n", program );
 	}
@@ -118,17 +115,13 @@ void printShaderLog(GLuint shader) {
 		int maxLength = infoLogLength;
 		// Get info string length
 		glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &maxLength );
-		// Allocate string
-		char* infoLog = new char[ maxLength ];
+		char infoLog[maxLength];
 		// Get info log
 		glGetShaderInfoLog( shader, maxLength, &infoLogLength, infoLog );
-		if( infoLogLength > 0 )
-		{
+		if (infoLogLength > 0) {
 			// Print Log
 			printf( "%s\n", infoLog );
 		}
-		// Deallocate string
-		delete[] infoLog;
 	} else {
 		printf( "Name %d is not a shader\n", shader );
 	}
@@ -148,7 +141,7 @@ GLuint compileShader(unsigned short type, const GLchar* shaderSource) {
 	if (didCompile != GL_TRUE) {
 		printf("Unable to compile shader (%d) %d!\n", type, shader);
 		printShaderLog(shader);
-		throw std::runtime_error("Unable to compile shader");
+		fputs("Unable to compile shader", stderr);
 	}
 	return shader;
 }
@@ -179,13 +172,13 @@ ShaderProgram createProgram(
 	glGetProgramiv(gProgramID, GL_LINK_STATUS, &programSuccess);
 	if (programSuccess != GL_TRUE) {
 		printProgramLog(gProgramID);
-		throw std::runtime_error("Error linking program");
+		fputs("Error linking program", stderr);
 	}
 
 	// vertex attribute location
 	GLint gPositionAttribute = glGetAttribLocation(gProgramID, "pos");
 	if (gPositionAttribute == -1) {
-		throw std::runtime_error("invalid attrib location");
+		fputs("invalid attrib location", stderr);
 	}
 
 	// Initialize clear color
@@ -211,14 +204,14 @@ ShaderProgram createProgram(
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), indexData, GL_STATIC_DRAW);
 
-	return ShaderProgram {
-		.programID = gProgramID,
-		.positionAttribute = gPositionAttribute,
-		.vbo = gVBO,
-		.ibo = gIBO,
-		.vertexShader = vertexShader,
-		.fragmentShader = fragmentShader,
-	};
+	ShaderProgram shader;
+	shader.programID = gProgramID;
+	shader.positionAttribute = gPositionAttribute;
+	shader.vbo = gVBO;
+	shader.ibo = gIBO;
+	shader.vertexShader = vertexShader;
+	shader.fragmentShader = fragmentShader;
+	return shader;
 }
 
 void deallocProgram(ShaderProgram *program) {
@@ -227,5 +220,3 @@ void deallocProgram(ShaderProgram *program) {
 	glDetachShader(program->programID, program->fragmentShader);
 	glDeleteProgram(program->programID);
 }
-
-#endif

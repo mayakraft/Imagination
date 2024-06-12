@@ -4,45 +4,28 @@
 #include "../src/primitives.h"
 #include "../src/drawgl.h"
 #include "../src/math.h"
-#include "SDL2/SDL_events.h"
-#include "SDL2/SDL_keyboard.h"
-#include "SDL2/SDL_opengl.h"
-
-static const GLfloat colors20[] = {
-	1.0f, 0.0f, 0.0f,
-	0.0f, 1.0f, 0.0f,
-	0.0f, 0.0f, 1.0f,
-	1.0f, 0.0f, 1.0f,
-	1.0f, 1.0f, 0.0f,
-	0.0f, 1.0f, 1.0f,
-	0.5f, 0.5f, 0.5f,
-	0.0f, 0.5f, 0.5f,
-	0.5f, 0.0f, 0.5f,
-	0.5f, 0.5f, 0.0f,
-	1.0f, 0.0f, 0.0f,
-	0.0f, 1.0f, 0.0f,
-	0.0f, 0.0f, 1.0f,
-	1.0f, 0.0f, 1.0f,
-	1.0f, 1.0f, 0.0f,
-	0.0f, 1.0f, 1.0f,
-	0.5f, 0.5f, 0.5f,
-	0.0f, 0.5f, 0.5f,
-	0.5f, 0.0f, 0.5f,
-	0.5f, 0.5f, 0.0f,
-};
+#include "./misc/colors.c"
 
 int main(int argc, char* args[]) {
 	int SCREEN = 640;
 	int frame = 0;
 
-	InitParams params = InitParams {
-		.flags = SDL_INIT_VIDEO,
-		.title = "Polyhedra",
-		.width = SCREEN,
-		.height = SCREEN,
-		.disableShaders = true,
-	};
+	InitParams params;
+	params.flags = SDL_INIT_VIDEO;
+	params.title = "Polyhedra";
+	params.width = SCREEN;
+	params.height = SCREEN;
+	params.disableShaders = 1;
 	GameEngine engine = init3D(params);
+
+	Polyhedron tetrahedron, tetrahedronDual, icosahedron, dodecahedron;
+	makeTetrahedron(&tetrahedron);
+	makeTetrahedronDual(&tetrahedronDual);
+	makeIcosahedron(&icosahedron);
+	makeDodecahedron(&dodecahedron);
+
+	// rainbow of colors
+	GLfloat colors[20 * 3];
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -62,10 +45,10 @@ int main(int argc, char* args[]) {
 	glLoadMatrixf(lookat);
 
 	SDL_Event e;
-	bool quit = false;
+	char quit = 0;
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT) { quit = true; }
+			if (e.type == SDL_QUIT) { quit = 1; }
 			else if (e.type == SDL_KEYDOWN) {
 				// printf( "%c (0x%04X)\n", (char)e.key.keysym.sym, e.key.keysym.sym );
 				switch (e.key.keysym.sym) {
@@ -76,6 +59,15 @@ int main(int argc, char* args[]) {
 			}
 		}
 
+		unsigned char r, g, b;
+		for (int i = 0; i < 20; i += 1) {
+			float hue = fmod(i / 20.0 + frame / 50.0, 1.0);
+			hslToRgb(hue, 1.0, 0.5, &r, &g, &b);
+			colors[i * 3 + 0] = r / 255.0;
+			colors[i * 3 + 1] = g / 255.0;
+			colors[i * 3 + 2] = b / 255.0;
+		}
+
 		glPushMatrix();
 		glRotatef(frame, 0, 0, 1);
 
@@ -84,7 +76,7 @@ int main(int argc, char* args[]) {
 		glColor4f(1.0, 1.0, 1.0, 1.0);
 
 		glEnableClientState(GL_COLOR_ARRAY);
-		glColorPointer(3, GL_FLOAT, 0, colors20);
+		glColorPointer(3, GL_FLOAT, 0, colors);
 
 		drawPolyhedronFaces(&tetrahedron, 4);
 		drawPolyhedronFaces(&tetrahedronDual, 4);
@@ -98,14 +90,14 @@ int main(int argc, char* args[]) {
 		glDisableClientState(GL_COLOR_ARRAY);
 
 		glColor4f(1.0, 1.0, 1.0, 1.0);
-		drawPlatonicSolidLines(&icosahedron, 20);
-		drawPlatonicSolidLines(&dodecahedron, 30);
+		drawPolyhedronLines(&icosahedron, 20);
+		drawPolyhedronLines(&dodecahedron, 30);
 
 		glPopMatrix();
 
 		glColor4f(1.0, 1.0, 1.0, 1.0);
-		drawPlatonicSolidLines(&tetrahedron, 6);
-		drawPlatonicSolidLines(&tetrahedronDual, 6);
+		drawPolyhedronLines(&tetrahedron, 6);
+		drawPolyhedronLines(&tetrahedronDual, 6);
 
 		glPopMatrix();
 

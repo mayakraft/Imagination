@@ -1,7 +1,7 @@
 // this is old OpenGL 2.0 syntax style
 
-#include "primitives.h"
 #include "SDL2/SDL_opengl.h"
+#include "./primitives.h"
 
 void drawPolyhedronFaces(Polyhedron *poly, int numFaces){
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -13,7 +13,7 @@ void drawPolyhedronFaces(Polyhedron *poly, int numFaces){
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void drawPlatonicSolidLines(Polyhedron *poly, int numEdges){
+void drawPolyhedronLines(Polyhedron *poly, int numEdges){
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, poly->vertices);
@@ -23,7 +23,7 @@ void drawPlatonicSolidLines(Polyhedron *poly, int numEdges){
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void drawPlatonicSolidPoints(Polyhedron *poly, int numVertices){
+void drawPolyhedronPoints(Polyhedron *poly, int numVertices){
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, poly->vertices);

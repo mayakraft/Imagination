@@ -50,7 +50,7 @@
 		6C7B251A2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = ../../../../../usr/local/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		6C7B251D2C0FAB9C007D7B2E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		6C7B25202C0FAC22007D7B2E /* engine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
-		6CA14C1A2C16545400C936B8 /* drawgl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = drawgl.h; sourceTree = "<group>"; };
+		6CA14C1A2C16545400C936B8 /* drawgl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = drawgl.c; sourceTree = "<group>"; };
 		6CD795692C10985B002ACAAA /* shader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,7 +96,7 @@
 				6C7B25062C0FA801007D7B2E /* math.h */,
 				6C7B25202C0FAC22007D7B2E /* engine.h */,
 				6C7B25082C0FA801007D7B2E /* primitives.h */,
-				6CA14C1A2C16545400C936B8 /* drawgl.h */,
+				6CA14C1A2C16545400C936B8 /* drawgl.c */,
 				6CD795692C10985B002ACAAA /* shader.h */,
 				6C7B25092C0FA801007D7B2E /* main.cpp */,
 				6C7B250B2C0FA801007D7B2E /* fs.h */,

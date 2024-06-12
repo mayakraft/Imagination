@@ -9,13 +9,12 @@ int main(int argc, char* args[]) {
 	int SCREEN = 640;
 	int frame = 0;
 
-	InitParams params = InitParams {
-		.flags = SDL_INIT_VIDEO,
-		.title = "OpenGL Fixed-Function Pipeline Triangle",
-		.width = SCREEN,
-		.height = SCREEN,
-		.disableShaders = true,
-	};
+	InitParams params;
+	params.flags = SDL_INIT_VIDEO;
+	params.title = "OpenGL Fixed-Function Pipeline Triangle";
+	params.width = SCREEN;
+	params.height = SCREEN;
+	params.disableShaders = 1;
 	GameEngine engine = init3D(params);
 
 	glMatrixMode(GL_PROJECTION);
@@ -25,10 +24,10 @@ int main(int argc, char* args[]) {
 	glLoadIdentity();
 
 	SDL_Event e;
-	bool quit = false;
+	char quit = 0;
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT) { quit = true; }
+			if (e.type == SDL_QUIT) { quit = 1; }
 		}
 
 		float a = frame / 100.0f;

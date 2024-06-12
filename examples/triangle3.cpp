@@ -127,7 +127,7 @@ void render(ShaderProgram* program, float time, float screenW, float screenH) {
 	// Disable vertex position
 	glDisableVertexAttribArray(program->positionAttribute);
 	// Unbind program
-	glUseProgram(NULL);
+	glUseProgram(0);
 }
 
 int main(int argc, char* args[]) {
