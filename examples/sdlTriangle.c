@@ -1,5 +1,5 @@
 // this demonstrates rendering a triangle
-// using the hardware accelerated SDL Texture
+// using the SDL hardware-accelerated renderer.
 // this approach is 2D only.
 #include <math.h>
 #include "../src/engine.h"
@@ -10,11 +10,12 @@ int main(int argc, char* args[]) {
 	int frame = 0;
 	char showTexture = 0;
 
-	InitParams params;
-	params.flags = SDL_INIT_VIDEO;
-	params.title = "SDL Triangle";
-	params.width = SCREEN;
-	params.height = SCREEN;
+	InitParams params = {
+		.flags = SDL_INIT_VIDEO,
+		.title = "SDL Triangle",
+		.width = SCREEN,
+		.height = SCREEN,
+	};
 
 	GameEngine engine = init2D(params);
 	SDL_Texture* texture = loadSDLTexture(engine.renderer, "examples/images/wall.png");

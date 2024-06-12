@@ -14,7 +14,6 @@ typedef struct particle {
 	coord velocity;
 } particle;
 
-
 void particleUpdate(particle *p, GameEngine *engine) {
 	p->position.x += p->velocity.x;
 	p->position.y += p->velocity.y;

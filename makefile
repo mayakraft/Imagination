@@ -2,11 +2,11 @@
 # building the library's empty example
 #
 
-# c or c++
-# LANG = C++
+# specify the language: c or c++
 LANG = C
+# LANG = C++
 
-# linux (default)
+# linux settings (default settings)
 EXE = engine
 CFLAGS = -std=c17
 CPPFLAGS = -std=c++17
@@ -46,7 +46,6 @@ CC = gcc
 FLAGS = $(CFLAGS)
 endif
 
-
 # $(EXE): ./src/*.cpp
 $(EXE): ./src/main.c
 	mkdir -p bin/
@@ -64,29 +63,25 @@ clean:
 # run with: make run1 (where 1 is any number)
 #
 
-examples: triangle1 triangle2 shader polyhedra mystify
-# triangle3  surface texture maze3d
+examples: triangleGL shader polyhedra mystify maze3d
+# triangleGLSL
 
 %: ./examples/%.c
 	mkdir -p bin/
 	$(CC) $< -o bin/$@ $(FLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)
 
 run1:
-	./bin/triangle1 $(ARGS)
-run2:
-	./bin/triangle2 $(ARGS)
+	./bin/triangleGL $(ARGS)
+# run2:
+# 	./bin/triangleGLSL $(ARGS)
 run3:
-	./bin/triangle3 $(ARGS)
+	./bin/mystify $(ARGS)
 run4:
-	./bin/texture $(ARGS)
+	./bin/maze3d $(ARGS)
 run5:
 	./bin/shader $(ARGS)
 run6:
 	./bin/polyhedra $(ARGS)
-run7:
-	./bin/mystify $(ARGS)
-run8:
-	./bin/maze3d $(ARGS)
 
 # unsure if it's better to write the src files as a literal
 #	g++ -o bin/$@ ./src/*.cpp $(FLAGS) $(INCLUDE) $(LIBS) $(LDFLAGS)

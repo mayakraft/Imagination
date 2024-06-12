@@ -1,6 +1,6 @@
 # Game Engine
 
-cross-platform C++ game engine in modern OpenGL
+cross-platform C/C++ game engine in modern OpenGL
 
 # developers
 

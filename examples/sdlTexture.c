@@ -3,7 +3,7 @@
 #include "../src/textures.h"
 
 int main(int argc, char* args[]) {
-	InitParams params = InitParams {
+	InitParams params = {
 		.flags = SDL_INIT_EVERYTHING,
 		.title = "Game Engine",
 		.width = 640,

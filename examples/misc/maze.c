@@ -1,115 +1,137 @@
-#include <vector>
+#include <stdlib.h>
 #include <string.h>
-#include <random>
+// #include <vector.h>
+#include <string.h>
+// #include <random>
 
 // direction encoding: 0, 1, 2, 3 relate to: top right bottom left (clockwise)
 
 // low is inclusive, high is exclusive
 int randInt(int low, int high) { return rand() % (high - low) + low; };
 
-std::vector<unsigned char> scrambleIntegers(int low, int high) {
-	std::vector<unsigned char> ints = std::vector<unsigned char>();
-	for (int i = low; i < high; i++) { ints.push_back(i); }
-	std::random_device rd;
-	std::mt19937 g(rd());
-	std::shuffle(ints.begin(), ints.end(), g);
-	return ints;
+// std::vector<unsigned char> scrambleIntegers(int low, int high) {
+// 	// std::qsort();
+// 	std::vector<unsigned char> ints = std::vector<unsigned char>();
+// 	for (int i = low; i < high; i++) { ints.push_back(i); }
+// 	std::random_device rd;
+// 	std::mt19937 g(rd());
+// 	std::shuffle(ints.begin(), ints.end(), g);
+// 	return ints;
+// }
+void scrambleIntegers(int low, int high, unsigned char* result) {
+	// std::qsort();
+	unsigned char ints[high - low];
+	for (int i = 0; i < high - low; i++) { ints[i] = i + low; }
+	result = (unsigned char*)malloc(sizeof(unsigned char) * (high - low));
+	memcpy(result, ints, sizeof(unsigned char) * (high - low));
+	// shuffle
 }
 
 // this returns a scrambled list of directions, where the first entry
 // is the current direction, the next three are the remaining three directions.
-std::vector<unsigned char> allDirections(int currentDirection) {
-	std::vector<unsigned char> dirs = scrambleIntegers(0, 4);
-	for (int i = 0; i < dirs.size(); i++) {
-		if (dirs[0] == currentDirection) { return dirs; }
-		int last = dirs[dirs.size() - 1];
-		dirs.pop_back();
-		dirs.insert(dirs.begin(), last);
+// std::vector<unsigned char> allDirections(int currentDirection) {
+// 	std::vector<unsigned char> dirs = scrambleIntegers(0, 4);
+// 	for (int i = 0; i < dirs.size(); i++) {
+// 		if (dirs[0] == currentDirection) { return dirs; }
+// 		int last = dirs[dirs.size() - 1];
+// 		dirs.pop_back();
+// 		dirs.insert(dirs.begin(), last);
+// 	}
+// 	return dirs;
+// };
+
+void allDirections(int currentDirection, unsigned char* result) {
+	unsigned char* dirs;
+	scrambleIntegers(0, 4, dirs);
+	for (int i = 0; i < 4; i++) {
+		if (dirs[0] == currentDirection) {
+			result = (unsigned char*)malloc(sizeof(unsigned char) * 4);
+			memcpy(result, dirs, sizeof(unsigned char) * 4);
+		}
+		// int last = dirs[dirs.size() - 1];
+		// dirs.pop_back();
+		// dirs.insert(dirs.begin(), last);
 	}
-	return dirs;
+	result = (unsigned char*)malloc(sizeof(unsigned char) * 4);
+	memcpy(result, dirs, sizeof(unsigned char) * 4);
 };
 
-struct coord {
+typedef struct coord {
 	int x;
 	int y;
-};
+} coord;
 
 // top, right, bottom, left:  0=wall  1=open
 // visited:  0=unvisited  1=visited
-struct place {
-	bool top;
-	bool right;
-	bool bottom;
-	bool left;
-	bool visited;
-	unsigned char encode();
-	std::string getChar();
-};
+typedef struct place {
+	unsigned char top;
+	unsigned char right;
+	unsigned char bottom;
+	unsigned char left;
+	unsigned char visited;
+	// unsigned char encode();
+	// std::string getChar();
+} place;
 
-unsigned char place::encode() {
-	return top | (right << 1) | (bottom << 2) | (left << 3);
+unsigned char placeEncode(place *p) {
+	return p->top | (p->right << 1) | (p->bottom << 2) | (p->left << 3);
 }
 
 // this character represents the walkable path
-std::string place::getChar() {
+void placeGetChar(place *p, char** result) {
 	// unsigned short place_lookup_table[16] = {
 	// 	0x0020, 0x2575, 0x2576, 0x2514, 0x2577, 0x2502, 0x250c, 0x251c,
 	// 	0x2574, 0x2518, 0x2500, 0x2534, 0x2510, 0x2524, 0x252c, 0x253c,
 	// };
-	switch (encode()) {
-		case 0: return " ";
-		case 1: return "\u2575"; // t
-		case 2: return "\u2576"; // r
-		case 3: return "\u2514"; // t r
-		case 4: return "\u2577"; // b
-		case 5: return "\u2502"; // t b
-		case 6: return "\u250c"; // r b
-		case 7: return "\u251c"; // t r b
-		case 8: return "\u2574"; // l
-		case 9: return "\u2518"; // t l
-		case 10: return "\u2500"; // r l
-		case 11: return "\u2534"; // t r l
-		case 12: return "\u2510"; // b l
-		case 13: return "\u2524"; // t b l
-		case 14: return "\u252c"; // r b l
-		case 15: return "\u253c"; // t r b l
-		default: return " ";
+	switch (placeEncode(p)) {
+		case 0: *result = " "; return;
+		case 1: *result = "\u2575"; return; // t
+		case 2: *result = "\u2576"; return; // r
+		case 3: *result = "\u2514"; return; // t r
+		case 4: *result = "\u2577"; return; // b
+		case 5: *result = "\u2502"; return; // t b
+		case 6: *result = "\u250c"; return; // r b
+		case 7: *result = "\u251c"; return; // t r b
+		case 8: *result = "\u2574"; return; // l
+		case 9: *result = "\u2518"; return; // t l
+		case 10: *result = "\u2500"; return; // r l
+		case 11: *result = "\u2534"; return; // t r l
+		case 12: *result = "\u2510"; return; // b l
+		case 13: *result = "\u2524"; return; // t b l
+		case 14: *result = "\u252c"; return; // r b l
+		case 15: *result = "\u253c"; return; // t r b l
+		default: *result = " "; return;
 	}
 }
 
-struct board {
+typedef struct board {
 	int size;
 	place* places;
-	board ();
-	board(int s);
-	~board();
-	place* getPlace(int x, int y);
-	coord stepNode(coord n, unsigned char direction);
-	bool isValid(coord n);
-	bool isVisited(coord n);
-	void openWall(coord n, unsigned char direction);
-	bool isOpen(coord n, unsigned char direction);
-	// this prints the walkable path. the dual of the wall graph.
-	std::string toString();
-};
+} board;
 
-board::board () {
-	size = 8;
-	places = (place*)calloc(size * size, sizeof(place));
+board makeBoard () {
+	board b;
+	b.size = 8;
+	b.places = (place*)calloc(b.size * b.size, sizeof(place));
+	return b;
 }
 
-board::board(int s) {
-	size = s;
-	places = (place*)calloc(size * size, sizeof(place));
+board makeBoard(int s) {
+	board b;
+	b.size = s;
+	b.places = (place*)calloc(b.size * b.size, sizeof(place));
+	return b;
 }
 
-board::~board() {
-	free(places);
+void deallocBoard(board* b) {
+	free(b->places);
 }
 
-place* board::getPlace(int x, int y) { return &places[y * size + x]; }
+place* boardGetPlace(board* b, int x, int y) {
+	return &b->places[y * b->size + x];
+}
 
-coord board::stepNode(coord n, unsigned char direction) {
+coord stepNode(coord n, unsigned char direction) {
 	coord step = { n.x, n.y };
 	if (direction == 0) step.y = n.y - 1;
 	if (direction == 1) step.x = n.x + 1;
@@ -118,15 +140,15 @@ coord board::stepNode(coord n, unsigned char direction) {
 	return step;
 };
 
-bool board::isValid(coord n) {
-	return n.x >= 0 && n.y >= 0 && n.x < size && n.y < size;
+unsigned char boardIsValid(board* b, coord n) {
+	return n.x >= 0 && n.y >= 0 && n.x < b->size && n.y < b->size;
 };
 
-bool board::isVisited(coord n) {
-	return getPlace(n.x, n.y)->visited;
+unsigned char boardIsVisited(board* b, coord n) {
+	return boardGetPlace(b, n.x, n.y)->visited;
 };
 
-void board::openWall(coord n, unsigned char direction) {
+void boardOpenWall(board* b, coord n, unsigned char direction) {
 	// switch statement is throwing off the linter/parser for some reason
 	// switch (direction) {
 	// 	case 0: getPlace(n.x, n.y)->top = 1; break;
@@ -135,36 +157,39 @@ void board::openWall(coord n, unsigned char direction) {
 	// 	case 3: getPlace(n.x, n.y)->left = 1; break;
 	// 	default: break;
 	// };
-	if (direction == 0) { getPlace(n.x, n.y)->top = 1; }
-	else if (direction == 1) { getPlace(n.x, n.y)->right = 1; }
-	else if (direction == 2) { getPlace(n.x, n.y)->bottom = 1; }
-	else if (direction == 3) { getPlace(n.x, n.y)->left = 1; }
+	if (direction == 0) { boardGetPlace(b, n.x, n.y)->top = 1; }
+	else if (direction == 1) { boardGetPlace(b, n.x, n.y)->right = 1; }
+	else if (direction == 2) { boardGetPlace(b, n.x, n.y)->bottom = 1; }
+	else if (direction == 3) { boardGetPlace(b, n.x, n.y)->left = 1; }
 };
 
-bool board::isOpen(coord n, unsigned char direction) {
-	if (!isValid(stepNode(n, direction))) { return false; }
-	if (direction == 0) { return getPlace(n.x, n.y)->top; }
-	else if (direction == 1) { return getPlace(n.x, n.y)->right; }
-	else if (direction == 2) { return getPlace(n.x, n.y)->bottom; }
-	else if (direction == 3) { return getPlace(n.x, n.y)->left; }
-	return false;
+unsigned char boardIsOpen(board* b, coord n, unsigned char direction) {
+	if (!boardIsValid(b, stepNode(n, direction))) { return 0; }
+	if (direction == 0) { return boardGetPlace(b, n.x, n.y)->top; }
+	else if (direction == 1) { return boardGetPlace(b, n.x, n.y)->right; }
+	else if (direction == 2) { return boardGetPlace(b, n.x, n.y)->bottom; }
+	else if (direction == 3) { return boardGetPlace(b, n.x, n.y)->left; }
+	return 1;
 };
 
 // this prints the walkable path. the dual of the wall graph.
-std::string board::toString() {
-	std::string str;
-	for (int i = 0; i < size * size; i++) {
-		str += places[i].getChar();
-		if ((i + 1) % size == 0) str += "\n";
+void boardToString(board* b, char* str) {
+	int num = 0;
+	str = (char*)malloc(sizeof(char) * 4096);
+	for (int i = 0; i < b->size * b->size; i++) {
+		// placeGetChar(b->places[i], &str[num]);
+		// placeGetChar(&(b->places[i]), &str[num]);
+		num++;
+		if ((i + 1) % b->size == 0) { str[num] = '\n'; }
+		num++;
 	}
-	return str;
 };
 
 // random starting place, the direction of the path tries to match
 // the previous direction, with some tendency to change direction,
 // even if it's not blocked.
 void buildMazeRecurse(board *maze, coord current, int lastDirection) {
-	maze->getPlace(current.x, current.y)->visited = true;
+	boardGetPlace(maze, current.x, current.y)->visited = true;
 	// at this current location, get a list of all possible directions
 	// we will recurse into each direction. only at the moment of recursion
 	// ensure that the path is clear (currently a wall and unvisited)

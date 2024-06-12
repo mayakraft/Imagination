@@ -1,6 +1,6 @@
 // this demonstrates rendering a triangle
-// using the fixed-function pipeline
-// and very old OpenGL syntax style.
+// using OpenGL using the the fixed-function pipeline
+// (the very old way of writing OpenGL).
 #include <math.h>
 #include "../src/engine.h"
 #include "SDL2/SDL_opengl.h"
@@ -9,12 +9,13 @@ int main(int argc, char* args[]) {
 	int SCREEN = 640;
 	int frame = 0;
 
-	InitParams params;
-	params.flags = SDL_INIT_VIDEO;
-	params.title = "OpenGL Fixed-Function Pipeline Triangle";
-	params.width = SCREEN;
-	params.height = SCREEN;
-	params.disableShaders = 1;
+	InitParams params = {
+		.flags = SDL_INIT_VIDEO,
+		.title = "OpenGL Fixed-Function Pipeline Triangle",
+		.width = SCREEN,
+		.height = SCREEN,
+		.disableShaders = 1,
+	};
 	GameEngine engine = init3D(params);
 
 	glMatrixMode(GL_PROJECTION);

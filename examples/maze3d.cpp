@@ -16,8 +16,8 @@ float radialLerp(float a, float b, float t) {
 	return a * u + b * t;
 }
 
-std::vector<float> makeWall(float x1, float y1, float x2, float y2) {
-	return std::vector<float> {
+void makeWall(float x1, float y1, float x2, float y2, float* vertices) {
+	float arr[] {
 		x1, y1, 0,
 		x2, y2, 0,
 		x2, y2, 1,
@@ -25,10 +25,12 @@ std::vector<float> makeWall(float x1, float y1, float x2, float y2) {
 		x1, y1, 1,
 		x1, y1, 0,
 	};
+	vertices = (float*)malloc(sizeof(float) * 18);
+	memcpy(vertices, arr, sizeof(float) * 18);
 }
 
-std::vector<float> makeWallTexCoords() {
-	return std::vector<float> {
+void makeWallTexCoords(float* texCoords) {
+	float arr[] = {
 		0, 0,
 		WALL_TEX_SCALE, 0,
 		WALL_TEX_SCALE, WALL_TEX_SCALE,
@@ -36,6 +38,8 @@ std::vector<float> makeWallTexCoords() {
 		0, WALL_TEX_SCALE,
 		0, 0,
 	};
+	texCoords = (float*)malloc(sizeof(float) * 12);
+	memcpy(texCoords, arr, sizeof(float) * 12);
 }
 
 int main(int argc, char **argv) {
@@ -44,12 +48,12 @@ int main(int argc, char **argv) {
 	int MAZE_SIZE = 8;
 	// int frame = 0;
 
-	InitParams params = InitParams {
+	InitParams params = {
 		.flags = SDL_INIT_VIDEO,
 		.title = "Maze 3D",
 		.width = SCREEN,
 		.height = SCREEN,
-		.disableShaders = true,
+		.disableShaders = 1,
 	};
 	GameEngine engine = init3D(params);
 
@@ -93,41 +97,48 @@ int main(int argc, char **argv) {
 	makeLookAtMatrix4(0, -10, 10, 0, 0, 0, 0, 0, 1, lookat);
 	glLoadMatrixf(lookat);
 
-	std::vector<float> verticesList = std::vector<float>();
-	std::vector<float> texCoordsList = std::vector<float>();
+	float verticesList[4096];
+	float texCoordsList[4096];
 
+	int wallNum = 0;
+	float wallVertices[18];
+	float wallTexCoords[18];
 	for (int y = 0; y < m.size; y++) {
 		for (int x = 0; x < m.size; x++) {
 			place *p = m.getPlace(x, y);
 			if (!p->right) {
-				auto rightWall = makeWall(x + 1, y, x + 1, y + 1);
-				auto wallUV = makeWallTexCoords();
-				verticesList.insert(verticesList.end(), rightWall.begin(), rightWall.end());
-				texCoordsList.insert(texCoordsList.end(), wallUV.begin(), wallUV.end());
+				makeWall(x + 1, y, x + 1, y + 1, wallVertices);
+				makeWallTexCoords(wallTexCoords);
+				memcpy(verticesList + 18 * wallNum * sizeof(float), wallVertices, sizeof(float) * 18);
+				memcpy(texCoordsList + 12 * wallNum * sizeof(float), wallVertices, sizeof(float) * 12);
+				wallNum++;
 			}
 			if (!p->bottom) {
-				auto bottomWall = makeWall(x, y + 1, x + 1, y + 1);
-				auto wallUV = makeWallTexCoords();
-				verticesList.insert(verticesList.end(), bottomWall.begin(), bottomWall.end());
-				texCoordsList.insert(texCoordsList.end(), wallUV.begin(), wallUV.end());
+				makeWall(x, y + 1, x + 1, y + 1, wallVertices);
+				makeWallTexCoords(wallTexCoords);
+				memcpy(verticesList + 18 * wallNum * sizeof(float), wallVertices, sizeof(float) * 18);
+				memcpy(texCoordsList + 12 * wallNum * sizeof(float), wallVertices, sizeof(float) * 12);
+				wallNum++;
 			}
 			// special cases
 			if (x == 0 && !p->left) {
-				auto leftWall = makeWall(x, y, x, y + 1);
-				auto wallUV = makeWallTexCoords();
-				verticesList.insert(verticesList.end(), leftWall.begin(), leftWall.end());
-				texCoordsList.insert(texCoordsList.end(), wallUV.begin(), wallUV.end());
+				makeWall(x, y, x, y + 1, wallVertices);
+				makeWallTexCoords(wallTexCoords);
+				memcpy(verticesList + 18 * wallNum * sizeof(float), wallVertices, sizeof(float) * 18);
+				memcpy(texCoordsList + 12 * wallNum * sizeof(float), wallVertices, sizeof(float) * 12);
+				wallNum++;
 			}
 			if (y == 0 && !p->top) {
-				auto topWall = makeWall(x, y, x + 1, y);
-				auto wallUV = makeWallTexCoords();
-				verticesList.insert(verticesList.end(), topWall.begin(), topWall.end());
-				texCoordsList.insert(texCoordsList.end(), wallUV.begin(), wallUV.end());
+				makeWall(x, y, x + 1, y, wallVertices);
+				makeWallTexCoords(wallTexCoords);
+				memcpy(verticesList + 18 * wallNum * sizeof(float), wallVertices, sizeof(float) * 18);
+				memcpy(texCoordsList + 12 * wallNum * sizeof(float), wallVertices, sizeof(float) * 12);
+				wallNum++;
 			}
 		}
 	}
-	float *vertices = verticesList.data();
-	float *texCoords = texCoordsList.data();
+	float *vertices = verticesList;
+	float *texCoords = texCoordsList;
 
 	float floorVertices[] = {
 		0, 0, 0,
@@ -169,10 +180,10 @@ int main(int argc, char **argv) {
 
 	uint32_t startTime = SDL_GetTicks();
 	SDL_Event e;
-	bool quit = false;
+	char quit = 0;
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT) { quit = true; }
+			if (e.type == SDL_QUIT) { quit = 1; }
 			else if (e.type == SDL_KEYDOWN) {
 				// printf( "%c (0x%04X)\n", (char)e.key.keysym.sym, e.key.keysym.sym );
 				switch (e.key.keysym.sym) {
@@ -277,8 +288,8 @@ int main(int argc, char **argv) {
 		coord curr = path[seconds % path.size()];
 		coord next = path[(seconds + 1) % path.size()];
 		coord nextNext = path[(seconds + 2) % path.size()];
-		coord dirCurr = coord { .x = next.x - curr.x, .y = next.y - curr.y };
-		coord dirNext = coord { .x = nextNext.x - next.x, .y = nextNext.y - next.y };
+		coord dirCurr = { .x = next.x - curr.x, .y = next.y - curr.y };
+		coord dirNext = { .x = nextNext.x - next.x, .y = nextNext.y - next.y };
 		float currLookDir = atan2(dirCurr.y, dirCurr.x);
 		float nextLookDir = atan2(dirNext.y, dirNext.x);
 

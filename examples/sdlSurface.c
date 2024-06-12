@@ -27,9 +27,9 @@ void drawSurfaceTest(SDL_Surface *surface) {
 	SDL_FillRect(surface,
 		NULL,
 		SDL_MapRGB(surface->format, 0x00, 0x00, 0x00));
-	SDL_Rect rect1 = SDL_Rect { .x = 10, .y = 10, .w = 100, .h = 100 };
-	SDL_Rect rect2 = SDL_Rect { .x = 110, .y = 10, .w = 100, .h = 100 };
-	SDL_Rect rect3 = SDL_Rect { .x = 210, .y = 10, .w = 100, .h = 100 };
+	SDL_Rect rect1 = { .x = 10, .y = 10, .w = 100, .h = 100 };
+	SDL_Rect rect2 = { .x = 110, .y = 10, .w = 100, .h = 100 };
+	SDL_Rect rect3 = { .x = 210, .y = 10, .w = 100, .h = 100 };
 	SDL_FillRect(surface, &rect1, 0xff115588);
 	SDL_FillRect(surface, &rect2, 0xffee5533);
 	SDL_FillRect(surface, &rect3, 0xffffbb44);

@@ -1,3 +1,5 @@
+// this demonstrates a simple full-screen
+// animated fragment shader
 #include <stdio.h>
 #include "../src/engine.h"
 #include "../src/shader.h"
