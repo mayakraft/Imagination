@@ -2,6 +2,13 @@
 
 cross-platform C/C++ game engine in modern OpenGL
 
+# try it
+
+```make
+make && make examples
+make runmaze
+```
+
 # developers
 
 Dependencies

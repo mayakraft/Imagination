@@ -1,8 +1,8 @@
 // this demonstrates a simple full-screen
 // animated fragment shader
 #include <stdio.h>
-#include "../src/engine.h"
-#include "../src/shader.h"
+#include "../include/engine.h"
+#include "../include/shader.h"
 
 void render(ShaderProgram* program, float time, float screenW, float screenH) {
 	// Clear color buffer
@@ -39,7 +39,7 @@ void render(ShaderProgram* program, float time, float screenW, float screenH) {
 	glUseProgram(0);
 }
 
-int main(int argc, char* args[]) {
+int main() {
 	int SCREEN = 640;
 	int frame = 0;
 

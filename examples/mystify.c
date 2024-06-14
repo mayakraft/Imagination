@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include "./misc/colors.c"
-#include "../src/engine.h"
+#include "../include/engine.h"
 
 typedef struct coord {
 	int x;
@@ -35,7 +35,7 @@ void particleUpdate(particle *p, GameEngine *engine) {
 	}
 }
 
-int main(int argc, char* args[]) {
+int main() {
 	int NUM_POLYS = 10;
 	int POLY_SIZE = 4;
 	int NUM_DOTS = NUM_POLYS * POLY_SIZE;

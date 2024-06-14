@@ -2,10 +2,9 @@
 // using OpenGL using the the fixed-function pipeline
 // (the very old way of writing OpenGL).
 #include <math.h>
-#include "../src/engine.h"
-#include "SDL2/SDL_opengl.h"
+#include "../include/engine.h"
 
-int main(int argc, char* args[]) {
+int main() {
 	int SCREEN = 640;
 	int frame = 0;
 

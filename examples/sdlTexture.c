@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "../src/engine.h"
-#include "../src/textures.h"
+#include "../include/engine.h"
+#include "../include/textures.h"
 
-int main(int argc, char* args[]) {
+int main() {
 	InitParams params = {
 		.flags = SDL_INIT_EVERYTHING,
 		.title = "Game Engine",
@@ -14,11 +14,11 @@ int main(int argc, char* args[]) {
 	SDL_Texture* texture = loadSDLTexture(engine.renderer, "examples/images/copper.png");
 
 	SDL_Event e;
-	bool quit = false;
+	char quit = 0;
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) {
-				quit = true;
+				quit = 1;
 				dealloc(&engine);
 				return 0;
 			}

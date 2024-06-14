@@ -1,6 +1,9 @@
 # macos linux
 .cache/
 bin/
+lib/
+build/
+include/
 SDL2*.framework/
 **/xcuserdata/
 

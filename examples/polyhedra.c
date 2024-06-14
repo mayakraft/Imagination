@@ -1,12 +1,12 @@
 // this is old OpenGL 2.0 syntax style
 #include <math.h>
-#include "../src/engine.h"
-#include "../src/primitives.h"
-#include "../src/drawgl.h"
-#include "../src/math.h"
+#include "../include/engine.h"
+#include "../include/primitives.h"
+#include "../include/drawgl.h"
+#include "../include/math.h"
 #include "./misc/colors.c"
 
-int main(int argc, char* args[]) {
+int main() {
 	int SCREEN = 640;
 	int frame = 0;
 

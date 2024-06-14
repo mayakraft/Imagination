@@ -2,8 +2,8 @@
 // using the programmable pipeline,
 // modern idiomatic OpenGL.
 #include <math.h>
-#include "../src/engine.h"
-#include "../src/shader.h"
+#include "../include/engine.h"
+#include "../include/shader.h"
 
 ShaderProgram createProgram2(
 	const char *vertexShaderSource,
@@ -27,7 +27,7 @@ ShaderProgram createProgram2(
 	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vShaderCompiled);
 	if (vShaderCompiled != GL_TRUE) {
 		printShaderLog(vertexShader);
-		throw std::runtime_error("Unable to compile vertex shader");
+		fputs("Unable to compile vertex shader", stderr);
 	}
 	// Attach vertex shader to program
 	glAttachShader(gProgramID, vertexShader);
@@ -43,7 +43,7 @@ ShaderProgram createProgram2(
 	if (fShaderCompiled != GL_TRUE) {
 		printf("Unable to compile fragment shader %d!\n", fragmentShader);
 		printShaderLog(fragmentShader);
-		throw std::runtime_error("Unable to compile fragment shader");
+		fputs("Unable to compile fragment shader", stderr);
 	}
 	// Attach fragment shader to program
 	glAttachShader(gProgramID, fragmentShader);
@@ -54,13 +54,13 @@ ShaderProgram createProgram2(
 	glGetProgramiv(gProgramID, GL_LINK_STATUS, &programSuccess);
 	if (programSuccess != GL_TRUE) {
 		printProgramLog(gProgramID);
-		throw std::runtime_error("Error linking program");
+		fputs("Error linking program", stderr);
 	}
 
 	// vertex attribute location
 	GLint gPositionAttribute = glGetAttribLocation(gProgramID, "pos");
 	if (gPositionAttribute == -1) {
-		throw std::runtime_error("invalid attrib location");
+		fputs("invalid attrib location", stderr);
 	}
 
 	// Initialize clear color
@@ -86,12 +86,13 @@ ShaderProgram createProgram2(
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), indexData, GL_STATIC_DRAW);
 
-	return ShaderProgram {
+	ShaderProgram program = {
 		.programID = gProgramID,
 		.positionAttribute = gPositionAttribute,
 		.vbo = gVBO,
 		.ibo = gIBO,
 	};
+	return program;
 }
 
 void render(ShaderProgram* program, float time, float screenW, float screenH) {
@@ -130,11 +131,11 @@ void render(ShaderProgram* program, float time, float screenW, float screenH) {
 	glUseProgram(0);
 }
 
-int main(int argc, char* args[]) {
+int main() {
 	int SCREEN = 640;
 	// int frame = 0;
 
-	InitParams params = InitParams {
+	InitParams params = {
 		.flags = SDL_INIT_VIDEO,
 		.title = "OpenGL Programmable Pipeline Triangle",
 		.width = SCREEN,
@@ -144,10 +145,10 @@ int main(int argc, char* args[]) {
 	GameEngine engine = init3D(params);
 
 	SDL_Event e;
-	bool quit = false;
+	char quit = 0;
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT) { quit = true; }
+			if (e.type == SDL_QUIT) { quit = 1; }
 		}
 
 		// float a = frame / 100.0f;

@@ -2,10 +2,10 @@
 // using the SDL hardware-accelerated renderer.
 // this approach is 2D only.
 #include <math.h>
-#include "../src/engine.h"
-#include "../src/textures.h"
+#include "../include/engine.h"
+#include "../include/textures.h"
 
-int main(int argc, char* args[]) {
+int main() {
 	int SCREEN = 640;
 	int frame = 0;
 	char showTexture = 0;

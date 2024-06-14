@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdexcept>
 #ifdef _WIN32
 #include <SDL.h>
 #include <SDL_image.h>
@@ -35,9 +34,9 @@ void drawSurfaceTest(SDL_Surface *surface) {
 	SDL_FillRect(surface, &rect3, 0xffffbb44);
 }
 
-int main(int argc, char* args[]) {
+int main() {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		throw std::runtime_error(SDL_GetError());
+		fputs(SDL_GetError(), stderr);
 	}
 	SDL_Window *window = SDL_CreateWindow("Game Engine",
 		SDL_WINDOWPOS_UNDEFINED,
@@ -46,20 +45,20 @@ int main(int argc, char* args[]) {
 		480,
 		SDL_WINDOW_SHOWN);
 	if (window == NULL) {
-		throw std::runtime_error(SDL_GetError());
+		fputs(SDL_GetError(), stderr);
 	}
 	SDL_Surface *surface = SDL_GetWindowSurface(window);
 
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
-		throw std::runtime_error(IMG_GetError());
+		fputs(IMG_GetError(), stderr);
 	}
 
 	SDL_Event e;
-	bool quit = false;
+	char quit = 0;
 	while (!quit) {
 		while (SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT) { quit = true; }
+			if (e.type == SDL_QUIT) { quit = 1; }
 		}
 
 		drawSurfaceTest(surface);
