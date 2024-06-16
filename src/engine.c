@@ -80,6 +80,7 @@ GameEngine init3D(InitParams params) {
 		fputs(SDL_GetError(), stderr);
 	}
 
+	SDL_GL_LoadLibrary(NULL);
 	if (params.disableShaders) {
 		// should we specify a version?
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
@@ -119,13 +120,27 @@ GameEngine init3D(InitParams params) {
 	float pixelScale = (float)getGLW / (float)getW;
 
 	// initialize GLEW
-	glewExperimental = GL_TRUE;
-	GLenum glewError = glewInit();
-	if (glewError != GLEW_OK) {
-		const char* errorChar = (char const*)glewGetErrorString(glewError);
-		fputs(errorChar, stderr);
-	}
+	// glewExperimental = GL_TRUE;
+	// GLenum glewError = glewInit();
+	// if (glewError != GLEW_OK) {
+	// 	const char* errorChar = (char const*)glewGetErrorString(glewError);
+	// 	fputs(errorChar, stderr);
+	// }
 
+	if (!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress)) {
+		fputs("Failed to initialize OpenGL context\n", stderr);
+	}
+	// gladLoadGL();
+	// int version = gladLoadGL(glfwGetProcAddress);
+	// int version = gladLoadGL((GLADloadfunc) SDL_GL_GetProcAddress);
+	// int version = gladLoadGL(SDL_GL_GetProcAddress);
+	// if (version == 0) {
+	// 	fputs("Failed to initialize OpenGL context\n", stderr);
+	// } else {
+	// 	printf("GL %d.%d\n", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
+	// }
+
+	// printf("GL %d.%d\n", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
 	// use vsync
 	if (SDL_GL_SetSwapInterval(1) < 0) {
 		fputs(SDL_GetError(), stderr);
@@ -194,4 +209,12 @@ void viewportTest(GameEngine *engine, SDL_Texture *texture) {
 	SDL_RenderCopy( engine->renderer, texture, NULL, NULL );
 	//Update screen
 	SDL_RenderPresent( engine->renderer );
+}
+
+void glDebugInfo() {
+	printf("OpenGL %d.%d\n", GLVersion.major, GLVersion.minor);
+	printf("Vendor:   %s\n", glGetString(GL_VENDOR));
+	printf("Renderer: %s\n", glGetString(GL_RENDERER));
+	printf("Version:  %s\n", glGetString(GL_VERSION));
+	printf("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 }

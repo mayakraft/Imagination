@@ -1,74 +1,74 @@
 #include "../include/engine.h"
-#include "../include/math.h"
+#include "../include/algebra.h"
 
-unsigned char* getTextureData(const char * filename, int width, int height){
-	FILE * file;
-	file = fopen(filename, "rb");
-	if (file == NULL) return 0;
-	unsigned char *data = (unsigned char *)malloc(width * height * 3);
-	// unsigned char *data = (unsigned char *)malloc(width * height * 4);
-	fread(data, width * height * 3, 1, file);
-	// fread(data, width * height * 4, 1, file);
-	fclose(file);
-	for(int i = 0; i < width * height; i++){
-		int index = i*3;
-		unsigned char B,R;
-		B = data[index];
-		R = data[index+2];
-		data[index] = R;
-		data[index+2] = B;
-	}
-	return data;
-}
+// unsigned char* getTextureData(const char * filename, int width, int height){
+// 	FILE * file;
+// 	file = fopen(filename, "rb");
+// 	if (file == NULL) return 0;
+// 	unsigned char *data = (unsigned char *)malloc(width * height * 3);
+// 	// unsigned char *data = (unsigned char *)malloc(width * height * 4);
+// 	fread(data, width * height * 3, 1, file);
+// 	// fread(data, width * height * 4, 1, file);
+// 	fclose(file);
+// 	for(int i = 0; i < width * height; i++){
+// 		int index = i*3;
+// 		unsigned char B,R;
+// 		B = data[index];
+// 		R = data[index+2];
+// 		data[index] = R;
+// 		data[index+2] = B;
+// 	}
+// 	return data;
+// }
 
-GLuint loadTextureFileBGR(const char * filename, int width, int height){
-	GLuint texture;
-	unsigned char *data = getTextureData(filename, width, height);
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_BGR, GL_UNSIGNED_BYTE, data);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return texture;
-}
+// GLuint loadTextureFileBGR(const char * filename, int width, int height){
+// 	GLuint texture;
+// 	unsigned char *data = getTextureData(filename, width, height);
+// 	glGenTextures(1, &texture);
+// 	glBindTexture(GL_TEXTURE_2D, texture);
+// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+// 	// gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_BGR, GL_UNSIGNED_BYTE, data);
+// 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+// 	glBindTexture(GL_TEXTURE_2D, 0);
+// 	return texture;
+// }
 
-GLuint loadTextureFile(const char * filename, int width, int height){
-	GLuint texture;
-	unsigned char *data = getTextureData(filename, width, height);
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
-	// gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return texture;
-}
+// GLuint loadTextureFile(const char * filename, int width, int height){
+// 	GLuint texture;
+// 	unsigned char *data = getTextureData(filename, width, height);
+// 	glGenTextures(1, &texture);
+// 	glBindTexture(GL_TEXTURE_2D, texture);
+// 	// glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+// 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+// 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+// 	// gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+// 	// gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
+// 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+// 	glBindTexture(GL_TEXTURE_2D, 0);
+// 	return texture;
+// }
 
-GLuint loadTextureFileSmooth(const char * filename, int width, int height){
-	GLuint texture;
-	unsigned char * data = getTextureData(filename, width, height);
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return texture;
-}
+// GLuint loadTextureFileSmooth(const char * filename, int width, int height){
+// 	GLuint texture;
+// 	unsigned char * data = getTextureData(filename, width, height);
+// 	glGenTextures(1, &texture);
+// 	glBindTexture(GL_TEXTURE_2D, texture);
+// 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+// 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+// 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+// 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+// 	// gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+// 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+// 	glBindTexture(GL_TEXTURE_2D, 0);
+// 	return texture;
+// }
 
 GLuint loadTexture(unsigned char *data, int width, int height){
 	GLuint texture;
@@ -78,12 +78,25 @@ GLuint loadTexture(unsigned char *data, int width, int height){
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// yes?
+	// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 1);
+	// glTexParameteri(GL_TEXTURE_BASE_LEVEL | GL_TEXTURE_MAX_LEVEL | GL_TEXTURE_MIN_LOD | GL_TEXTURE_MAX_LOD);
+	// no?
+	// glad_glGenerateMipmap
+	// glad_glGenerateTextureMipmap
+	// glad_glGenerateTextureMipmapEXT
+	// glad_glGenerateMipmapEXT
+	// glad_glGenerateMultiTexMipmapEXT
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
 	// gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
 	// gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_BGRA, GL_UNSIGNED_BYTE, data);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	// glGenerateMipmap(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return texture;
 }
+
 // GLuint loadTexture(void* pixels, int width, int height){
 // 	GLuint texture;
 // 	glGenTextures(1, &texture);
@@ -119,14 +132,23 @@ int main() {
 	};
 	GameEngine engine = init3D(params);
 
+	SDL_Delay(200);
+
 	glEnable(GL_TEXTURE_2D);
-
-	SDL_Surface* wallSurface = IMG_Load("examples/images/wall.png");
-	unsigned char *pixels = (unsigned char*)wallSurface->pixels;
-	GLuint wallTexture = loadTexture(pixels, 32, 32);
-
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+
+	// SDL_Surface* wallSurface = IMG_Load("examples/images/wall1024.png");
+	SDL_Surface* wallSurface = IMG_Load("examples/images/wall.png");
+	SDL_Surface* rgb24 = SDL_ConvertSurfaceFormat(
+		wallSurface,
+		SDL_PIXELFORMAT_RGB24,
+		0);
+	unsigned char *pixels = (unsigned char*)rgb24->pixels;
+	GLuint wallTexture = loadTexture(pixels, rgb24->w, rgb24->h);
+	printf("surface (original) %d,%d (x%d)\n", wallSurface->w, wallSurface->h, wallSurface->format->BytesPerPixel);
+	printf("surface (converted) %d,%d (x%d)\n", rgb24->w, rgb24->h, rgb24->format->BytesPerPixel);
+	printf("texture id %d\n", wallTexture);
 
 	// projection matrix
 	glMatrixMode(GL_PROJECTION);

@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\algebra.h" />
     <ClInclude Include="..\src\camera.h" />
     <ClInclude Include="..\src\engine.h" />
-    <ClInclude Include="..\src\math.h" />
     <ClInclude Include="..\src\primitives.h" />
     <ClInclude Include="..\src\shader.h" />
   </ItemGroup>

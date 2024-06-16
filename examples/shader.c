@@ -39,7 +39,7 @@ void render(ShaderProgram* program, float time, float screenW, float screenH) {
 	glUseProgram(0);
 }
 
-int main() {
+int main(void) {
 	int SCREEN = 640;
 	int frame = 0;
 
@@ -50,8 +50,10 @@ int main() {
 	params.height = SCREEN;
 	GameEngine engine = init3D(params);
 
-	char* vertex = readFile("./shaders/simple.vert");
-	char* fragment = readFile("./shaders/kaleidoscope.frag");
+	glDebugInfo();
+
+	char* vertex = readFile("./examples/shaders/simple.vert");
+	char* fragment = readFile("./examples/shaders/kaleidoscope.frag");
 	ShaderProgram program = createProgram(vertex, fragment);
 	free(vertex);
 	free(fragment);

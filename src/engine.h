@@ -4,7 +4,7 @@
 #define _USE_MATH_DEFINES
 #endif
 
-#include <GL/glew.h>
+#include "glad.h"
 #ifdef _WIN32
 #include <SDL.h>
 #include <SDL_image.h>
@@ -47,11 +47,12 @@ float setRendererPixelScale(SDL_Window* window, SDL_Renderer *renderer);
 
 void setFullscreenGL(GameEngine *engine, float *aspect);
 
-// void setFullScreen(GameEngine *engine);
-
-// void drawLoop(GameEngine* engine);
-
 void viewportTest(GameEngine *engine, SDL_Texture *texture);
+
+void glDebugInfo();
+
+// void setFullScreen(GameEngine *engine);
+// void drawLoop(GameEngine* engine);
 
 #ifdef __cplusplus
 }

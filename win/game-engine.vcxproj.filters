@@ -18,7 +18,7 @@
     <ClInclude Include="..\src\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\math.h">
+    <ClInclude Include="..\src\algebra.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\primitives.h">

@@ -3,7 +3,7 @@
 #include "../include/engine.h"
 #include "../include/primitives.h"
 #include "../include/drawgl.h"
-#include "../include/math.h"
+#include "../include/algebra.h"
 #include "./misc/colors.c"
 
 int main() {

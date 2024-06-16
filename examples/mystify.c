@@ -35,7 +35,7 @@ void particleUpdate(particle *p, GameEngine *engine) {
 	}
 }
 
-int main() {
+int main(void) {
 	int NUM_POLYS = 10;
 	int POLY_SIZE = 4;
 	int NUM_DOTS = NUM_POLYS * POLY_SIZE;

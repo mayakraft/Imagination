@@ -2,76 +2,97 @@
 
 cross-platform C/C++ game engine in modern OpenGL
 
-# try it
-
-```make
-make && make examples
-make runmaze
-```
-
-# developers
-
-Dependencies
-
 - [SDL2](https://github.com/libsdl-org/SDL/releases)
 - [SDL2 Image](https://github.com/libsdl-org/SDL_image/releases)
-- [GLEW](https://github.com/nigels-com/glew/releases)
+
+# setup
+
+```
+game-engine/
+|
+|-- bin/ (examples binaries)
+|-- build/ (compiled object files)
+|-- examples/ (examples source code)
+|-- Frameworks/ (please create this directory)
+|-- include/ (header files)
+|-- lib/ (the compiled library)
+|-- macos/ (Xcode project files for MacOS)
+|-- src/ (the library's source code)
+|-- win/ (Visual Studio project files for Windows)
+```
 
 ## windows
 
-Create a directory in the project root called "external".
+Create a directory in the project root called "Frameworks".
 
 Download the **development** releases for Visual Studio (VS) of:
 
 - [SDL2](https://github.com/libsdl-org/SDL/releases)
 - [SDL2 Image](https://github.com/libsdl-org/SDL_image/releases)
 
-Also the Windows release of GLEW:
-
-- [GLEW](https://glew.sourceforge.net/)
-
-Place them in the "external" folder (and rename if necessary). Your project should look like this:
+Place them in the "Frameworks" folder (and rename if necessary to match this naming). Your project should look like this:
 
 ```
 game-engine/
 |
 |-- src/
-|-- macos/
-|-- win/
-|-- external/
-    |-- GLEW/
-    |-- SDL2/
-    |-- SDL2_image/
+|-- Frameworks/
+|   |-- SDL2/
+|   |-- SDL2_image/
+|-- ...
 ```
 
 Open the Visual Studio project and build and run.
 
 ## macos
 
-Install GLEW into your system, download SDL and place locally in the project folder.
-
-Install GLEW using `brew` or [download GLEW](https://glew.sourceforge.net/) and follow the instructions to install via `make`. This places `libGLEW.2.2.0.dylib` into `usr/local/lib` and this project is expecting to find it here (both the makefile and Xcode project).
-
-Download these SDL frameworks for MacOS, place them in the project root.
+Download the .dmg packages of:
 
 - [SDL2](https://github.com/libsdl-org/SDL/releases)
 - [SDL2 Image](https://github.com/libsdl-org/SDL_image/releases)
 
-Your project should look like this:
+Place them in the "Frameworks" folder (and rename if necessary to match this naming). Your project should look like this:
 
 ```
 game-engine/
 |
 |-- src/
-|-- macos/
-|-- win/
-|-- SDL2.framework
-|-- SDL2_image.framework
+|-- Frameworks/
+|   |-- SDL2/
+|   |-- SDL2_image/
+|-- ...
 ```
 
-run `make` and `make run`, or open the Xcode project and build and run.
+run `make` and `make examples`, then run any of the examples, such as `./bin/maze3d`.
+
+Alternatively, open the Xcode project and build and run.
+
+run `make clean` to reset the project
 
 ## linux
+
+(I haven't tested on Linux yet)
+
+The project will look for SDL2 inside the "Frameworks" folder. Download and build these two libraries:
+
+- [SDL2](https://github.com/libsdl-org/SDL/releases)
+- [SDL2 Image](https://github.com/libsdl-org/SDL_image/releases)
+
+Place them in the "Frameworks" folder (and rename if necessary to match this naming). Your project should look like this:
+
+```
+game-engine/
+|
+|-- src/
+|-- Frameworks/
+|   |-- SDL2/
+|   |-- SDL2_image/
+|-- ...
+```
+
+run `make` and `make examples`, then run any of the examples, such as `./bin/maze3d`.
+
+run `make clean` to reset the project
 
 # license
 

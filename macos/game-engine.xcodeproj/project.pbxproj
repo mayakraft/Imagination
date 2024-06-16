@@ -14,8 +14,6 @@
 		6C7B25152C0FA835007D7B2E /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B25132C0FA835007D7B2E /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6C7B25182C0FA838007D7B2E /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B25172C0FA838007D7B2E /* SDL2_image.framework */; };
 		6C7B25192C0FA838007D7B2E /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B25172C0FA838007D7B2E /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6C7B251B2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B251A2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib */; };
-		6C7B251C2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B251A2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6C7B251E2C0FAB9C007D7B2E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7B251D2C0FAB9C007D7B2E /* OpenGL.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,7 +25,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				6C7B25152C0FA835007D7B2E /* SDL2.framework in Embed Frameworks */,
-				6C7B251C2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib in Embed Frameworks */,
 				6C7B25192C0FA838007D7B2E /* SDL2_image.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -61,7 +58,6 @@
 			files = (
 				6C7B25142C0FA835007D7B2E /* SDL2.framework in Frameworks */,
 				6C7B251E2C0FAB9C007D7B2E /* OpenGL.framework in Frameworks */,
-				6C7B251B2C0FA8A4007D7B2E /* libGLEW.2.2.0.dylib in Frameworks */,
 				6C7B25182C0FA838007D7B2E /* SDL2_image.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
