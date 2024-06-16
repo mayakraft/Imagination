@@ -1,5 +1,5 @@
+#include <time.h>
 #include "../include/engine.h"
-#include "../include/algebra.h"
 
 // unsigned char* getTextureData(const char * filename, int width, int height){
 // 	FILE * file;

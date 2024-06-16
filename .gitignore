@@ -1,10 +1,14 @@
-# macos linux
 .cache/
 bin/
-lib/
 build/
+Frameworks/
 include/
+lib/
+
 SDL2*.framework/
+examples/glm/
+
+# macos
 **/xcuserdata/
 
 # windows
@@ -12,4 +16,3 @@ win/.vs/
 win/game-engine/
 win/x64/
 win/x86/
-external/

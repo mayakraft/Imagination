@@ -3,7 +3,6 @@
 // modern idiomatic OpenGL.
 #include <math.h>
 #include "../include/engine.h"
-#include "../include/shader.h"
 
 ShaderProgram createProgram2(
 	const char *vertexShaderSource,

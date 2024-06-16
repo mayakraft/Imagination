@@ -1,9 +1,6 @@
 // this is old OpenGL 2.0 syntax style
 #include <math.h>
 #include "../include/engine.h"
-#include "../include/primitives.h"
-#include "../include/drawgl.h"
-#include "../include/algebra.h"
 #include "./misc/colors.c"
 
 int main() {

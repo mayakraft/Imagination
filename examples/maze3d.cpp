@@ -1,8 +1,7 @@
 #include <math.h>
+#include <time.h>
 #include "./misc/maze.cpp"
 #include "../include/engine.h"
-#include "../include/algebra.h"
-#include "../include/texture.h"
 
 float WALL_TEX_SCALE = 3.0f;
 float FLOOR_TEX_SCALE = 1.0f;

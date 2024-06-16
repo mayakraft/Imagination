@@ -11,22 +11,22 @@
 		6C7D46632C1D360600952568 /* libGameEngine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7D46622C1D35F800952568 /* libGameEngine.a */; };
 		6C9D3E4D2C11BDA900005B23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C9D3E4C2C11BDA900005B23 /* Assets.xcassets */; };
 		6C9D3E5A2C11BE1C00005B23 /* maze3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C9D3E592C11BE1C00005B23 /* maze3d.cpp */; };
-		6C9D3E5E2C11BE2A00005B23 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9D3E5C2C11BE2A00005B23 /* SDL2.framework */; };
-		6C9D3E5F2C11BE2A00005B23 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9D3E5C2C11BE2A00005B23 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6C9D3E602C11BE2A00005B23 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9D3E5D2C11BE2A00005B23 /* SDL2_image.framework */; };
-		6C9D3E612C11BE2A00005B23 /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9D3E5D2C11BE2A00005B23 /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6C9D3E6E2C11BE8700005B23 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9D3E6D2C11BE8700005B23 /* OpenGL.framework */; };
+		6CCDC3282C1F4ADB00E9251C /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CCDC3272C1F4ADB00E9251C /* SDL2.framework */; };
+		6CCDC3292C1F4ADB00E9251C /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CCDC3272C1F4ADB00E9251C /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6CCDC32C2C1F4ADE00E9251C /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CCDC32B2C1F4ADE00E9251C /* SDL2_image.framework */; };
+		6CCDC32D2C1F4ADE00E9251C /* SDL2_image.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6CCDC32B2C1F4ADE00E9251C /* SDL2_image.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		6C9D3E622C11BE2A00005B23 /* Embed Frameworks */ = {
+		6CCDC32A2C1F4ADB00E9251C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6C9D3E5F2C11BE2A00005B23 /* SDL2.framework in Embed Frameworks */,
-				6C9D3E612C11BE2A00005B23 /* SDL2_image.framework in Embed Frameworks */,
+				6CCDC3292C1F4ADB00E9251C /* SDL2.framework in Embed Frameworks */,
+				6CCDC32D2C1F4ADE00E9251C /* SDL2_image.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,6 +49,8 @@
 		6C9D3E5D2C11BE2A00005B23 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../SDL2_image.framework; sourceTree = "<group>"; };
 		6C9D3E632C11BE4F00005B23 /* libGLEW.2.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.2.2.0.dylib; path = /usr/local/lib/libGLEW.2.2.0.dylib; sourceTree = "<group>"; };
 		6C9D3E6D2C11BE8700005B23 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		6CCDC3272C1F4ADB00E9251C /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		6CCDC32B2C1F4ADE00E9251C /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +58,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C9D3E5E2C11BE2A00005B23 /* SDL2.framework in Frameworks */,
+				6CCDC3282C1F4ADB00E9251C /* SDL2.framework in Frameworks */,
 				6C7D46632C1D360600952568 /* libGameEngine.a in Frameworks */,
 				6C9D3E6E2C11BE8700005B23 /* OpenGL.framework in Frameworks */,
-				6C9D3E602C11BE2A00005B23 /* SDL2_image.framework in Frameworks */,
+				6CCDC32C2C1F4ADE00E9251C /* SDL2_image.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +91,8 @@
 		6C9D3E5B2C11BE2A00005B23 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6CCDC32B2C1F4ADE00E9251C /* SDL2_image.framework */,
+				6CCDC3272C1F4ADB00E9251C /* SDL2.framework */,
 				6C7D46622C1D35F800952568 /* libGameEngine.a */,
 				6C2B00202C17B8E200DFEC1A /* libGLEW.a */,
 				6C2B00182C17AC0D00DFEC1A /* libGLEW.2.2.0.dylib */,
@@ -113,7 +117,7 @@
 				6C9D3E422C11BDA800005B23 /* Sources */,
 				6C9D3E432C11BDA800005B23 /* Frameworks */,
 				6C9D3E442C11BDA800005B23 /* Resources */,
-				6C9D3E622C11BE2A00005B23 /* Embed Frameworks */,
+				6CCDC32A2C1F4ADB00E9251C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -218,6 +222,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -232,6 +237,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../include";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../lib";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -279,6 +286,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -287,6 +295,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../include";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../lib";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -306,7 +316,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/..";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../include";
@@ -338,7 +348,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/..";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../include";

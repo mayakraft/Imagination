@@ -10,8 +10,8 @@ extern "C" {
 
 typedef struct Polyhedron {
 	float* vertices;
-	short* edges;
-	short* faces;
+	unsigned short* edges;
+	unsigned short* faces;
 } Polyhedron;
 
 void makeTetrahedron(Polyhedron *tetrahedron);

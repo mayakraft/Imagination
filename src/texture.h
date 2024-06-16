@@ -19,6 +19,8 @@ GLuint loadGLTextureFromFile(const char* path);
 
 SDL_Texture* loadSDLTexture(SDL_Renderer *renderer, const char* path);
 
+GLuint updateGLTexture(GLuint texture, unsigned char *data, int width, int height);
+
 #ifdef __cplusplus
 }
 #endif

@@ -4,7 +4,6 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 
 #define D2R 0.01745329251994
 #define R2D 57.295779513082321

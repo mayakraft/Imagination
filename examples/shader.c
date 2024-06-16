@@ -2,7 +2,6 @@
 // animated fragment shader
 #include <stdio.h>
 #include "../include/engine.h"
-#include "../include/shader.h"
 
 void render(ShaderProgram* program, float time, float screenW, float screenH) {
 	// Clear color buffer

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "../include/engine.h"
-#include "../include/texture.h"
 
 int main() {
 	InitParams params = {

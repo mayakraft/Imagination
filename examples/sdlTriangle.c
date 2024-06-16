@@ -3,7 +3,6 @@
 // this approach is 2D only.
 #include <math.h>
 #include "../include/engine.h"
-#include "../include/texture.h"
 
 int main() {
 	int SCREEN = 640;

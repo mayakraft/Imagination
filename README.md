@@ -2,10 +2,20 @@
 
 cross-platform C/C++ game engine in modern OpenGL
 
+# usage
+
+1. build the library (see next section)
+2. include this header `#include "include/engine.h`
+3. link to this library: `lib/libGameEngine.a` as well as `SDL` and `SDL_image`
+
+# dependencies
+
 - [SDL2](https://github.com/libsdl-org/SDL/releases)
 - [SDL2 Image](https://github.com/libsdl-org/SDL_image/releases)
 
-# setup
+> some examples use [GLM](https://github.com/g-truc/glm/releases/), download and place `glm` in the examples folder `examples/glm/`.
+
+# building this library
 
 ```
 game-engine/
