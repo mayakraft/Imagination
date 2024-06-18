@@ -131,12 +131,7 @@ GLuint compileShader(unsigned short type, const GLchar* shaderSource) {
 	return shader;
 }
 
-ShaderProgram createProgram(
-	const GLchar* vertexShaderSource,
-	const GLchar* fragmentShaderSource) {
-	GLuint gVBO = 0;
-	GLuint gIBO = 0;
-
+ShaderProgram createProgram(const GLchar* vertex, const GLchar* fragment) {
 	// https://discourse.libsdl.org/t/lazy-foo-sdl-and-modern-opengl-tutorial-vao/23020
 	GLuint vaoId = 0;
 	glGenVertexArrays(1, &vaoId);
@@ -144,12 +139,11 @@ ShaderProgram createProgram(
 	// Generate program
 	GLuint gProgramID = glCreateProgram();
 	// create and attach vertex shader to program
-	GLuint vertexShader = compileShader(GL_VERTEX_SHADER, vertexShaderSource);
+	GLuint vertexShader = compileShader(GL_VERTEX_SHADER, vertex);
 	glAttachShader(gProgramID, vertexShader);
 	// create and attach fragment shader to program
-	GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
+	GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, fragment);
 	glAttachShader(gProgramID, fragmentShader);
-
 	// Link program
 	glLinkProgram(gProgramID);
 	// Check for errors
@@ -159,49 +153,48 @@ ShaderProgram createProgram(
 		printProgramLog(gProgramID);
 		fputs("Error linking program", stderr);
 	}
-
-	// vertex attribute location
-	GLint gPositionAttribute = glGetAttribLocation(gProgramID, "pos");
-	if (gPositionAttribute == -1) {
-		fputs("invalid attrib location", stderr);
-	}
-
-	// Initialize clear color
-	// glClearColor(0.1f, 0.3f, 0.6f, 1.0f);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-	// VBO data
-	float scale = 1.0f; // 0.85f;
-	GLfloat vertexData[] = {
-		-scale, -scale,
-		scale, -scale,
-		scale, scale,
-		-scale, scale
-	};
-	// IBO data
-	GLuint indexData[] = { 0, 1, 2, 3 };
-	// Create VBO
-	glGenBuffers(1, &gVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, gVBO);
-	glBufferData(GL_ARRAY_BUFFER, 2 * 4 * sizeof(GLfloat), vertexData, GL_STATIC_DRAW);
-	// Create IBO
-	glGenBuffers(1, &gIBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, gIBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), indexData, GL_STATIC_DRAW);
+	glDetachShader(gProgramID, vertexShader);
+	glDetachShader(gProgramID, fragmentShader);
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
 
 	ShaderProgram shader;
 	shader.programID = gProgramID;
-	shader.positionAttribute = gPositionAttribute;
-	shader.vbo = gVBO;
-	shader.ibo = gIBO;
-	shader.vertexShader = vertexShader;
-	shader.fragmentShader = fragmentShader;
+	shader.vbo = -1;
+	shader.ibo = -1;
 	return shader;
 }
 
+GLint getAttrib(ShaderProgram *program, const char* name) {
+	GLint attribute = glGetAttribLocation(program->programID, name);
+	if (attribute == -1) { fputs("invalid attrib name", stderr); }
+	return attribute;
+}
+
+GLint getUniform(ShaderProgram *program, const char* name) {
+	GLint uniform = glGetUniformLocation(program->programID, name);
+	if (uniform == -1) { fputs("invalid uniform name", stderr); }
+	return uniform;
+}
+
+// length: for example, 2 * 4 * sizeof(GLfloat)
+void generateVertexBuffer(ShaderProgram *program, const void* data, size_t length) {
+	GLuint vbo = 0;
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, length, data, GL_STATIC_DRAW);
+	program->vbo = vbo;
+}
+
+// length: for example, sizeof(GLuint) * 21 * 3
+void generateElementBuffer(ShaderProgram *program, const void* data, size_t length) {
+	GLuint ibo = 0;
+	glGenBuffers(1, &ibo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, length, data, GL_STATIC_DRAW);
+	program->ibo = ibo;
+}
+
 void deallocProgram(ShaderProgram *program) {
-	// these two can happen earlier
-	glDetachShader(program->programID, program->vertexShader);
-	glDetachShader(program->programID, program->fragmentShader);
 	glDeleteProgram(program->programID);
 }

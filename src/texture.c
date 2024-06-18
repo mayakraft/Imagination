@@ -10,7 +10,7 @@ GLuint loadGLTexture(unsigned char *data, int width, int height) { // , uint inp
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	// if mipmaps are not used, this is required
-	// https://stackoverflow.com/questions/13867219/opengl-renders-texture-all-white
+	// https://stackoverflow.com/a/13867751/1956418
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, inputFormat, GL_UNSIGNED_BYTE, data);
 	// glGenerateMipmap(GL_TEXTURE_2D);

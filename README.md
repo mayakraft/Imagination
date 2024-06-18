@@ -5,7 +5,7 @@ cross-platform C/C++ game engine in modern OpenGL
 # usage
 
 1. build the library (see next section)
-2. include this header `#include "include/engine.h`
+2. include this header `#include "include/engine.h"`
 3. link to this library: `lib/libGameEngine.a` as well as `SDL` and `SDL_image`
 
 # dependencies
@@ -77,7 +77,7 @@ run `make` and `make examples`, then run any of the examples, such as `./bin/maz
 
 Alternatively, open the Xcode project and build and run.
 
-run `make clean` to reset the project
+run `make clean` to reset the project.
 
 ## linux
 
@@ -102,7 +102,7 @@ game-engine/
 
 run `make` and `make examples`, then run any of the examples, such as `./bin/maze3d`.
 
-run `make clean` to reset the project
+run `make clean` to reset the project.
 
 # license
 
