@@ -35,10 +35,12 @@ void particleUpdate(particle *p, GameEngine *engine) {
 	}
 }
 
+#define NUM_DOTS 40
+
 int main(void) {
 	int NUM_POLYS = 10;
 	int POLY_SIZE = 4;
-	int NUM_DOTS = NUM_POLYS * POLY_SIZE;
+	// int NUM_DOTS = NUM_POLYS * POLY_SIZE;
 	int frame = 0;
 
 	InitParams params;
