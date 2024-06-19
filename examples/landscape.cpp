@@ -16,7 +16,7 @@ int main() {
 	InitParams params = InitParams {
 		.flags = SDL_INIT_VIDEO,
 		.title = "Landscape",
-		.width = 920,
+		.width = 640,
 		.height = 640,
 	};
 	GameEngine engine = init3D(params);
@@ -26,12 +26,20 @@ int main() {
 
 	glDebugInfo();
 
-	char* vertex = readFile("./examples/shaders/landscape.vert");
-	char* fragment = readFile("./examples/shaders/landscape.frag");
+	char shaderPath[] = "./examples/shaders";
 
-	makePerspectiveMatrix4(45, 1.0 / 1.0, 1.0f, 2000.0f, projection);
+	// for building in xcode
+	// getBundleResourcesPath(shaderPath);
+
+	std::string vertexPath = std::string(shaderPath) + "/landscape.vert";
+	std::string fragmentPath = std::string(shaderPath) + "/landscape.frag";
+
+	char* vertex = readFile(vertexPath.c_str());
+	char* fragment = readFile(fragmentPath.c_str());
+
+	makePerspectiveMatrix4(45, 1.0 / 1.0, 1.0f, 3000.0f, projection);
 	// makeOrthographicMatrix4(380, 380, -380, -380, 1, 2048.0, projection);
-	makeLookAtMatrix4(512, 512, 920, 0, 0, 0, 0, 0, 1, modelView);
+	makeLookAtMatrix4(480, 480, 600, 0, 0, 0, 0, 0, 1, modelView);
 
 	float offset[2] = {
 		(float)(rand() % 1000),
@@ -96,7 +104,7 @@ int main() {
 					case SDLK_f:
 					float aspect;
 					setFullscreenGL(&engine, &aspect);
-					makePerspectiveMatrix4(45, aspect, 1.0f, 2000.0f, projection);
+					makePerspectiveMatrix4(45, aspect, 1.0f, 3000.0f, projection);
 					break;
 				}
 			}

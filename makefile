@@ -28,7 +28,7 @@ ifndef OSTYPE
 	OSTYPE = $(shell uname -s|awk '{print tolower($$0)}')
 endif
 ifeq ($(OSTYPE),darwin)
-	LIBS += -framework OpenGL
+	LIBS += -framework OpenGL -framework CoreFoundation
 else
 	LIBS += -lGL
 endif

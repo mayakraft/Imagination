@@ -1,27 +1,37 @@
-#include <unistd.h> // for chdir
-#include <libgen.h> // for dirname
-#include <mach-o/dyld.h> // for _NSGetExecutablePath
-#include <limits.h> // for PATH_MAX?
+#pragma once
 
-//#include <CoreFoundation/CoreFoundation.h>
+// #include <unistd.h> // for chdir
+// #include <libgen.h> // for dirname
+// #include <mach-o/dyld.h> // for _NSGetExecutablePath
+// #include <limits.h> // for PATH_MAX?
 
-void macBundlePath() {
-//    CFBundleRef mainBundle = CFBundleGetMainBundle();
-//    CFURLRef resourcesURL = CFBundleCopyBundleURL(mainBundle);
-//    CFStringRef str = CFURLCopyFileSystemPath( resourcesURL, kCFURLPOSIXPathStyle );
-//    CFRelease(resourcesURL);
-//    char path[PATH_MAX];
-//    CFStringGetCString( str, path, FILENAME_MAX, kCFStringEncodingASCII );
-//    CFRelease(str);
-//    printf(path);
+#include <string.h>
+#ifdef __APPLE__
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+// char directory_separator[] = "/";
+// #ifdef WIN32
+// directory_separator[0] = '\\';
+// #endif
+
+#ifdef __APPLE__
+
+// this will fill the input variable with a path, something like
+// /Users/Maya/Applications/My-App.app/Contents/Resources
+// (with no trailing /)
+void getBundleResourcesPath(char *resourcePath);
+
+#endif
+
+// filename should be something like "simple.frag"
+// or, "shaders/simple.frag" if you intend there to be a "shaders"
+// directory inside of the bundle
+
+#ifdef __cplusplus
 }
-
-char* macBundle() {
-	char path[PATH_MAX];
-	// char* path = (char*)malloc(sizeof(char) * PATH_MAX);
-	uint32_t pathLen = sizeof(path);
-	int err = _NSGetExecutablePath(path, &pathLen);
-	assert(!err);
-	// return path;
-	// printf("%s\n", path);
-}
+#endif

@@ -17,16 +17,6 @@
 		6C9D3E6E2C11BE8700005B23 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C9D3E6D2C11BE8700005B23 /* OpenGL.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		6C4FC6F52C15321F00167D24 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6C4FC6F12C15321F00167D24 /* example-maze3d.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 6C9D3E462C11BDA800005B23;
-			remoteInfo = "example-maze3d";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		6C9D3E622C11BE2A00005B23 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -43,7 +33,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6C4FC6F12C15321F00167D24 /* example-maze3d.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "example-maze3d.xcodeproj"; sourceTree = "<group>"; };
 		6C7D46652C1D839A00952568 /* libGameEngine.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGameEngine.a; path = ../lib/libGameEngine.a; sourceTree = "<group>"; };
 		6C7D46672C1D841000952568 /* mystify.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mystify.c; path = ../examples/mystify.c; sourceTree = "<group>"; };
 		6C7D466A2C1D84A100952568 /* engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = engine.h; sourceTree = "<group>"; };
@@ -79,14 +68,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6C4FC6F22C15321F00167D24 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6C4FC6F62C15321F00167D24 /* example-maze3d.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		6C7D46692C1D84A100952568 /* include */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,7 +94,6 @@
 				6C9D3E532C11BDA900005B23 /* game_engine.entitlements */,
 				6C9D3E472C11BDA800005B23 /* Products */,
 				6C9D3E5B2C11BE2A00005B23 /* Frameworks */,
-				6C4FC6F12C15321F00167D24 /* example-maze3d.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -183,28 +163,12 @@
 			mainGroup = 6C9D3E3D2C11BDA800005B23;
 			productRefGroup = 6C9D3E472C11BDA800005B23 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 6C4FC6F22C15321F00167D24 /* Products */;
-					ProjectRef = 6C4FC6F12C15321F00167D24 /* example-maze3d.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				6C9D3E452C11BDA800005B23 /* example-mystify */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		6C4FC6F62C15321F00167D24 /* example-maze3d.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "example-maze3d.app";
-			remoteRef = 6C4FC6F52C15321F00167D24 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6C9D3E442C11BDA800005B23 /* Resources */ = {
