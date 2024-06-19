@@ -72,44 +72,46 @@ char *readFile(const char *filename) {
 //	return program;
 //}
 
+// todo, bring this back. maxLength must be a const (use malloc)
 void printProgramLog(GLuint program) {
 	// Make sure name is shader
-	if (glIsProgram(program)) {
-		// Program log length
-		int infoLogLength = 0;
-		int maxLength = infoLogLength;
-		// Get info string length
-		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
-		char infoLog[maxLength];
-		// Get info log
-		glGetProgramInfoLog(program, maxLength, &infoLogLength, infoLog);
-		if (infoLogLength > 0) {
-			//Print Log
-			printf( "%s\n", infoLog );
-		}
-	} else {
-		printf( "Name %d is not a program\n", program );
-	}
+	//if (glIsProgram(program)) {
+	//	// Program log length
+	//	int infoLogLength = 0;
+	//	int maxLength = infoLogLength;
+	//	// Get info string length
+	//	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
+	//	char infoLog[maxLength];
+	//	// Get info log
+	//	glGetProgramInfoLog(program, maxLength, &infoLogLength, infoLog);
+	//	if (infoLogLength > 0) {
+	//		//Print Log
+	//		printf( "%s\n", infoLog );
+	//	}
+	//} else {
+	//	printf( "Name %d is not a program\n", program );
+	//}
 }
 
+// todo, bring this back. maxLength must be a const (use malloc)
 void printShaderLog(GLuint shader) {
 	// Make sure name is shader
-	if (glIsShader(shader)) {
-		// Shader log length
-		int infoLogLength = 0;
-		int maxLength = infoLogLength;
-		// Get info string length
-		glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &maxLength );
-		char infoLog[maxLength];
-		// Get info log
-		glGetShaderInfoLog( shader, maxLength, &infoLogLength, infoLog );
-		if (infoLogLength > 0) {
-			// Print Log
-			printf( "%s\n", infoLog );
-		}
-	} else {
-		printf( "Name %d is not a shader\n", shader );
-	}
+	//if (glIsShader(shader)) {
+	//	// Shader log length
+	//	int infoLogLength = 0;
+	//	int maxLength = infoLogLength;
+	//	// Get info string length
+	//	glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &maxLength );
+	//	char infoLog[maxLength];
+	//	// Get info log
+	//	glGetShaderInfoLog( shader, maxLength, &infoLogLength, infoLog );
+	//	if (infoLogLength > 0) {
+	//		// Print Log
+	//		printf( "%s\n", infoLog );
+	//	}
+	//} else {
+	//	printf( "Name %d is not a shader\n", shader );
+	//}
 }
 
 // GL_FRAGMENT_SHADER 0x8B30, GL_VERTEX_SHADER 0x8B31

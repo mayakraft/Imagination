@@ -1,17 +1,22 @@
 // infinite scrolling simplex noise landscape,
 // vertices positions calculated on the GPU
+
+#ifdef _WIN32
+#define SDL_MAIN_HANDLED
+#endif
+
 #include <string>
 #include <time.h>
 #include "../include/engine.h"
 
 int main() {
 	srand(time(NULL));
-	uint frame = 0;
+	unsigned int frame = 0;
 	GLfloat projection[16];
 	GLfloat modelView[16];
-	int WIDTH = 512;
-	int HEIGHT = 512;
-	int numTriangles = (WIDTH - 1) * (HEIGHT - 1) * 2;
+	const int WIDTH = 512;
+	const int HEIGHT = 512;
+	const int numTriangles = (WIDTH - 1) * (HEIGHT - 1) * 2;
 
 	InitParams params = InitParams {
 		.flags = SDL_INIT_VIDEO,

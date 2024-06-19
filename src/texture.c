@@ -1,7 +1,7 @@
 #include "texture.h"
 
 GLuint loadGLTexture(unsigned char *data, int width, int height) { // , uint inputFormat = GL_RGB) {
-	uint inputFormat = GL_RGB;
+	unsigned int inputFormat = GL_RGB;
 	GLuint texture;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -48,7 +48,7 @@ SDL_Texture* loadSDLTexture(SDL_Renderer *renderer, const char* path) {
 }
 
 GLuint updateGLTexture(GLuint texture, unsigned char *data, int width, int height) {
-	uint inputFormat = GL_RGB;
+	unsigned int inputFormat = GL_RGB;
 	glBindTexture(GL_TEXTURE_2D, texture);
 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // GL_LINEAR);
