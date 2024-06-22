@@ -36,8 +36,8 @@ float snoise(vec2 v) {
 }
 
 float altitude(vec2 coord) {
-	float nscale = 0.005;
-	float hscale = 40;
+	float nscale = 0.002;
+	float hscale = 30;
 	float noiseValue = 0
 		+ snoise(coord * nscale * 1) * 1
 		+ snoise(coord * nscale * 2) * 0.5
@@ -60,11 +60,12 @@ void main() {
 	float upZ = altitude(u_offset + position.xy + up);
 	float sideZ = altitude(u_offset + position.xy + side);
 	float downZ = altitude(u_offset + position.xy + down);
-	vec3 a = vec3(up, upZ * 0.5) - vec3(side, sideZ * 0.5);
-	vec3 b = vec3(down, downZ * 0.5) - vec3(side, sideZ * 0.5);
+	vec3 a = vec3(up, upZ * 10) - vec3(side, sideZ * 10);
+	vec3 b = vec3(down, downZ * 10) - vec3(side, sideZ * 10);
 	vec3 normal = normalize(cross(a, b));
 
+	vec3 flooredpos = vec3(floor(newPos.x), floor(newPos.y), newPos.z);
 	v_normal = normal;
-	v_position = newPos;
-	gl_Position = u_projection * u_modelView * vec4(newPos, 1.0);
+	v_position = flooredpos;
+	gl_Position = u_projection * u_modelView * vec4(flooredpos, 1.0);
 }

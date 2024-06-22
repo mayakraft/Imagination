@@ -1,9 +1,9 @@
 // infinite scrolling simplex noise landscape,
 // vertices positions calculated on the GPU
 
-#ifdef _WIN32
-#define SDL_MAIN_HANDLED
-#endif
+// #ifdef _WIN32
+// #define SDL_MAIN_HANDLED
+// #endif
 
 #include <string>
 #include <time.h>
@@ -31,10 +31,10 @@ int main() {
 
 	glDebugInfo();
 
-	char shaderPath[] = "./examples/shaders";
+	char shaderPath[256] = "./examples/shaders";
 
 	// for building in xcode
-	// getBundleResourcesPath(shaderPath);
+	// getMacBundleResourcesPath(shaderPath);
 
 	std::string vertexPath = std::string(shaderPath) + "/landscape.vert";
 	std::string fragmentPath = std::string(shaderPath) + "/landscape.frag";
@@ -85,19 +85,17 @@ int main() {
 	GLint projectionLocation = getUniform(&program, "u_projection");
 	GLint modelViewLocation = getUniform(&program, "u_modelView");
 
-	// generateVertexBuffer(&program, vertices, 3 * WIDTH * HEIGHT * sizeof(GLfloat));
 	GLuint vbo;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, 3 * WIDTH * HEIGHT * sizeof(GLshort), vertices, GL_STATIC_DRAW);
 	program.vbo = vbo;
 
-	// generateElementBuffer(&program, indices, numTriangles * 3);
-	GLuint ibo;
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	GLuint ebo;
+	glGenBuffers(1, &ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, numTriangles * 3 * sizeof(GLuint), indices, GL_STATIC_DRAW);
-	program.ibo = ibo;
+	program.ebo = ebo;
 
 	SDL_Event e;
 	bool quit = false;
@@ -133,7 +131,7 @@ int main() {
 		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, projection);
 		glUniformMatrix4fv(modelViewLocation, 1, GL_FALSE, modelView);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, program.ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, program.ebo);
 		glDrawElements(GL_TRIANGLES, numTriangles * 3, GL_UNSIGNED_INT, NULL);
 		glDisableVertexAttribArray(vertexAttrib);
 		glUseProgram(0);

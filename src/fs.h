@@ -24,7 +24,7 @@ extern "C" {
 // this will fill the input variable with a path, something like
 // /Users/Maya/Applications/My-App.app/Contents/Resources
 // (with no trailing /)
-void getBundleResourcesPath(char *resourcePath);
+void getMacBundleResourcesPath(char *resourcePath);
 
 #endif
 

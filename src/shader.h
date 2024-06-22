@@ -12,7 +12,7 @@ extern "C" {
 typedef struct ShaderProgram {
 	GLuint programID;
 	GLuint vbo;
-	GLuint ibo;
+	GLuint ebo;
 } ShaderProgram;
 
 // make sure to free the returned value after you are done using it
@@ -33,8 +33,8 @@ void deallocProgram(ShaderProgram *program);
 GLint getAttrib(ShaderProgram *program, const char* name);
 GLint getUniform(ShaderProgram *program, const char* name);
 
-void generateVertexBuffer(ShaderProgram *program, const void* data, size_t length);
-void generateElementBuffer(ShaderProgram *program, const void* data, size_t length);
+GLuint generateVertexBuffer(const void* data, size_t length);
+GLuint generateElementBuffer(const void* data, size_t length);
 
 #ifdef __cplusplus
 }

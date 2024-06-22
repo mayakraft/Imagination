@@ -30,8 +30,8 @@ int main(void) {
 	};
 	GLuint indexData[] = { 0, 1, 2, 3 };
 
-	generateVertexBuffer(&program, vertexData, sizeof(GLfloat) * 4 * 2);
-	generateElementBuffer(&program, indexData, sizeof(GLuint) * 4);
+	program.vbo = generateVertexBuffer(vertexData, sizeof(GLfloat) * 4 * 2);
+	program.ebo = generateElementBuffer(indexData, sizeof(GLuint) * 4);
 	GLint vertexAttrib = getAttrib(&program, "position");
 	GLint timeUniform = getUniform(&program, "u_time");
 	GLint resUniform = getUniform(&program, "u_resolution");
@@ -53,7 +53,7 @@ int main(void) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(program.programID);
 		glBindBuffer(GL_ARRAY_BUFFER, program.vbo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, program.ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, program.ebo);
 
 		// Enable vertex position
 		glEnableVertexAttribArray(vertexAttrib);

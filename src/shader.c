@@ -11,7 +11,8 @@ char *readFile(const char *filename) {
 	f = fopen(filename, "rb");
 #endif
 	if (f == NULL) {
-		fputs("shader file does not exist", stderr);
+		// printf("%s\n", filename);
+		fputs("shader file does not exist\n", stderr);
 		return NULL;
 	}
 	fseek(f, 0, SEEK_END);
@@ -72,46 +73,34 @@ char *readFile(const char *filename) {
 //	return program;
 //}
 
-// todo, bring this back. maxLength must be a const (use malloc)
 void printProgramLog(GLuint program) {
 	// Make sure name is shader
-	//if (glIsProgram(program)) {
-	//	// Program log length
-	//	int infoLogLength = 0;
-	//	int maxLength = infoLogLength;
-	//	// Get info string length
-	//	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
-	//	char infoLog[maxLength];
-	//	// Get info log
-	//	glGetProgramInfoLog(program, maxLength, &infoLogLength, infoLog);
-	//	if (infoLogLength > 0) {
-	//		//Print Log
-	//		printf( "%s\n", infoLog );
-	//	}
-	//} else {
-	//	printf( "Name %d is not a program\n", program );
-	//}
+	if (!glIsProgram(program)) {
+		printf("Name %d is not a program\n", program);
+		return;
+	}
+	int infoLogLength = 0;
+	int maxLength = infoLogLength;
+	glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxLength);
+	char *infoLog = (char*)malloc(sizeof(char) * maxLength);
+	glGetProgramInfoLog(program, maxLength, &infoLogLength, infoLog);
+	if (infoLogLength > 0) { printf("%s\n", infoLog); }
+	free(infoLog);
 }
 
-// todo, bring this back. maxLength must be a const (use malloc)
 void printShaderLog(GLuint shader) {
 	// Make sure name is shader
-	//if (glIsShader(shader)) {
-	//	// Shader log length
-	//	int infoLogLength = 0;
-	//	int maxLength = infoLogLength;
-	//	// Get info string length
-	//	glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &maxLength );
-	//	char infoLog[maxLength];
-	//	// Get info log
-	//	glGetShaderInfoLog( shader, maxLength, &infoLogLength, infoLog );
-	//	if (infoLogLength > 0) {
-	//		// Print Log
-	//		printf( "%s\n", infoLog );
-	//	}
-	//} else {
-	//	printf( "Name %d is not a shader\n", shader );
-	//}
+	if (!glIsShader(shader)) {
+		printf("Name %d is not a shader\n", shader);
+		return;
+	}
+	int infoLogLength = 0;
+	int maxLength = infoLogLength;
+	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
+	char *infoLog = (char*)malloc(sizeof(char) * maxLength);
+	glGetShaderInfoLog(shader, maxLength, &infoLogLength, infoLog);
+	if (infoLogLength > 0) { printf("%s\n", infoLog); }
+	free(infoLog);
 }
 
 // GL_FRAGMENT_SHADER 0x8B30, GL_VERTEX_SHADER 0x8B31
@@ -160,10 +149,13 @@ ShaderProgram createProgram(const GLchar* vertex, const GLchar* fragment) {
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
+	// idk if we should auto use the program
+	// glUseProgram(gProgramID);
+
 	ShaderProgram shader;
 	shader.programID = gProgramID;
 	shader.vbo = -1;
-	shader.ibo = -1;
+	shader.ebo = -1;
 	return shader;
 }
 
@@ -180,21 +172,21 @@ GLint getUniform(ShaderProgram *program, const char* name) {
 }
 
 // length: for example, 2 * 4 * sizeof(GLfloat)
-void generateVertexBuffer(ShaderProgram *program, const void* data, size_t length) {
+GLuint generateVertexBuffer(const void* data, size_t length) {
 	GLuint vbo = 0;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, length, data, GL_STATIC_DRAW);
-	program->vbo = vbo;
+	return vbo;
 }
 
 // length: for example, sizeof(GLuint) * 21 * 3
-void generateElementBuffer(ShaderProgram *program, const void* data, size_t length) {
-	GLuint ibo = 0;
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+GLuint generateElementBuffer(const void* data, size_t length) {
+	GLuint ebo = 0;
+	glGenBuffers(1, &ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, length, data, GL_STATIC_DRAW);
-	program->ibo = ibo;
+	return ebo;
 }
 
 void deallocProgram(ShaderProgram *program) {

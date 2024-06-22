@@ -1,6 +1,10 @@
 #include "./primitives.h"
+#include "./mesh.h"
 
-void makeTetrahedron(Polyhedron *tetrahedron) {
+void makeTetrahedron(Polyhedron *polyhedron) {
+	const unsigned short numV = 4;
+	const unsigned short numE = 6;
+	const unsigned short numF = 4;
 	float v[] = {
 		1.0, 0.0, 0.0,
 		-0.3333, -0.9428, 0.0,
@@ -16,15 +20,22 @@ void makeTetrahedron(Polyhedron *tetrahedron) {
 		2, 0, 1,
 		3, 1, 0,
 	};
-	tetrahedron->vertices = (float*)malloc(sizeof(float) * 3 * 4);
-	tetrahedron->edges = (unsigned short*)malloc(sizeof(unsigned short) * 2 * 6);
-	tetrahedron->faces = (unsigned short*)malloc(sizeof(unsigned short) * 3 * 4);
-	memcpy(tetrahedron->vertices, v, sizeof(float) * 3 * 4);
-	memcpy(tetrahedron->edges, e, sizeof(unsigned short) * 2 * 6);
-	memcpy(tetrahedron->faces, f, sizeof(unsigned short) * 3 * 4);
+	polyhedron->numVertices = numV;
+	polyhedron->numEdges = numE;
+	polyhedron->numFaces = numF;
+	polyhedron->vertices = (float*)malloc(sizeof(float) * numV * 3);
+	polyhedron->edges = (unsigned short*)malloc(sizeof(unsigned short) * numE * 2);
+	polyhedron->faces = (unsigned short*)malloc(sizeof(unsigned short) * numF * 3);
+	memcpy(polyhedron->vertices, v, sizeof(float) * numV * 3);
+	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
+	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
+	polyhedron->normals = makeVerticesNormal(polyhedron);
 };
 
-void makeTetrahedronDual(Polyhedron *tetrahedron) {
+void makeTetrahedronDual(Polyhedron *polyhedron) {
+	const unsigned short numV = 4;
+	const unsigned short numE = 6;
+	const unsigned short numF = 4;
 	float v[] = {
 		-1.0, 0.0, 0.0,
 		0.3333, 0.9428, 0.0,
@@ -40,15 +51,22 @@ void makeTetrahedronDual(Polyhedron *tetrahedron) {
 		2, 0, 1,
 		3, 1, 0,
 	};
-	tetrahedron->vertices = (float*)malloc(sizeof(float) * 3 * 4);
-	tetrahedron->edges = (unsigned short*)malloc(sizeof(unsigned short) * 2 * 6);
-	tetrahedron->faces = (unsigned short*)malloc(sizeof(unsigned short) * 3 * 4);
-	memcpy(tetrahedron->vertices, v, sizeof(float) * 3 * 4);
-	memcpy(tetrahedron->edges, e, sizeof(unsigned short) * 2 * 6);
-	memcpy(tetrahedron->faces, f, sizeof(unsigned short) * 3 * 4);
+	polyhedron->numVertices = numV;
+	polyhedron->numEdges = numE;
+	polyhedron->numFaces = numF;
+	polyhedron->vertices = (float*)malloc(sizeof(float) * numV * 3);
+	polyhedron->edges = (unsigned short*)malloc(sizeof(unsigned short) * numE * 2);
+	polyhedron->faces = (unsigned short*)malloc(sizeof(unsigned short) * numF * 3);
+	memcpy(polyhedron->vertices, v, sizeof(float) * numV * 3);
+	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
+	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
+	polyhedron->normals = makeVerticesNormal(polyhedron);
 };
 
-void makeOctahedron(Polyhedron *octahedron) {
+void makeOctahedron(Polyhedron *polyhedron) {
+	const unsigned short numV = 6;
+	const unsigned short numE = 12;
+	const unsigned short numF = 8;
 	float v[6 * 3] = {
 		1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -1.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, -1.0
 	};
@@ -58,16 +76,23 @@ void makeOctahedron(Polyhedron *octahedron) {
 	unsigned short f[8 * 3] = {
 		1, 0, 2, 1, 5, 0, 4, 0, 5, 4, 2, 0, 1, 2, 3, 1, 3, 5, 4, 5, 3, 4, 3, 2
 	};
-	octahedron->vertices = (float*)malloc(sizeof(float) * 3 * 6);
-	octahedron->edges = (unsigned short*)malloc(sizeof(unsigned short) * 2 * 12);
-	octahedron->faces = (unsigned short*)malloc(sizeof(unsigned short) * 3 * 8);
-	memcpy(octahedron->vertices, v, sizeof(float) * 3 * 6);
-	memcpy(octahedron->edges, e, sizeof(unsigned short) * 2 * 12);
-	memcpy(octahedron->faces, f, sizeof(unsigned short) * 3 * 8);
+	polyhedron->numVertices = numV;
+	polyhedron->numEdges = numE;
+	polyhedron->numFaces = numF;
+	polyhedron->vertices = (float*)malloc(sizeof(float) * numV * 3);
+	polyhedron->edges = (unsigned short*)malloc(sizeof(unsigned short) * numE * 2);
+	polyhedron->faces = (unsigned short*)malloc(sizeof(unsigned short) * numF * 3);
+	memcpy(polyhedron->vertices, v, sizeof(float) * numV * 3);
+	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
+	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
+	polyhedron->normals = makeVerticesNormal(polyhedron);
 };
 
 // 12 triangle faces
-void makeCube(Polyhedron *cube) {
+void makeCube(Polyhedron *polyhedron) {
+	const unsigned short numV = 8;
+	const unsigned short numE = 12;
+	const unsigned short numF = 12;
 	float v[8 * 3] = {
 		0.57735, 0.57735, 0.57735, 0.57735, 0.57735, -0.57735, 0.57735, -0.57735, -0.57735, 0.57735, -0.57735, 0.57735, -0.57735, 0.57735, 0.57735, -0.57735, 0.57735, -0.57735, -0.57735, -0.57735, -0.57735, -0.57735, -0.57735, 0.57735
 	};
@@ -77,15 +102,22 @@ void makeCube(Polyhedron *cube) {
 	unsigned short f[12 * 3] = {
 		0, 2, 3, 2, 0, 1, 4, 1, 0, 1, 4, 5, 0, 3, 7, 7, 4, 0, 7, 5, 4, 5, 7, 6, 3, 6, 7, 6, 3, 2, 1, 5, 6, 6, 2, 1
 	};
-	cube->vertices = (float*)malloc(sizeof(float) * 3 * 8);
-	cube->edges = (unsigned short*)malloc(sizeof(unsigned short) * 2 * 12);
-	cube->faces = (unsigned short*)malloc(sizeof(unsigned short) * 3 * 12);
-	memcpy(cube->vertices, v, sizeof(float) * 3 * 8);
-	memcpy(cube->edges, e, sizeof(unsigned short) * 2 * 12);
-	memcpy(cube->faces, f, sizeof(unsigned short) * 3 * 12);
+	polyhedron->numVertices = numV;
+	polyhedron->numEdges = numE;
+	polyhedron->numFaces = numF;
+	polyhedron->vertices = (float*)malloc(sizeof(float) * numV * 3);
+	polyhedron->edges = (unsigned short*)malloc(sizeof(unsigned short) * numE * 2);
+	polyhedron->faces = (unsigned short*)malloc(sizeof(unsigned short) * numF * 3);
+	memcpy(polyhedron->vertices, v, sizeof(float) * numV * 3);
+	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
+	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
+	polyhedron->normals = makeVerticesNormal(polyhedron);
 };
 
-void makeIcosahedron(Polyhedron *icosahedron) {
+void makeIcosahedron(Polyhedron *polyhedron) {
+	const unsigned short numV = 12;
+	const unsigned short numE = 30;
+	const unsigned short numF = 20;
 	float v[12 * 3] = {
 		0.44721, -0.2763, 0.85065, -0.44721, 0.2763, 0.85065, -0.44721, 0.2763, -0.85065, 0.44721, -0.2763, -0.85065, -0.44721, -0.7236, 0.52573, 0.44721, 0.7236, 0.52573, 0.44721, 0.7236, -0.52573, -0.44721, -0.7236, -0.52573, 0.44721, -0.8944, 0.0, 1.0, 0.0, 0.0, -0.44721, 0.8944, 0.0, -1.0, 0.0, 0.0
 	};
@@ -95,16 +127,23 @@ void makeIcosahedron(Polyhedron *icosahedron) {
 	unsigned short f[20 * 3] = {
 		8, 7, 4, 7, 8, 3, 8, 4, 0, 8, 0, 9, 9, 3, 8, 9, 0, 5, 9, 5, 6, 9, 6, 3, 3, 2, 7, 3, 6, 2, 0, 4, 1, 0, 1, 5, 11, 4, 7, 11, 7, 2, 11, 2, 10, 1, 11, 10, 11, 1, 4, 10, 6, 5, 10, 5, 1, 10, 2, 6
 	};
-	icosahedron->vertices = (float*)malloc(sizeof(float) * 3 * 12);
-	icosahedron->edges = (unsigned short*)malloc(sizeof(unsigned short) * 2 * 30);
-	icosahedron->faces = (unsigned short*)malloc(sizeof(unsigned short) * 3 * 20);
-	memcpy(icosahedron->vertices, v, sizeof(float) * 3 * 12);
-	memcpy(icosahedron->edges, e, sizeof(unsigned short) * 2 * 30);
-	memcpy(icosahedron->faces, f, sizeof(unsigned short) * 3 * 20);
+	polyhedron->numVertices = numV;
+	polyhedron->numEdges = numE;
+	polyhedron->numFaces = numF;
+	polyhedron->vertices = (float*)malloc(sizeof(float) * numV * 3);
+	polyhedron->edges = (unsigned short*)malloc(sizeof(unsigned short) * numE * 2);
+	polyhedron->faces = (unsigned short*)malloc(sizeof(unsigned short) * numF * 3);
+	memcpy(polyhedron->vertices, v, sizeof(float) * numV * 3);
+	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
+	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
+	polyhedron->normals = makeVerticesNormal(polyhedron);
 };
 
 // 36 triangle faces
-void makeDodecahedron(Polyhedron *dodecahedron) {
+void makeDodecahedron(Polyhedron *polyhedron) {
+	const unsigned short numV = 20;
+	const unsigned short numE = 30;
+	const unsigned short numF = 36;
 	float v[20 * 3] = {
 		-0.7946, 0.4911, 0.3568, -0.1875, 0.7946, -0.5773, -0.7946, 0.4911, -0.3568, -0.7946, -0.1875, -0.5773, 0.1875, 0.3035, -0.9341, 0.1875, 0.9822, 0.0, 0.1875, -0.7946, -0.5773, -0.1875, -0.3035, -0.9341, -0.1875, -0.9822, 0.0, -0.7946, -0.6070, 0.0, 0.7946, -0.4911, -0.3568, 0.1875, -0.7946, 0.5773, -0.1875, -0.3035, 0.9341, -0.7946, -0.1875, 0.5773, 0.7946, -0.4911, 0.3568, -0.1875, 0.7946, 0.5773, 0.1875, 0.3035, 0.9341, 0.7946, 0.1875, 0.5773, 0.7946, 0.6070, 0.0, 0.7946, 0.1875, -0.5773
 	};
@@ -114,12 +153,16 @@ void makeDodecahedron(Polyhedron *dodecahedron) {
 	unsigned short f[36 * 3] = {
 		5, 2, 1, 15, 0, 5, 2, 5, 0, 9, 2, 13, 2, 0, 13, 3, 2, 9, 10, 17, 19, 18, 19, 17, 14, 17, 10, 19, 1, 4, 6, 9, 8, 1, 18, 5, 11, 14, 8, 18, 1, 19, 8, 9, 11, 10, 8, 14, 8, 10, 6, 6, 7, 9, 9, 7, 3, 13, 12, 9, 12, 11, 9, 18, 15, 5, 17, 15, 18, 15, 17, 16, 11, 12, 14, 14, 12, 17, 17, 12, 16, 12, 13, 16, 13, 0, 16, 0, 15, 16, 7, 2, 3, 2, 7, 1, 1, 7, 4, 4, 7, 19, 19, 7, 10, 6, 10, 7
 	};
-	dodecahedron->vertices = (float*)malloc(sizeof(float) * 3 * 20);
-	dodecahedron->edges = (unsigned short*)malloc(sizeof(unsigned short) * 2 * 30);
-	dodecahedron->faces = (unsigned short*)malloc(sizeof(unsigned short) * 3 * 36);
-	memcpy(dodecahedron->vertices, v, sizeof(float) * 3 * 20);
-	memcpy(dodecahedron->edges, e, sizeof(unsigned short) * 2 * 30);
-	memcpy(dodecahedron->faces, f, sizeof(unsigned short) * 3 * 36);
+	polyhedron->numVertices = numV;
+	polyhedron->numEdges = numE;
+	polyhedron->numFaces = numF;
+	polyhedron->vertices = (float*)malloc(sizeof(float) * numV * 3);
+	polyhedron->edges = (unsigned short*)malloc(sizeof(unsigned short) * numE * 2);
+	polyhedron->faces = (unsigned short*)malloc(sizeof(unsigned short) * numF * 3);
+	memcpy(polyhedron->vertices, v, sizeof(float) * numV * 3);
+	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
+	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
+	polyhedron->normals = makeVerticesNormal(polyhedron);
 };
 
 // struct Tetrahedron: Polyhedron {
