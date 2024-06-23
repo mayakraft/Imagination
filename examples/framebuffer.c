@@ -63,7 +63,7 @@ int main(void) {
 	GLfloat model[16] = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 };
 	// GLfloat screenCoords[] = { -1, -1, 1, -1, 1, 1, -1, 1 };
 	// GLuint screenCoordIndices[] = { 0, 1, 2, 3 };
-	Polyhedron polyhedron;
+	mesh_t polyhedron;
 	makeDodecahedron(&polyhedron);
 	makePerspectiveMatrix4(45, 1.0 / 1.0, 0.1f, 100.0f, projection);
 	// makeOrthographicMatrix4(380, 380, -380, -380, 1, 2048.0, projection);
@@ -82,7 +82,7 @@ int main(void) {
 	params.title = "Post-processing shader";
 	params.width = SCREEN;
 	params.height = SCREEN;
-	GameEngine engine = init3D(params);
+	GameEngine engine = initGLEngine(params);
 
 	glDebugInfo();
 

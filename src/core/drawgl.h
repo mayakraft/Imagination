@@ -13,9 +13,9 @@ extern "C" {
 #endif
 
 // these are old OpenGL 2.0 syntax style
-void drawPolyhedronFaces(Polyhedron *poly, int numFaces);
-void drawPolyhedronLines(Polyhedron *poly, int numEdges);
-void drawPolyhedronPoints(Polyhedron *poly, int numVertices);
+void drawMeshFaces(mesh_t *poly, int numFaces);
+void drawMeshLines(mesh_t *poly, int numEdges);
+void drawMeshPoints(mesh_t *poly, int numVertices);
 
 #ifdef __cplusplus
 }

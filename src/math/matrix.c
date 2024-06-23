@@ -1,36 +1,9 @@
-#include "algebra.h"
+#include "matrix.h"
+#include "vector.h"
+#include "general.h"
 
-float modulusContext(float complete, int modulus){
-	double wholePart;
-	double fracPart = modf(complete, &wholePart);
-	return ( ((int)wholePart) % modulus ) + fracPart;
-}
-
-float magnitude3(const float* v) {
-	return sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
-}
-
-// modifies input vector
-void normalize3(float* vector) {
-	float m = magnitude3(vector);
-	if (m != 0) {
-		vector[0] /= m;
-		vector[1] /= m;
-		vector[2] /= m;
-	}
-}
-
-void cross3 (const float* v, const float* u, float* result) {
-	result[0] = v[1] * u[2] - v[2] * u[1];
-	result[1] = v[2] * u[0] - v[0] * u[2];
-	result[2] = v[0] * u[1] - v[1] * u[0];
-}
-
-void subtract3(const float* v, const float* u, float* result) {
-	result[0] = v[0] - u[0];
-	result[1] = v[1] - u[1];
-	result[2] = v[2] - u[2];
-}
+#include <math.h>
+#include <string.h>
 
 // MATRICES
 unsigned char mat4Inverse(const float m[16], float inverse[16]){
@@ -59,7 +32,7 @@ unsigned char mat4Inverse(const float m[16], float inverse[16]){
 	return 1;
 }
 
-void mat4x4MultUnique(const float *a, const float *b, float *result){
+void mat4x4MultUnique(const float *a, const float *b, float *result) {
 	// this is counting on a or b != result   eg: cannot do mat4x4MultUnique(a, b, a);
 	result[0] = a[0] * b[0] + a[1] * b[4] + a[2] * b[8] + a[3] * b[12];
 	result[1] = a[0] * b[1] + a[1] * b[5] + a[2] * b[9] + a[3] * b[13];

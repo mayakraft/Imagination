@@ -15,7 +15,7 @@ int main() {
 		.height = SCREEN,
 	};
 
-	GameEngine engine = init3D(params);
+	GameEngine engine = initGLEngine(params);
 
 	// vertices positions are filled in the vertex shader
 	GLfloat vertexData[] = { 0, 0, 0, 0, 0, 0 };

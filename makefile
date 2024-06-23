@@ -33,10 +33,10 @@ else
 	LIBS += -lGL
 endif
 
-# Find all .c files in the source directory
-SRC_FILES := $(wildcard $(SRC_DIR)/*.c)
+# Find all .c files in the source directory and subdirectories
+SRC_FILES := $(shell find $(SRC_DIR) -name '*.c')
 
-# Define the corresponding .o files in the build directory
+# Define the corresponding .o files in the build directory, mirroring the src directory structure
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC_FILES))
 
 # Find all example files
@@ -50,13 +50,13 @@ all: $(LIB_DIR)/$(LIB_NAME)
 
 # Compile .c files to .o files
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(INCLUDE_DIR)
-	@mkdir -p $(BUILD_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
-# Ensure include headers are copied
+# Ensure include headers are copied, preserving directory structure
 $(INCLUDE_DIR):
 	@mkdir -p $(INCLUDE_DIR)
-	find $(SRC_DIR) -name '*.h' -exec cp -prv '{}' $(INCLUDE_DIR) ';'
+	cd $(SRC_DIR) && find . -name '*.h' | cpio -pdm $(abspath $(INCLUDE_DIR))
 
 # create static library from .o files
 $(LIB_DIR)/$(LIB_NAME): $(OBJ_FILES)

@@ -128,9 +128,9 @@ int main() {
 		.title = "GL Texture Test",
 		.width = SCREEN,
 		.height = SCREEN,
-		.disableShaders = true,
+		.useLegacy = true,
 	};
-	GameEngine engine = init3D(params);
+	GameEngine engine = initGLEngine(params);
 
 	SDL_Delay(200);
 

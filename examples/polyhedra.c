@@ -12,10 +12,10 @@ int main() {
 	params.title = "Polyhedra";
 	params.width = SCREEN;
 	params.height = SCREEN;
-	params.disableShaders = 1;
-	GameEngine engine = init3D(params);
+	params.useLegacy = 1;
+	GameEngine engine = initGLEngine(params);
 
-	Polyhedron tetrahedron, tetrahedronDual, icosahedron, dodecahedron;
+	mesh_t tetrahedron, tetrahedronDual, icosahedron, dodecahedron;
 	makeTetrahedron(&tetrahedron);
 	makeTetrahedronDual(&tetrahedronDual);
 	makeIcosahedron(&icosahedron);
@@ -75,26 +75,26 @@ int main() {
 		glEnableClientState(GL_COLOR_ARRAY);
 		glColorPointer(3, GL_FLOAT, 0, colors);
 
-		drawPolyhedronFaces(&tetrahedron, 4);
-		drawPolyhedronFaces(&tetrahedronDual, 4);
+		drawMeshFaces(&tetrahedron, 4);
+		drawMeshFaces(&tetrahedronDual, 4);
 
 		glPushMatrix();
 		float sPoly = ((cos(frame / 100.0) * 0.5) + 0.5) * 0.8 + 0.2;
 		glScalef(0.2 + sPoly, 0.2 + sPoly, 0.2 + sPoly);
-		drawPolyhedronFaces(&icosahedron, 20);
-		drawPolyhedronFaces(&dodecahedron, 36);
+		drawMeshFaces(&icosahedron, 20);
+		drawMeshFaces(&dodecahedron, 36);
 
 		glDisableClientState(GL_COLOR_ARRAY);
 
 		glColor4f(1.0, 1.0, 1.0, 1.0);
-		drawPolyhedronLines(&icosahedron, 20);
-		drawPolyhedronLines(&dodecahedron, 30);
+		drawMeshLines(&icosahedron, 20);
+		drawMeshLines(&dodecahedron, 30);
 
 		glPopMatrix();
 
 		glColor4f(1.0, 1.0, 1.0, 1.0);
-		drawPolyhedronLines(&tetrahedron, 6);
-		drawPolyhedronLines(&tetrahedronDual, 6);
+		drawMeshLines(&tetrahedron, 6);
+		drawMeshLines(&tetrahedronDual, 6);
 
 		glPopMatrix();
 

@@ -46,7 +46,7 @@ int main(void) {
 	params.title = "Mystify Your Mind";
 	params.width = 640;
 	params.height = 640;
-	GameEngine engine = init2D(params);
+	GameEngine engine = initSDLEngine(params);
 
 	particle pts[NUM_DOTS];
 	for (int i = 0; i < NUM_DOTS; i += 1) {

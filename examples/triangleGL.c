@@ -13,9 +13,9 @@ int main() {
 		.title = "OpenGL Fixed-Function Pipeline Triangle",
 		.width = SCREEN,
 		.height = SCREEN,
-		.disableShaders = 1,
+		.useLegacy = 1,
 	};
-	GameEngine engine = init3D(params);
+	GameEngine engine = initGLEngine(params);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();

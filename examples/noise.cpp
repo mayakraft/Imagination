@@ -36,9 +36,9 @@ int main() {
 		.title = "Simplex Noise",
 		.width = 640,
 		.height = 640,
-		.disableShaders = true,
+		.useLegacy = true,
 	};
-	GameEngine engine = init3D(params);
+	GameEngine engine = initGLEngine(params);
 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);

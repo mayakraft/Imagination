@@ -24,7 +24,7 @@ int main() {
 		.width = 640,
 		.height = 640,
 	};
-	GameEngine engine = init3D(params);
+	GameEngine engine = initGLEngine(params);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);

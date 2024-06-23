@@ -1,7 +1,8 @@
 #include "./mesh.h"
-#include "./algebra.h"
+#include "../math/vector.h"
+#include <stdlib.h>
 
-float* makeFacesNormal(Polyhedron *poly) {
+float* makeFacesNormal(mesh_t *poly) {
 	float* normals = (float*)malloc(sizeof(float) * poly->numFaces * 3);
 	for (int f = 0; f < poly->numFaces; f++) {
 		// unsigned short f0 = poly->faces[f * 3 + 0];
@@ -22,7 +23,7 @@ float* makeFacesNormal(Polyhedron *poly) {
 	return normals;
 }
 
-float* makeVerticesNormal(Polyhedron *poly) {
+float* makeVerticesNormal(mesh_t *poly) {
 	float *faceNormals = makeFacesNormal(poly);
 
 	// normals = (float*)malloc(sizeof(float) * poly->numVertices * 3);

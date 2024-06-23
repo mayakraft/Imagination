@@ -48,9 +48,9 @@ int main() {
 		.title = "Maze 3D",
 		.width = SCREEN,
 		.height = SCREEN,
-		.disableShaders = true,
+		.useLegacy = true,
 	};
-	GameEngine engine = init3D(params);
+	GameEngine engine = initGLEngine(params);
 
 	// board m = buildMaze(MAZE_SIZE);
 	maze m = maze(MAZE_SIZE);

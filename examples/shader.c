@@ -12,7 +12,7 @@ int main(void) {
 	params.title = "Game Engine";
 	params.width = SCREEN;
 	params.height = SCREEN;
-	GameEngine engine = init3D(params);
+	GameEngine engine = initGLEngine(params);
 
 	glDebugInfo();
 

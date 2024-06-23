@@ -1,25 +1,15 @@
-#include "engine.h"
+#include "initialize.h"
 
-float setRendererPixelScale(SDL_Window* window, SDL_Renderer *renderer) {
+float getRendererPixelScale(SDL_Window* window, SDL_Renderer *renderer) {
 	int winW, winH, renW, renH;
 	SDL_GetWindowSize(window, &winW, &winH);
 	SDL_GetRendererOutputSize(renderer, &renW, &renH);
 	if (renW == winW) { return 1.0; }
 	float widthScale = (float)renW / (float) winW;
-	float heightScale = (float)renH / (float) winH;
+	// it's actually not good to call SDL_RenderSetScale for an SDL Renderer,
+	// it makes the window pixellated again (removes the retina scale).
 	// SDL_RenderSetScale(renderer, widthScale, heightScale);
 	// SDL_RenderSetLogicalSize(renderer, renW, renH);
-	// SDL_Rect topLeftViewport;
-	// topLeftViewport.x = 0;
-	// topLeftViewport.y = 0;
-	// topLeftViewport.w = SCREEN_WIDTH / 2;
-	// topLeftViewport.h = SCREEN_HEIGHT / 2;
-	// SDL_RenderSetViewport(renderer, &topLeftViewport );
-	printf("winsize (%d, %d) : renderer (%d, %d) : %f, %f\n",
-		winW, winH,
-		renW, renH,
-		widthScale, heightScale
-	);
 	return widthScale;
 }
 
@@ -38,7 +28,7 @@ void setFullscreenGL(GameEngine *engine, float *aspect) {
 
 // Initialize an SDL window and renderer for a fixed-function
 // pipeline OpenGL renderer.
-GameEngine init2D(InitParams params) {
+GameEngine initSDLEngine(InitParams params) {
 	if (SDL_Init(params.flags) < 0) { fputs(SDL_GetError(), stderr); }
 
 	SDL_Window *window = SDL_CreateWindow(params.title,
@@ -56,7 +46,7 @@ GameEngine init2D(InitParams params) {
 		SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == NULL) { fputs(SDL_GetError(), stderr); }
 
-	float pixelScale = setRendererPixelScale(window, renderer);
+	float pixelScale = getRendererPixelScale(window, renderer);
 
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
@@ -74,14 +64,14 @@ GameEngine init2D(InitParams params) {
 
 // Initialize GLEW and an SDL window for a programmable pipeline
 // using OpenGL making accessible shaders.
-GameEngine init3D(InitParams params) {
+GameEngine initGLEngine(InitParams params) {
 	// SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
 	if (SDL_Init(params.flags) < 0) {
 		fputs(SDL_GetError(), stderr);
 	}
 
 	SDL_GL_LoadLibrary(NULL);
-	if (params.disableShaders) {
+	if (params.useLegacy) {
 		// should we specify a version?
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
@@ -119,28 +109,11 @@ GameEngine init3D(InitParams params) {
 	// printf("SDL_GL_GetDrawableSize %d, %d\n", getGLW, getGLH);
 	float pixelScale = (float)getGLW / (float)getW;
 
-	// initialize GLEW
-	// glewExperimental = GL_TRUE;
-	// GLenum glewError = glewInit();
-	// if (glewError != GLEW_OK) {
-	// 	const char* errorChar = (char const*)glewGetErrorString(glewError);
-	// 	fputs(errorChar, stderr);
-	// }
-
 	if (!gladLoadGLLoader((GLADloadproc) SDL_GL_GetProcAddress)) {
 		fputs("Failed to initialize OpenGL context\n", stderr);
 	}
-	// gladLoadGL();
-	// int version = gladLoadGL(glfwGetProcAddress);
-	// int version = gladLoadGL((GLADloadfunc) SDL_GL_GetProcAddress);
-	// int version = gladLoadGL(SDL_GL_GetProcAddress);
-	// if (version == 0) {
-	// 	fputs("Failed to initialize OpenGL context\n", stderr);
-	// } else {
-	// 	printf("GL %d.%d\n", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
-	// }
-
 	// printf("GL %d.%d\n", GLAD_VERSION_MAJOR(version), GLAD_VERSION_MINOR(version));
+
 	// use vsync
 	if (SDL_GL_SetSwapInterval(1) < 0) {
 		fputs(SDL_GetError(), stderr);
@@ -167,7 +140,14 @@ void dealloc(GameEngine* engine) {
 	engine->window = NULL;
 	IMG_Quit();
 	SDL_Quit();
-	// glDeleteProgram(gProgramID);
+}
+
+void glDebugInfo() {
+	printf("OpenGL %d.%d\n", GLVersion.major, GLVersion.minor);
+	printf("Vendor:   %s\n", glGetString(GL_VENDOR));
+	printf("Renderer: %s\n", glGetString(GL_RENDERER));
+	printf("Version:  %s\n", glGetString(GL_VERSION));
+	printf("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 }
 
 //void drawLoop(GameEngine* engine) {
@@ -186,35 +166,27 @@ void dealloc(GameEngine* engine) {
 //    }
 //}
 
-void viewportTest(GameEngine *engine, SDL_Texture *texture) {
-	float SCREEN_WIDTH = 640;
-	float SCREEN_HEIGHT = 480;
-	//Top left corner viewport
-	SDL_Rect topLeftViewport;
-	topLeftViewport.x = 0;
-	topLeftViewport.y = 0;
-	topLeftViewport.w = (int)SCREEN_WIDTH / 2;
-	topLeftViewport.h = (int)SCREEN_HEIGHT / 2;
-	SDL_RenderSetViewport( engine->renderer, &topLeftViewport );
-	//Render texture to screen
-	SDL_RenderCopy( engine->renderer, texture, NULL, NULL );
-	//Bottom viewport
-	SDL_Rect bottomViewport;
-	bottomViewport.x = 0;
-	bottomViewport.y = (int)SCREEN_HEIGHT / 2;
-	bottomViewport.w = SCREEN_WIDTH;
-	bottomViewport.h = (int)SCREEN_HEIGHT / 2;
-	SDL_RenderSetViewport( engine->renderer, &bottomViewport );
-	//Render texture to screen
-	SDL_RenderCopy( engine->renderer, texture, NULL, NULL );
-	//Update screen
-	SDL_RenderPresent( engine->renderer );
-}
-
-void glDebugInfo() {
-	printf("OpenGL %d.%d\n", GLVersion.major, GLVersion.minor);
-	printf("Vendor:   %s\n", glGetString(GL_VENDOR));
-	printf("Renderer: %s\n", glGetString(GL_RENDERER));
-	printf("Version:  %s\n", glGetString(GL_VERSION));
-	printf("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-}
+// void viewportTest(GameEngine *engine, SDL_Texture *texture) {
+// 	float SCREEN_WIDTH = 640;
+// 	float SCREEN_HEIGHT = 480;
+// 	//Top left corner viewport
+// 	SDL_Rect topLeftViewport;
+// 	topLeftViewport.x = 0;
+// 	topLeftViewport.y = 0;
+// 	topLeftViewport.w = (int)SCREEN_WIDTH / 2;
+// 	topLeftViewport.h = (int)SCREEN_HEIGHT / 2;
+// 	SDL_RenderSetViewport( engine->renderer, &topLeftViewport );
+// 	//Render texture to screen
+// 	SDL_RenderCopy( engine->renderer, texture, NULL, NULL );
+// 	//Bottom viewport
+// 	SDL_Rect bottomViewport;
+// 	bottomViewport.x = 0;
+// 	bottomViewport.y = (int)SCREEN_HEIGHT / 2;
+// 	bottomViewport.w = SCREEN_WIDTH;
+// 	bottomViewport.h = (int)SCREEN_HEIGHT / 2;
+// 	SDL_RenderSetViewport( engine->renderer, &bottomViewport );
+// 	//Render texture to screen
+// 	SDL_RenderCopy( engine->renderer, texture, NULL, NULL );
+// 	//Update screen
+// 	SDL_RenderPresent( engine->renderer );
+// }

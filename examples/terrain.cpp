@@ -52,7 +52,7 @@ int main() {
 		.width = 640,
 		.height = 640,
 	};
-	GameEngine engine = init3D(params);
+	GameEngine engine = initGLEngine(params);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -136,7 +136,7 @@ int main() {
 	GLint ballProjectionLocation = getUniform(&ballProgram, "u_projection");
 	GLint ballModelViewLocation = getUniform(&ballProgram, "u_view");
 
-	Polyhedron icosahedron;
+	mesh_t icosahedron;
 	makeIcosahedron(&icosahedron);
 	// generateVertexBuffer(&ballProgram, vertices, 3 * WIDTH * HEIGHT * sizeof(GLfloat));
 	GLuint vbo2;

@@ -9,7 +9,7 @@ int main() {
 		.height = 480,
 	};
 
-	GameEngine engine = init2D(params);
+	GameEngine engine = initSDLEngine(params);
 	SDL_Texture* texture = loadSDLTexture(engine.renderer, "examples/images/copper.png");
 
 	SDL_Event e;

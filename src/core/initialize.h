@@ -18,7 +18,7 @@ typedef struct InitParams {
 	const char* title;
 	int width;
 	int height;
-	unsigned char disableShaders;
+	unsigned char useLegacy;
 } InitParams;
 
 typedef struct GameEngine {
@@ -29,21 +29,19 @@ typedef struct GameEngine {
 	int height;
 } GameEngine;
 
-// Initialize an SDL window and renderer for a fixed-function
-// pipeline OpenGL renderer.
-GameEngine init2D(InitParams params);
+// Initialize an SDL window and the builtin SDL renderer,
+// which is a 2D-only texture based hardware accelerated renderer.
+GameEngine initSDLEngine(InitParams params);
 
-// Initialize GLEW and an SDL window for a programmable pipeline
-// using OpenGL making accessible shaders.
-GameEngine init3D(InitParams params);
+// Initialize an SDL window and GLAD and an OpenGL context,
+// opening up the ability to use
+GameEngine initGLEngine(InitParams params);
 
 void dealloc(GameEngine* engine);
 
 float setRendererPixelScale(SDL_Window* window, SDL_Renderer *renderer);
 
 void setFullscreenGL(GameEngine *engine, float *aspect);
-
-void viewportTest(GameEngine *engine, SDL_Texture *texture);
 
 void glDebugInfo();
 

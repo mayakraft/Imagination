@@ -1,53 +1,27 @@
 #pragma once
 
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
-#include <string.h>
-
-#define D2R 0.01745329251994
-#define R2D 57.295779513082321
-
-#ifndef M_PI
-#define M_PI 3.141592653589793238
-#endif
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-float modulusContext(float complete, int modulus);
-
-float magnitude3(const float* v);
-
-// modifies input vector
-void normalize3(float* vector);
-
-void cross3 (const float* v, const float* u, float* result);
-
-void subtract3(const float* v, const float* u, float* result);
-
-// MATRICES
 unsigned char mat4Inverse(const float m[16], float inverse[16]);
 
-void mat4x4MultUnique(const float *a, const float *b, float *result);
-
-// use this method in all cases
+// use this method to multiply matrices
 void multiplyMatrices4(const float *a, const float *b, float *result);
 
-void transposeMatrix4(float *m);
+// this method is limited, parameters cannot be equal, ie: (A, B, A)
+void mat4x4MultUnique(const float *a, const float *b, float *result);
 
 void makeMatrix4RotateX(float *m, float angle);
-
 void makeMatrix4RotateY(float *m, float angle);
-
 void makeMatrix4RotateZ(float *m, float angle);
+
+void multiplyMatrix4Vector3(const float m[16], const float v[3], float result[3]);
+void multiplyMatrix4Vector4(const float m[16], const float v[4], float result[4]);
 
 void setIdentity4(float *m);
 
-void multiplyMatrix4Vector3(const float m[16], const float v[3], float result[3]);
-
-void multiplyMatrix4Vector4(const float m[16], const float v[4], float result[4]);
+void transposeMatrix4(float *m);
 
 void makePerspectiveMatrix4(float FOV, float aspect, float near, float far, float* m);
 
