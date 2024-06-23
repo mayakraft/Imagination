@@ -8,6 +8,12 @@ cross-platform game engine written in C and modern OpenGL
 2. include this header `#include "include/engine.h"`
 3. link to this library: `lib/libGameEngine.a` as well as `SDL` and `SDL_image`
 
+Run this in the terminal to use Vulkan
+
+```
+export DYLD_LIBRARY_PATH=/Library/VulkanSDK/1.3.268.1/macOS/lib
+```
+
 # dependencies
 
 - [SDL2](https://github.com/libsdl-org/SDL/releases)

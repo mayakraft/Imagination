@@ -1,4 +1,6 @@
 #include "initialize.h"
+#include "../vulkan/initialize.h"
+#include "SDL2/SDL_vulkan.h"
 
 float getRendererPixelScale(SDL_Window* window, SDL_Renderer *renderer) {
 	int winW, winH, renW, renH;
@@ -124,6 +126,44 @@ GameEngine initGLEngine(InitParams params) {
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
 		fputs(IMG_GetError(), stderr);
 	}
+
+	GameEngine engine;
+	engine.window = window;
+	engine.pixelScale = pixelScale;
+	engine.width = (int)(params.width * pixelScale);
+	engine.height = (int)(params.height * pixelScale);
+	return engine;
+}
+
+GameEngine initVulkanEngine(InitParams params) {
+	// SDL_LogSetAllPriority(SDL_LOG_PRIORITY_VERBOSE);
+	if (SDL_Init(params.flags) < 0) {
+		fputs(SDL_GetError(), stderr);
+	}
+
+	SDL_Window *window = SDL_CreateWindow(params.title,
+		SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_UNDEFINED,
+		params.width,
+		params.height,
+		SDL_WINDOW_VULKAN | SDL_WINDOW_ALLOW_HIGHDPI); // | SDL_WINDOW_SHOWN
+	if (window == NULL) { fputs(SDL_GetError(), stderr); }
+
+	int getW, getH;
+	int getVKW, getVKH;
+	SDL_GetWindowSize(window, &getW, &getH);
+	SDL_Vulkan_GetDrawableSize(window, &getVKW, &getVKH);
+	// printf("SDL_GetWindowSize %d, %d\n", getW, getH);
+	// printf("SDL_Vulkan_GetDrawableSize %d, %d\n", getGLW, getGLH);
+	float pixelScale = (float)getVKW / (float)getW;
+
+	// initialize SDL_image
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags)) {
+		fputs(IMG_GetError(), stderr);
+	}
+
+	// initVulkan(&window, params.title);
 
 	GameEngine engine;
 	engine.window = window;

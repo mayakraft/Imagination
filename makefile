@@ -1,5 +1,7 @@
 LIB_NAME := libGameEngine.a
 
+USE_VULKAN := 1
+
 SRC_DIR := ./src
 LIB_DIR := ./lib
 BIN_DIR := ./bin
@@ -8,6 +10,8 @@ INCLUDE_DIR := ./include
 EXAMPLES_DIR := ./examples
 FRAMEWORK_PATH := ./Frameworks
 R_PATH := @executable_path/../Frameworks
+VULKAN_SDK_PATH = /Library/VulkanSDK/1.3.268.1/macOS
+# GLSLC = /Library/VulkanSDK/1.3.268.1/macOS/bin/glslc
 
 CC := gcc
 CXX := g++
@@ -31,6 +35,11 @@ ifeq ($(OSTYPE),darwin)
 	LIBS += -framework OpenGL -framework CoreFoundation
 else
 	LIBS += -lGL
+endif
+
+ifdef USE_VULKAN
+	INCLUDE += -I$(VULKAN_SDK_PATH)/include
+	LIBS += -L$(VULKAN_SDK_PATH)/lib -lvulkan
 endif
 
 # Find all .c files in the source directory and subdirectories

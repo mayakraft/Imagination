@@ -33,9 +33,11 @@ typedef struct GameEngine {
 // which is a 2D-only texture based hardware accelerated renderer.
 GameEngine initSDLEngine(InitParams params);
 
-// Initialize an SDL window and GLAD and an OpenGL context,
-// opening up the ability to use
+// Initialize an SDL window and GLAD and an OpenGL context
 GameEngine initGLEngine(InitParams params);
+
+// Initialize an SDL window and Vulkan
+GameEngine initVulkanEngine(InitParams params);
 
 void dealloc(GameEngine* engine);
 
