@@ -15,6 +15,10 @@ extern "C" {
 
 GLuint loadGLTexture(unsigned char *data, int width, int height);
 GLuint loadGLTextureFromFile(const char* path);
+
+GLuint loadGLAlphaTexture(unsigned char *data, int width, int height);
+GLuint loadGLAlphaTextureFromFile(const char* path);
+
 GLuint updateGLTexture(GLuint texture, unsigned char *data, int width, int height);
 
 SDL_Texture* loadSDLTexture(SDL_Renderer *renderer, const char* path);

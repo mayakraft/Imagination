@@ -29,6 +29,7 @@ void makeTetrahedron(mesh_t *polyhedron) {
 	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
 	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
 	polyhedron->normals = makeVerticesNormal(polyhedron);
+	polyhedron->texCoords = makeRegularPolyhedraTexCoords(polyhedron);
 };
 
 void makeTetrahedronDual(mesh_t *polyhedron) {
@@ -60,6 +61,7 @@ void makeTetrahedronDual(mesh_t *polyhedron) {
 	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
 	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
 	polyhedron->normals = makeVerticesNormal(polyhedron);
+	polyhedron->texCoords = makeRegularPolyhedraTexCoords(polyhedron);
 };
 
 void makeOctahedron(mesh_t *polyhedron) {
@@ -85,6 +87,7 @@ void makeOctahedron(mesh_t *polyhedron) {
 	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
 	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
 	polyhedron->normals = makeVerticesNormal(polyhedron);
+	polyhedron->texCoords = makeRegularPolyhedraTexCoords(polyhedron);
 };
 
 // 12 triangle faces
@@ -111,6 +114,7 @@ void makeCube(mesh_t *polyhedron) {
 	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
 	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
 	polyhedron->normals = makeVerticesNormal(polyhedron);
+	polyhedron->texCoords = makeRegularPolyhedraTexCoords(polyhedron);
 };
 
 void makeIcosahedron(mesh_t *polyhedron) {
@@ -136,6 +140,7 @@ void makeIcosahedron(mesh_t *polyhedron) {
 	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
 	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
 	polyhedron->normals = makeVerticesNormal(polyhedron);
+	polyhedron->texCoords = makeRegularPolyhedraTexCoords(polyhedron);
 };
 
 // 36 triangle faces
@@ -162,6 +167,7 @@ void makeDodecahedron(mesh_t *polyhedron) {
 	memcpy(polyhedron->edges, e, sizeof(unsigned short) * numE * 2);
 	memcpy(polyhedron->faces, f, sizeof(unsigned short) * numF * 3);
 	polyhedron->normals = makeVerticesNormal(polyhedron);
+	polyhedron->texCoords = makeRegularPolyhedraTexCoords(polyhedron);
 };
 
 // width and height are the number of subdivisions in each direction,
@@ -178,15 +184,22 @@ void makeQuadPlane(mesh_t *plane, int width, int height) {
 	plane->numEdges = numE;
 	plane->numFaces = numF;
 	plane->vertices = (float*)malloc(sizeof(float) * numV * 3);
+	plane->normals = (float*)malloc(sizeof(float) * numV * 3);
+	plane->texCoords = (float*)malloc(sizeof(float) * numV * 2);
 	plane->edges = (unsigned short*)malloc(sizeof(unsigned short) * numE * 2);
 	plane->faces = (unsigned short*)malloc(sizeof(unsigned short) * numF * 3);
 
 	for (int y = 0; y < (height + 1); y++) {
 		for (int x = 0; x < (width + 1); x++) {
 			int index = x + y * (width + 1);
-			plane->vertices[index * 3 + 0] = x - ((width + 1) / 2.0f);
-			plane->vertices[index * 3 + 1] = y - ((height + 1) / 2.0f);
+			plane->vertices[index * 3 + 0] = x;
+			plane->vertices[index * 3 + 1] = y;
 			plane->vertices[index * 3 + 2] = 0;
+			plane->normals[index * 3 + 0] = 0;
+			plane->normals[index * 3 + 1] = 0;
+			plane->normals[index * 3 + 2] = 1;
+			plane->texCoords[index * 2 + 0] = (float)x / width;
+			plane->texCoords[index * 2 + 1] = (float)y / height;
 		}
 	}
 
@@ -203,16 +216,13 @@ void makeQuadPlane(mesh_t *plane, int width, int height) {
 			plane->faces[index * 6 + 5] = index2 + 1;
 		}
 	}
-
-	plane->normals = makeVerticesNormal(plane);
 }
 
 void makeCircle(mesh_t *circle) {
 	const int NUM_PTS = 64;
 	const unsigned short numV = NUM_PTS;
 	const unsigned short numE = NUM_PTS;
-	const unsigned short numF = NUM_PTS - 1;
-
+	const unsigned short numF = NUM_PTS - 2;
 	// todo: edges.
 
 	circle->numVertices = numV;
@@ -220,20 +230,21 @@ void makeCircle(mesh_t *circle) {
 	circle->numFaces = numF;
 	circle->vertices = (float*)malloc(sizeof(float) * numV * 3);
 	circle->normals = (float*)malloc(sizeof(float) * numV * 3);
+	circle->texCoords = (float*)malloc(sizeof(float) * numV * 2);
 	circle->edges = (unsigned short*)malloc(sizeof(unsigned short) * numE * 2);
 	circle->faces = (unsigned short*)malloc(sizeof(unsigned short) * numF * 3);
 
-	for(int i = 0; i <= NUM_PTS; i++) {
-		circle->vertices[i * 3 + 0] = -sinf(((M_PI * 2) / 64.0f) * i);
-		circle->vertices[i * 3 + 1] = cosf(((M_PI * 2) / 64.0f) * i);
+	for (int i = 0; i < numV; i++) {
+		circle->vertices[i * 3 + 0] = -sinf(((M_PI * 2.0f) / numV) * i);
+		circle->vertices[i * 3 + 1] = cosf(((M_PI * 2.0f) / numV) * i);
 		circle->vertices[i * 3 + 2] = 0.0f;
 		circle->normals[i * 3 + 0] = 0.0f;
 		circle->normals[i * 3 + 1] = 0.0f;
 		circle->normals[i * 3 + 2] = 1.0f;
-		// _unit_circle_outline_texCoord[i*3+0] = -sinf(M_PI*2/64.0f*i)*0.5 + 0.5;
-		// _unit_circle_outline_texCoord[i*3+1] = cosf(M_PI*2/64.0f*i)*0.5 + 0.5;
+		circle->texCoords[i * 2 + 0] = -sinf(((M_PI * 2.0f) / numV) * i) * 0.5 + 0.5;
+		circle->texCoords[i * 2 + 1] = cosf(((M_PI * 2.0f) / numV) * i) * 0.5 + 0.5;
 	}
-	for(int i = 0; i <= NUM_PTS - 1; i++) {
+	for (int i = 0; i < numF; i++) {
 		circle->faces[i * 3 + 0] = 0;
 		circle->faces[i * 3 + 1] = i + 1;
 		circle->faces[i * 3 + 2] = i + 2;
@@ -246,18 +257,19 @@ void makeUVSphere(mesh_t *sphere, float radius) {
 
 	sphere->numVertices = ((slices*2+2) * (stacks));
 	sphere->numEdges = 0;
-	sphere->numFaces = 0;
+	sphere->numFaces = slices * stacks * 2;
 
 	sphere->vertices = (float*)malloc(sizeof(float) * sphere->numVertices * 3);
 	sphere->normals = (float*)malloc(sizeof(float) * sphere->numVertices * 3);
+	sphere->texCoords = (float*)malloc(sizeof(float) * sphere->numVertices * 2);
 	sphere->edges = (unsigned short*)malloc(sizeof(unsigned short) * sphere->numEdges * 2);
 	sphere->faces = (unsigned short*)malloc(sizeof(unsigned short) * sphere->numFaces * 3);
 
 	float *vPtr = sphere->vertices;
 	float *nPtr = sphere->normals;
-	// float *tPtr = sphere->texCoords;
+	float *tPtr = sphere->texCoords;
 
-	for(unsigned int phiIdx = 0; phiIdx < stacks; phiIdx++){
+	for (int phiIdx = 0; phiIdx < stacks; phiIdx++){
 		// Latitude
 		// starts at -pi/2 goes to pi/2
 		float phi0 = M_PI * ((float)(phiIdx+0) * (1.0/(float)(stacks)) - 0.5);  // the first circle
@@ -266,11 +278,11 @@ void makeUVSphere(mesh_t *sphere, float radius) {
 		float sinPhi0 = sin(phi0);
 		float cosPhi1 = cos(phi1);
 		float sinPhi1 = sin(phi1);
-		for(unsigned int thetaIdx = 0; thetaIdx < slices; thetaIdx++){
+		for (int thetaIdx = 0; thetaIdx < slices; thetaIdx++){
 			//longitude
 			float theta = 2.0*M_PI * ((float)thetaIdx) * (1.0/(float)(slices - 1));
-			float cosTheta = cos(theta+M_PI*.5);
-			float sinTheta = sin(theta+M_PI*.5);
+			float cosTheta = cos(theta + M_PI * 0.5);
+			float sinTheta = sin(theta + M_PI * 0.5);
 			vPtr[0] = radius*cosPhi0 * cosTheta;
 			vPtr[1] = radius*(cosPhi0 * sinTheta);
 			vPtr[2] = -radius*sinPhi0;
@@ -283,18 +295,14 @@ void makeUVSphere(mesh_t *sphere, float radius) {
 			nPtr[3] = cosPhi1 * cosTheta;
 			nPtr[4] = cosPhi1 * sinTheta;
 			nPtr[5] = -sinPhi1;
-			// float texX = (float)thetaIdx * (1.0f/(float)(slices-1));
-			// tPtr[0] = texX;
-			// tPtr[1] = (float)(phiIdx + 0) * (1.0f/(float)(stacks));
-			// tPtr[2] = texX;
-			// tPtr[3] = (float)(phiIdx + 1) * (1.0f/(float)(stacks));
+			float texX = (float)thetaIdx * (1.0f/(float)(slices-1));
+			tPtr[0] = texX;
+			tPtr[1] = (float)(phiIdx + 0) * (1.0f/(float)(stacks));
+			tPtr[2] = texX;
+			tPtr[3] = (float)(phiIdx + 1) * (1.0f/(float)(stacks));
 			vPtr += 2*3;
 			nPtr += 2*3;
-			// tPtr += 2*2;
+			tPtr += 2*2;
 		}
 	}
-
-	// glDrawArrays(GL_TRIANGLE_STRIP, 0,  _sphere_slices * _sphere_stacks * 2 );
-	// // (_sphere_slices+1) * 2 * (_sphere_stacks-1)+2  );
-
 }

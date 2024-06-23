@@ -75,26 +75,26 @@ int main() {
 		glEnableClientState(GL_COLOR_ARRAY);
 		glColorPointer(3, GL_FLOAT, 0, colors);
 
-		drawMeshFaces(&tetrahedron, 4);
-		drawMeshFaces(&tetrahedronDual, 4);
+		drawMeshFaces(&tetrahedron);
+		drawMeshFaces(&tetrahedronDual);
 
 		glPushMatrix();
 		float sPoly = ((cos(frame / 100.0) * 0.5) + 0.5) * 0.8 + 0.2;
 		glScalef(0.2 + sPoly, 0.2 + sPoly, 0.2 + sPoly);
-		drawMeshFaces(&icosahedron, 20);
-		drawMeshFaces(&dodecahedron, 36);
+		drawMeshFaces(&icosahedron);
+		drawMeshFaces(&dodecahedron);
 
 		glDisableClientState(GL_COLOR_ARRAY);
 
 		glColor4f(1.0, 1.0, 1.0, 1.0);
-		drawMeshLines(&icosahedron, 20);
-		drawMeshLines(&dodecahedron, 30);
+		drawMeshLines(&icosahedron);
+		drawMeshLines(&dodecahedron);
 
 		glPopMatrix();
 
 		glColor4f(1.0, 1.0, 1.0, 1.0);
-		drawMeshLines(&tetrahedron, 6);
-		drawMeshLines(&tetrahedronDual, 6);
+		drawMeshLines(&tetrahedron);
+		drawMeshLines(&tetrahedronDual);
 
 		glPopMatrix();
 

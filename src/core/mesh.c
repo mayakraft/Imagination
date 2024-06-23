@@ -1,6 +1,9 @@
 #include "./mesh.h"
 #include "../math/vector.h"
+#include <string.h>
+#include <math.h>
 #include <stdlib.h>
+// #include <stdio.h>
 
 float* makeFacesNormal(mesh_t *poly) {
 	float* normals = (float*)malloc(sizeof(float) * poly->numFaces * 3);
@@ -45,3 +48,23 @@ float* makeVerticesNormal(mesh_t *poly) {
 	}
 	return normals;
 };
+
+float* makeRegularPolyhedraTexCoords(mesh_t *poly) {
+	float* texCoords = (float*)malloc(sizeof(float) * poly->numVertices * 2);
+	for (int v = 0; v < poly->numVertices; v++) {
+		float vec[3];
+		memcpy(vec, &poly->vertices[v * 3], sizeof(float) * 3);
+		normalize3(vec);
+		// theta, between 0 and pi
+		float lat = acos(vec[2]);
+		// phi, between -pi/2 and + pi/2
+		float lon = atan2(vec[0], vec[1]);
+		texCoords[v * 2 + 0] = lon / (2 * M_PI) + 0.5;
+		texCoords[v * 2 + 1] = lat / M_PI;
+		// having trouble with the wrap around for a spherical mesh.
+		// everything is good until the point where it needs to
+		// go from like 0.9 to 0.1 (it goes down, instead of wrapping around + to 0)
+		// printf("%d: %f, %f\n", v, texCoords[v * 2 + 0], texCoords[v * 2 + 1]);
+	}
+	return texCoords;
+}

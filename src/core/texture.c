@@ -1,4 +1,5 @@
 #include "texture.h"
+#include "SDL2/SDL_pixels.h"
 
 GLuint loadGLTexture(unsigned char *data, int width, int height) { // , uint inputFormat = GL_RGB) {
 	unsigned int inputFormat = GL_RGB;
@@ -18,6 +19,26 @@ GLuint loadGLTexture(unsigned char *data, int width, int height) { // , uint inp
 	return texture;
 }
 
+GLuint loadGLAlphaTexture(unsigned char *data, int width, int height) { // , uint inputFormat = GL_RGB) {
+	unsigned int inputFormat = GL_RGBA;
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// if mipmaps are not used, this is required
+	// https://stackoverflow.com/a/13867751/1956418
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	// for opacity
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, inputFormat, GL_UNSIGNED_BYTE, data);
+	// glGenerateMipmap(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	return texture;
+}
+
 GLuint loadGLTextureFromFile(const char* path) {
 	SDL_Surface* surface = IMG_Load(path);
 	SDL_Surface* surfaceRGB24 = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_RGB24, 0);
@@ -27,6 +48,18 @@ GLuint loadGLTextureFromFile(const char* path) {
 		surfaceRGB24->h);
 	SDL_FreeSurface(surface);
 	SDL_FreeSurface(surfaceRGB24);
+	return texture;
+}
+
+GLuint loadGLAlphaTextureFromFile(const char* path) {
+	SDL_Surface* surface = IMG_Load(path);
+	SDL_Surface* surfaceRGBA32 = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_RGBA32, 0);
+	GLuint texture = loadGLAlphaTexture(
+		(unsigned char*)surfaceRGBA32->pixels,
+		surfaceRGBA32->w,
+		surfaceRGBA32->h);
+	SDL_FreeSurface(surface);
+	SDL_FreeSurface(surfaceRGBA32);
 	return texture;
 }
 

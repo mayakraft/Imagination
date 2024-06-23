@@ -13,9 +13,11 @@ extern "C" {
 #endif
 
 // these are old OpenGL 2.0 syntax style
-void drawMeshFaces(mesh_t *poly, int numFaces);
-void drawMeshLines(mesh_t *poly, int numEdges);
-void drawMeshPoints(mesh_t *poly, int numVertices);
+void drawMeshFaces(mesh_t *poly);
+void drawMeshLines(mesh_t *poly);
+void drawMeshPoints(mesh_t *poly);
+
+void drawMeshStripArray(mesh_t *poly);
 
 #ifdef __cplusplus
 }
