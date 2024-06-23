@@ -1,6 +1,5 @@
 // this demonstrates rendering a triangle in Vulkan
 #include "../include/engine.h"
-#include "vulkan/vulkan_core.h"
 #include <math.h>
 
 // temporarily here. move to library when done
@@ -19,6 +18,26 @@
 // macro with the string literal
 #define VK_ENABLE_BETA_EXTENSIONS
 
+typedef struct VulkanEngine {
+	// we only need one instance. clean up upon application exit.
+	VkInstance instance;
+	// surface must be initialized before devices, it can affect device selection
+	VkSurfaceKHR surface;
+	// physical device will be implicitly cleaned up on its own.
+	VkPhysicalDevice physicalDevice;
+	// logical devices will need to be cleaned up, before the instance itself
+	VkDevice logicalDevice;
+	// device queues are implicitly cleaned up on their own.
+	VkQueue graphicsQueue;
+	VkQueue presentQueue;
+
+	VkSwapchainKHR swapChain;
+	VkImage* swapChainImages;
+	VkImageView* swapChainImageViews;
+	VkFormat swapChainImageFormat;
+	VkExtent2D swapChainExtent;
+} VulkanEngine;
+
 /**
  * Of the (potentially) many Vulkan-ready devices, we need to choose
  * the best fit device for our purposes, so, this is a heuristic
@@ -26,8 +45,8 @@
  */
 VkPhysicalDevice chooseBestDevice(VkPhysicalDevice* devices, unsigned int devicesCount) {
 	for (unsigned int i = 0; i < devicesCount; i += 1) {
-		VkPhysicalDeviceProperties deviceProperties;
-		VkPhysicalDeviceFeatures deviceFeatures;
+		VkPhysicalDeviceProperties deviceProperties = {};
+		VkPhysicalDeviceFeatures deviceFeatures = {};
 		vkGetPhysicalDeviceProperties(devices[i], &deviceProperties);
 		vkGetPhysicalDeviceFeatures(devices[i], &deviceFeatures);
 		// we don't want "other" or "cpu", anything else is okay.
@@ -87,7 +106,7 @@ VkExtent2D chooseSwapExtent(SDL_Window *window, const VkSurfaceCapabilitiesKHR c
 	return actualExtent;
 }
 
-void initVulkan(SDL_Window *window, const char* appTitle) {
+VulkanEngine initVulkan(SDL_Window *window, const char* appTitle) {
 	VkInstance instance;
 	// physical device will be implicitly cleaned up on its own.
 	VkPhysicalDevice physicalDevice = NULL;
@@ -128,7 +147,7 @@ void initVulkan(SDL_Window *window, const char* appTitle) {
 
 	// we need to tell the instance some information about our app.
 	// however, pretty much all of this info is optional.
-	VkApplicationInfo appInfo;
+	VkApplicationInfo appInfo = {};
 	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 	appInfo.pApplicationName = appTitle;
 	appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
@@ -162,7 +181,7 @@ void initVulkan(SDL_Window *window, const char* appTitle) {
 	}
 
 	// here is the struct we will pass into the create instance function
-	VkInstanceCreateInfo instanceCreateInfo;
+	VkInstanceCreateInfo instanceCreateInfo = {};
 	instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 	instanceCreateInfo.pApplicationInfo = &appInfo;
 	instanceCreateInfo.enabledExtensionCount = totalExtensionCount;
@@ -269,7 +288,7 @@ void initVulkan(SDL_Window *window, const char* appTitle) {
 	// queue family, in this case, the graphics queue family.
 	float queuePriority = 1.0f;
 	for (int i = 0; i < queueCreateInfosCount; i++) {
-		VkDeviceQueueCreateInfo queueCreateInfo;
+		VkDeviceQueueCreateInfo queueCreateInfo = {};
 		queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
 		queueCreateInfo.queueFamilyIndex = uniqueQueueFamilies[i];
 		queueCreateInfo.queueCount = 1;
@@ -279,12 +298,11 @@ void initVulkan(SDL_Window *window, const char* appTitle) {
 
 	// Device features include things like geometry shaders, we can require
 	// these things here, as long as we detected them in the chooseBestDevice.
-	VkPhysicalDeviceFeatures deviceFeatures;
-	vkGetPhysicalDeviceFeatures(physicalDevice, &deviceFeatures);
+	VkPhysicalDeviceFeatures deviceFeatures = {};
 
 	// When we create the device, provide this struct.
 	// Link the previous two structs, with count info, and set all others to 0.
-	VkDeviceCreateInfo deviceCreateInfo;
+	VkDeviceCreateInfo deviceCreateInfo = {};
 	deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 	deviceCreateInfo.pEnabledFeatures = &deviceFeatures;
 	deviceCreateInfo.queueCreateInfoCount = queueCreateInfosCount;
@@ -301,7 +319,7 @@ void initVulkan(SDL_Window *window, const char* appTitle) {
 
 	printf("vkCreateDevice Logical: %d\n", resultCreateLogicalDevice);
 	if (resultCreateLogicalDevice != VK_SUCCESS) {
-		fputs("failed to create logical device!", stderr);
+		fputs("failed to create logical device\n", stderr);
 	}
 
 	// The Queue family stuff was previously calculated on the physical device.
@@ -315,7 +333,7 @@ void initVulkan(SDL_Window *window, const char* appTitle) {
 	// Swap Chain
 	//
 
-	VkSurfaceCapabilitiesKHR capabilities;
+	VkSurfaceCapabilitiesKHR capabilities = {};
 	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, &capabilities);
 
 	VkSurfaceFormatKHR *formats = NULL;
@@ -357,7 +375,7 @@ void initVulkan(SDL_Window *window, const char* appTitle) {
 	printf("imageCount %d\n", imageCount);
 
 	unsigned int swapQueueFamilyIndices[] = { graphicsFamily, presentFamily };
-	VkSwapchainCreateInfoKHR swapCreateInfo;
+	VkSwapchainCreateInfoKHR swapCreateInfo = {};
 	swapCreateInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
 	swapCreateInfo.surface = surface;
 	swapCreateInfo.minImageCount = imageCount;
@@ -400,7 +418,7 @@ void initVulkan(SDL_Window *window, const char* appTitle) {
 
 	swapChainImageViews = (VkImageView*)malloc(sizeof(VkImageView) * imageCount);
 	for (size_t i = 0; i < imageCount; i++) {
-		VkImageViewCreateInfo createInfo;
+		VkImageViewCreateInfo createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		createInfo.image = swapChainImages[i];
 		createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
@@ -419,27 +437,30 @@ void initVulkan(SDL_Window *window, const char* appTitle) {
 		}
 	}
 
+	VulkanEngine engine = {
+		// we only need one instance. clean up upon application exit.
+		.instance = instance,
+		// surface must be initialized before devices, it can affect device selection
+		.surface = surface,
+		// physical device will be implicitly cleaned up on its own.
+		.physicalDevice = physicalDevice,
+		// logical devices will need to be cleaned up, before the instance itself
+		.logicalDevice = logicalDevice,
+		// device queues are implicitly cleaned up on their own.
+		.graphicsQueue = graphicsQueue,
+		.presentQueue = presentQueue,
 
-
-	// cleanup
-	// for (auto imageView : swapChainImageViews) {
-	// 	vkDestroyImageView(logicalDevice, imageView, nullptr);
-	// }
-	// vkDestroySwapchainKHR(logicalDevice, swapChain, nullptr);
-	// vkDestroyDevice(logicalDevice, nullptr);
-	// vkDestroySurfaceKHR(instance, surface, nullptr);
-	// vkDestroyInstance(instance, nullptr);
-
-	// free
-	// VkSurfaceFormatKHR *formats;
-	// VkPresentModeKHR *presentModes;
-	// VkImage* swapChainImages;
-	// VkImageView* swapChainImageViews;
+		.swapChain = swapChain,
+		.swapChainImages = swapChainImages,
+		.swapChainImageViews = swapChainImageViews,
+		.swapChainImageFormat = swapChainImageFormat,
+		.swapChainExtent = swapChainExtent,
+	};
+	return engine;
 }
 
 int main() {
 	int SCREEN = 512;
-	// int frame = 0;
 
 	InitParams params = {
 		.flags = SDL_INIT_VIDEO,
@@ -450,7 +471,7 @@ int main() {
 
 	GameEngine engine = initVulkanEngine(params);
 
-	initVulkan(engine.window, params.title);
+	VulkanEngine vkEngine = initVulkan(engine.window, params.title);
 
 	SDL_Event e;
 	char quit = 0;
@@ -458,9 +479,22 @@ int main() {
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) { quit = 1; }
 		}
-
-		// frame += 1;
 	}
+
+	// cleanup
+	// for (auto imageView : vkEngine.swapChainImageViews) {
+	// 	vkDestroyImageView(vkEngine.logicalDevice, imageView, NULL);
+	// }
+	vkDestroySwapchainKHR(vkEngine.logicalDevice, vkEngine.swapChain, NULL);
+	vkDestroyDevice(vkEngine.logicalDevice, NULL);
+	vkDestroySurfaceKHR(vkEngine.instance, vkEngine.surface, NULL);
+	vkDestroyInstance(vkEngine.instance, NULL);
+
+	// // free
+	// VkSurfaceFormatKHR *formats;
+	// VkPresentModeKHR *presentModes;
+	// VkImage* swapChainImages;
+	// VkImageView* swapChainImageViews;
 
 	dealloc(&engine);
 	return 0;
