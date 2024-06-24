@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
+#include "fs.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -14,9 +15,6 @@ typedef struct ShaderProgram {
 	GLuint vbo;
 	GLuint ebo;
 } ShaderProgram;
-
-// make sure to free the returned value after you are done using it
-char *readFile(const char *filename);
 
 //GLuint loadShader(char *vertex_path, char *fragment_path);
 

@@ -1,5 +1,31 @@
 #include "fs.h"
 
+// make sure to free the returned value after you are done using it
+char *readFile(const char *filename) {
+	char *buffer = 0;
+	long length;
+	FILE* f;
+#ifdef _WIN32
+	fopen_s(&f, filename, "rb");
+#else
+	f = fopen(filename, "rb");
+#endif
+	if (f == NULL) {
+		// printf("%s\n", filename);
+		fputs("shader file does not exist\n", stderr);
+		return NULL;
+	}
+	fseek(f, 0, SEEK_END);
+	length = ftell(f);
+	printf("readFile length %lu\n", length);
+	fseek(f, 0, SEEK_SET);
+	buffer = (char*)malloc(length + 1);
+	if(buffer) fread(buffer, 1, length, f);
+	fclose(f);
+	buffer[length] = 0; // fixes occasional extra characters at end of buffer
+	return buffer;
+}
+
 #ifdef __APPLE__
 
 // malloc resourcePath to be larger than whatever we will put inside of it

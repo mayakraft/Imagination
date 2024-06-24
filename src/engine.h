@@ -14,3 +14,6 @@
 #include "math/general.h"
 #include "math/vector.h"
 #include "math/matrix.h"
+
+// Vulkan
+#include "vulkan/choose.h"

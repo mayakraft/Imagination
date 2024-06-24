@@ -14,6 +14,9 @@
 extern "C" {
 #endif
 
+// make sure to free the returned value after you are done using it
+char *readFile(const char *filename);
+
 // char directory_separator[] = "/";
 // #ifdef WIN32
 // directory_separator[0] = '\\';
