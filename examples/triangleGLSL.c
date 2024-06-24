@@ -21,8 +21,8 @@ int main() {
 	GLfloat vertexData[] = { 0, 0, 0, 0, 0, 0 };
 	GLuint indexData[] = { 0, 1, 2 };
 
-	char* vertex = readFile("./examples/shaders/triangle.vert");
-	char* fragment = readFile("./examples/shaders/triangle.frag");
+	char* vertex = readFile("./examples/shaders/triangle.vert", NULL);
+	char* fragment = readFile("./examples/shaders/triangle.frag", NULL);
 	ShaderProgram program = createProgram(vertex, fragment);
 	free(vertex);
 	free(fragment);

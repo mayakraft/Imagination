@@ -15,7 +15,9 @@ extern "C" {
 #endif
 
 // make sure to free the returned value after you are done using it
-char *readFile(const char *filename);
+// this will set the length of the buffer to the second parameter,
+// second parameter can be null if you don't need to know the size
+char *readFile(const char *filename, long *bufferLength);
 
 // char directory_separator[] = "/";
 // #ifdef WIN32

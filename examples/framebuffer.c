@@ -19,8 +19,8 @@ ShaderProgram loadShader(
 	strcpy(fragmentFullPath, directory);
 	strcat(fragmentFullPath, fragmentFilename);
 
-	char* vertex = readFile(vertexFullPath);
-	char* fragment = readFile(fragmentFullPath);
+	char* vertex = readFile(vertexFullPath, NULL);
+	char* fragment = readFile(fragmentFullPath, NULL);
 
 	ShaderProgram postProcessProgram = createProgram(vertex, fragment);
 	glUseProgram(postProcessProgram.programID);

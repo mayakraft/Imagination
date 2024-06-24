@@ -103,10 +103,10 @@ int main() {
 	std::string polyVertexPath = std::string(shaderPath) + "/mesh.vert";
 	std::string polyFragmentPath = std::string(shaderPath) + "/mesh.frag";
 
-	char* terrainVertex = readFile(terrainVertexPath.c_str());
-	char* terrainFragment = readFile(terrainFragmentPath.c_str());
-	char* polyVertex = readFile(polyVertexPath.c_str());
-	char* polyFragment = readFile(polyFragmentPath.c_str());
+	char* terrainVertex = readFile(terrainVertexPath.c_str(), NULL);
+	char* terrainFragment = readFile(terrainFragmentPath.c_str(), NULL);
+	char* polyVertex = readFile(polyVertexPath.c_str(), NULL);
+	char* polyFragment = readFile(polyFragmentPath.c_str(), NULL);
 
 	ShaderProgram landProgram = createProgram(terrainVertex, terrainFragment);
 	glUseProgram(landProgram.programID);

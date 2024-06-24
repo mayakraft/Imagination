@@ -39,8 +39,8 @@ int main() {
 	std::string vertexPath = std::string(shaderPath) + "/landscape.vert";
 	std::string fragmentPath = std::string(shaderPath) + "/landscape.frag";
 
-	char* vertex = readFile(vertexPath.c_str());
-	char* fragment = readFile(fragmentPath.c_str());
+	char* vertex = readFile(vertexPath.c_str(), NULL);
+	char* fragment = readFile(fragmentPath.c_str(), NULL);
 
 	makePerspectiveMatrix4(45, 1.0 / 1.0, 1.0f, 3000.0f, projection);
 	// makeOrthographicMatrix4(380, 380, -380, -380, 1, 2048.0, projection);

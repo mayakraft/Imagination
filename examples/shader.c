@@ -16,8 +16,8 @@ int main(void) {
 
 	glDebugInfo();
 
-	char* vertex = readFile("./examples/shaders/simple.vert");
-	char* fragment = readFile("./examples/shaders/kaleidoscope.frag");
+	char* vertex = readFile("./examples/shaders/simple.vert", NULL);
+	char* fragment = readFile("./examples/shaders/kaleidoscope.frag", NULL);
 	ShaderProgram program = createProgram(vertex, fragment);
 	free(vertex);
 	free(fragment);

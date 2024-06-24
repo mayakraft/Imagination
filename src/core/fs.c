@@ -1,23 +1,23 @@
 #include "fs.h"
 
 // make sure to free the returned value after you are done using it
-char *readFile(const char *filename) {
+char *readFile(const char *filename, long *bufferLength) {
 	char *buffer = 0;
 	long length;
 	FILE* f;
-#ifdef _WIN32
+	#ifdef _WIN32
 	fopen_s(&f, filename, "rb");
-#else
+	#else
 	f = fopen(filename, "rb");
-#endif
+	#endif
 	if (f == NULL) {
 		// printf("%s\n", filename);
-		fputs("shader file does not exist\n", stderr);
+		fputs("file does not exist\n", stderr);
 		return NULL;
 	}
 	fseek(f, 0, SEEK_END);
 	length = ftell(f);
-	printf("readFile length %lu\n", length);
+	if (bufferLength != NULL) { *bufferLength = length; }
 	fseek(f, 0, SEEK_SET);
 	buffer = (char*)malloc(length + 1);
 	if(buffer) fread(buffer, 1, length, f);
