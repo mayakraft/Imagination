@@ -5,7 +5,10 @@
  * the best fit device for our purposes, so, this is a heuristic
  * method, in which the needs may change from app to app.
  */
-VkPhysicalDevice chooseBestDevice(VkPhysicalDevice* devices, unsigned int count) {
+VkPhysicalDevice vulkanChooseBestDeviceFromDevices(
+	VkPhysicalDevice* devices,
+	unsigned int count
+) {
 	for (unsigned int i = 0; i < count; i += 1) {
 		VkPhysicalDeviceProperties deviceProperties = {};
 		VkPhysicalDeviceFeatures deviceFeatures = {};
@@ -30,7 +33,7 @@ VkPhysicalDevice chooseBestDevice(VkPhysicalDevice* devices, unsigned int count)
 	return NULL; // I made this up. should it be -1?
 }
 
-VkSurfaceFormatKHR chooseSwapSurfaceFormat(VkSurfaceFormatKHR* availableFormats, unsigned int count) {
+VkSurfaceFormatKHR vulkanChooseSwapSurfaceFormat(VkSurfaceFormatKHR* availableFormats, unsigned int count) {
 	for (unsigned int i = 0; i < count; i++) {
 		VkSurfaceFormatKHR availableFormat = availableFormats[i];
 		if (availableFormat.format == VK_FORMAT_B8G8R8A8_SRGB
@@ -41,7 +44,7 @@ VkSurfaceFormatKHR chooseSwapSurfaceFormat(VkSurfaceFormatKHR* availableFormats,
 	return availableFormats[0];
 }
 
-VkPresentModeKHR chooseSwapPresentMode(VkPresentModeKHR* availablePresentModes, unsigned int count) {
+VkPresentModeKHR vulkanChooseSwapPresentMode(VkPresentModeKHR* availablePresentModes, unsigned int count) {
 	for (unsigned int i = 0; i < count; i++) {
 		VkPresentModeKHR availablePresentMode = availablePresentModes[i];
 		if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
@@ -51,7 +54,7 @@ VkPresentModeKHR chooseSwapPresentMode(VkPresentModeKHR* availablePresentModes, 
 	return VK_PRESENT_MODE_FIFO_KHR;
 }
 
-VkExtent2D chooseSwapExtent(SDL_Window *window, const VkSurfaceCapabilitiesKHR capabilities) {
+VkExtent2D vulkanChooseSwapExtent(SDL_Window *window, const VkSurfaceCapabilitiesKHR capabilities) {
 	if (capabilities.currentExtent.width != 0xffffffff) {
 		return capabilities.currentExtent;
 	}

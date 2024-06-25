@@ -17,4 +17,5 @@
 
 // Vulkan
 #include "vulkan/choose.h"
+#include "vulkan/render.h"
 #include "vulkan/initialize.h"

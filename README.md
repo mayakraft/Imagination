@@ -1,6 +1,6 @@
 # Game Engine
 
-cross-platform game engine written in C and modern OpenGL
+cross-platform game engine written in C with modern OpenGL and Vulkan
 
 # usage
 

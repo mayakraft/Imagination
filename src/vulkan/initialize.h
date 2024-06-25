@@ -13,6 +13,16 @@
 extern "C" {
 #endif
 
+#define VULKAN_DEBUG 1
+
+#define MAX_FRAMES_IN_FLIGHT 2
+
+// this one line is required to include the key:
+// VK_KHR_PORTABILITY_SUBSET_EXTENSION_NAME, or "VK_KHR_portability_subset"
+// so if we don't include it, or if any problems arise, simply replace the
+// macro with the string literal
+#define VK_ENABLE_BETA_EXTENSIONS
+
 typedef struct VulkanEngine {
 	// we only need one instance. clean up upon application exit.
 	VkInstance instance;
@@ -26,11 +36,18 @@ typedef struct VulkanEngine {
 	VkQueue graphicsQueue;
 	VkQueue presentQueue;
 
+	unsigned int graphicsFamily;
+	unsigned int presentFamily;
+
 	VkSwapchainKHR swapChain;
 	VkImage* swapChainImages;
 	VkImageView* swapChainImageViews;
 	VkFormat swapChainImageFormat;
 	VkExtent2D swapChainExtent;
+
+	unsigned int swapchainImageCount;
+	VkShaderModule vertexShaderModule;
+	VkShaderModule fragmentShaderModule;
 
 	VkRenderPass renderPass;
 	VkPipelineLayout pipelineLayout;
@@ -44,15 +61,53 @@ typedef struct VulkanEngine {
 	VkCommandBuffer* commandBuffers;
 
 	unsigned int framebufferCount;
+
+	unsigned int currentFrame;
 } VulkanEngine;
 
-VulkanEngine initVulkan(SDL_Window *window, const char* windowTitle);
+// new methods
+VulkanEngine initVulkan(
+	SDL_Window *window,
+	const char *windowTitle,
+	const char *vertPath,
+	const char *fragPath);
 
-void recordCommandBuffer(VulkanEngine *engine, VkCommandBuffer commandBuffer, uint32_t imageIndex);
+void deallocVulkan(VulkanEngine *engine);
 
-void drawFrame(VulkanEngine *engine);
+void vulkanCreateInstance(
+	VulkanEngine *vulkan,
+	SDL_Window *window,
+	const char *windowTitle,
+	const char **userExtensionNames,
+	const unsigned int userExtensionsCount);
 
-void deallocVulkanEngine(VulkanEngine *engine);
+void vulkanCreateSurface(VulkanEngine *vulkan, SDL_Window *window);
+
+void vulkanGetPhysicalDevice(VulkanEngine *vulkan);
+
+void vulkanCreateLogicalDevice(
+	VulkanEngine *vulkan,
+	const char **deviceExtensions,
+	unsigned int deviceExtensionsCount);
+
+void vulkanCreateSwapChain(VulkanEngine *vulkan, SDL_Window *window);
+
+void vulkanCreateImageViews(VulkanEngine *vulkan);
+
+void vulkanCreateGraphicsPipeline(
+	VulkanEngine *vulkan,
+	const char *vertPath,
+	const char *fragPath);
+
+void vulkanCreateRenderPass(VulkanEngine *vulkan);
+
+void vulkanCreateFramebuffers(VulkanEngine *vulkan);
+
+void vulkanCreateCommandPool(VulkanEngine *vulkan);
+
+void vulkanCreateCommandBuffer(VulkanEngine *vulkan);
+
+void vulkanCreateSyncObjects(VulkanEngine *vulkan);
 
 #ifdef __cplusplus
 }

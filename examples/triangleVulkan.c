@@ -11,8 +11,11 @@ int main() {
 		.height = SCREEN,
 	};
 
+	const char *vertPath = "./examples/shaders/vkTriangle.vert.spv";
+	const char *fragPath = "./examples/shaders/vkTriangle.frag.spv";
+
 	GameEngine engine = initVulkanEngine(params);
-	VulkanEngine vkEngine = initVulkan(engine.window, params.title);
+	VulkanEngine vulkan = initVulkan(engine.window, params.title, vertPath, fragPath);
 
 	SDL_Event e;
 	char quit = 0;
@@ -20,11 +23,11 @@ int main() {
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) { quit = 1; }
 		}
-		drawFrame(&vkEngine);
+		drawFrame(&vulkan);
 	}
 
-	vkDeviceWaitIdle(vkEngine.logicalDevice);
-	deallocVulkanEngine(&vkEngine);
+	vkDeviceWaitIdle(vulkan.logicalDevice);
+	deallocVulkan(&vulkan);
 	dealloc(&engine);
 	return 0;
 }

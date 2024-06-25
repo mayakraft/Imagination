@@ -13,19 +13,19 @@
 extern "C" {
 #endif
 
-VkPhysicalDevice chooseBestDevice(
+VkPhysicalDevice vulkanChooseBestDeviceFromDevices(
 	VkPhysicalDevice* devices,
 	unsigned int count);
 
-VkSurfaceFormatKHR chooseSwapSurfaceFormat(
+VkSurfaceFormatKHR vulkanChooseSwapSurfaceFormat(
 	VkSurfaceFormatKHR* availableFormats,
 	unsigned int count);
 
-VkPresentModeKHR chooseSwapPresentMode(
+VkPresentModeKHR vulkanChooseSwapPresentMode(
 	VkPresentModeKHR* availablePresentModes,
 	unsigned int count);
 
-VkExtent2D chooseSwapExtent(
+VkExtent2D vulkanChooseSwapExtent(
 	SDL_Window *window,
 	const VkSurfaceCapabilitiesKHR capabilities);
 
