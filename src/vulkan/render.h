@@ -6,10 +6,11 @@
 extern "C" {
 #endif
 
-void drawFrame(VulkanEngine *engine);
+void drawFrame(VulkanEngine *engine, VulkanEntity *entity);
 
 void recordCommandBuffer(
 	VulkanEngine *engine,
+	VulkanEntity *entity,
 	VkCommandBuffer commandBuffer,
 	uint32_t imageIndex);
 

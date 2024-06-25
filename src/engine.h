@@ -16,6 +16,8 @@
 #include "math/matrix.h"
 
 // Vulkan
+#include "vulkan/types.h"
 #include "vulkan/choose.h"
 #include "vulkan/render.h"
+#include "vulkan/shader.h"
 #include "vulkan/initialize.h"

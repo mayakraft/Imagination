@@ -1,15 +1,16 @@
 #include "initialize.h"
 #include "choose.h"
+#include "shader.h"
 #include "../core/fs.h"
 
 VulkanEngine initVulkan(
 	SDL_Window *window,
+	VulkanEntity *entity,
 	const char *windowTitle,
 	const char *vertPath,
 	const char *fragPath
 ) {
 	VulkanEngine vulkan = {};
-
 	vulkan.currentFrame = 0;
 
 	// add any additional extensions here to be added to ppEnabledExtensionNames.
@@ -32,9 +33,10 @@ VulkanEngine initVulkan(
 	vulkanCreateSwapChain(&vulkan, window);
 	vulkanCreateImageViews(&vulkan);
 	vulkanCreateRenderPass(&vulkan);
-	vulkanCreateGraphicsPipeline(&vulkan, vertPath, fragPath);
+	vulkanCreateGraphicsPipeline(&vulkan, entity, vertPath, fragPath);
 	vulkanCreateFramebuffers(&vulkan);
 	vulkanCreateCommandPool(&vulkan);
+	vulkanCreateVertexBuffer(&vulkan, entity);
 	vulkanCreateCommandBuffer(&vulkan);
 	vulkanCreateSyncObjects(&vulkan);
 
@@ -435,6 +437,7 @@ void vulkanCreateImageViews(VulkanEngine *vulkan) {
 //
 void vulkanCreateGraphicsPipeline(
 	VulkanEngine *vulkan,
+	VulkanEntity *entity,
 	const char *vertPath,
 	const char *fragPath
 ) {
@@ -494,10 +497,10 @@ void vulkanCreateGraphicsPipeline(
 
 	VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
 	vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-	vertexInputInfo.vertexBindingDescriptionCount = 0;
-	vertexInputInfo.pVertexBindingDescriptions = NULL; // Optional
-	vertexInputInfo.vertexAttributeDescriptionCount = 0;
-	vertexInputInfo.pVertexAttributeDescriptions = NULL; // Optional
+	vertexInputInfo.pVertexBindingDescriptions = entity->bindingDescriptions;
+	vertexInputInfo.pVertexAttributeDescriptions = entity->attributeDescriptions;
+	vertexInputInfo.vertexBindingDescriptionCount = entity->bindingDescriptionsCount;
+	vertexInputInfo.vertexAttributeDescriptionCount = entity->attributeDescriptionsCount;
 
 	VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
 	inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
@@ -799,6 +802,9 @@ void deallocVulkan(VulkanEngine *engine) {
 	vkDestroySurfaceKHR(engine->instance, engine->surface, NULL);
 	vkDestroyInstance(engine->instance, NULL);
 
+	// vkDestroyBuffer(engine->logicalDevice, vertexBuffer, NULL);
+	// vkFreeMemory(engine->logicalDevice, vertexBufferMemory, NULL);
+
 	// everything that was malloc()'d, except these two they were already freed.
 	// VkSurfaceFormatKHR* formats;
 	// VkPresentModeKHR* presentModes;
@@ -809,4 +815,8 @@ void deallocVulkan(VulkanEngine *engine) {
 	free(engine->imageAvailableSemaphores);
 	free(engine->renderFinishedSemaphores);
 	free(engine->inFlightFences);
+}
+
+void deallocVulkanEntity(VulkanEntity *entity) {
+	free(entity->attributeDescriptions);
 }

@@ -9,6 +9,8 @@
 #include <SDL2/SDL_vulkan.h>
 #endif
 
+#include "types.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -23,56 +25,17 @@ extern "C" {
 // macro with the string literal
 #define VK_ENABLE_BETA_EXTENSIONS
 
-typedef struct VulkanEngine {
-	// we only need one instance. clean up upon application exit.
-	VkInstance instance;
-	// surface must be initialized before devices, it can affect device selection
-	VkSurfaceKHR surface;
-	// physical device will be implicitly cleaned up on its own.
-	VkPhysicalDevice physicalDevice;
-	// logical devices will need to be cleaned up, before the instance itself
-	VkDevice logicalDevice;
-	// device queues are implicitly cleaned up on their own.
-	VkQueue graphicsQueue;
-	VkQueue presentQueue;
-
-	unsigned int graphicsFamily;
-	unsigned int presentFamily;
-
-	VkSwapchainKHR swapChain;
-	VkImage* swapChainImages;
-	VkImageView* swapChainImageViews;
-	VkFormat swapChainImageFormat;
-	VkExtent2D swapChainExtent;
-
-	unsigned int swapchainImageCount;
-	VkShaderModule vertexShaderModule;
-	VkShaderModule fragmentShaderModule;
-
-	VkRenderPass renderPass;
-	VkPipelineLayout pipelineLayout;
-	VkPipeline graphicsPipeline;
-	VkCommandPool commandPool;
-	VkFramebuffer *swapChainFramebuffers;
-
-	VkFence* inFlightFences;
-	VkSemaphore* imageAvailableSemaphores;
-	VkSemaphore* renderFinishedSemaphores;
-	VkCommandBuffer* commandBuffers;
-
-	unsigned int framebufferCount;
-
-	unsigned int currentFrame;
-} VulkanEngine;
-
 // new methods
 VulkanEngine initVulkan(
 	SDL_Window *window,
+	VulkanEntity *entity,
 	const char *windowTitle,
 	const char *vertPath,
 	const char *fragPath);
 
 void deallocVulkan(VulkanEngine *engine);
+
+void deallocVulkanEntity(VulkanEntity *entity);
 
 void vulkanCreateInstance(
 	VulkanEngine *vulkan,
@@ -96,6 +59,7 @@ void vulkanCreateImageViews(VulkanEngine *vulkan);
 
 void vulkanCreateGraphicsPipeline(
 	VulkanEngine *vulkan,
+	VulkanEntity *entity,
 	const char *vertPath,
 	const char *fragPath);
 

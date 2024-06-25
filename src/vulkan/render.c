@@ -2,9 +2,12 @@
 
 void recordCommandBuffer(
 	VulkanEngine *engine,
+	VulkanEntity *entity,
 	VkCommandBuffer commandBuffer,
 	uint32_t imageIndex
 ) {
+	VkClearValue clearColor = {{{ 0.0f, 0.0f, 0.0f, 1.0f }}};
+
 	VkCommandBufferBeginInfo beginInfo = {};
 	beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 	beginInfo.flags = 0; // Optional
@@ -21,8 +24,6 @@ void recordCommandBuffer(
 	VkOffset2D renderAreaOffset = { 0, 0 };
 	renderPassBeginInfo.renderArea.offset = renderAreaOffset;
 	renderPassBeginInfo.renderArea.extent = engine->swapChainExtent;
-
-	VkClearValue clearColor = {{{ 0.0f, 0.0f, 0.0f, 1.0f }}};
 	renderPassBeginInfo.clearValueCount = 1;
 	renderPassBeginInfo.pClearValues = &clearColor;
 
@@ -44,7 +45,12 @@ void recordCommandBuffer(
 	scissor.extent = engine->swapChainExtent;
 	vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 
-	vkCmdDraw(commandBuffer, 3, 1, 0, 0);
+	// after vertex buffer memory
+	VkBuffer vertexBuffers[] = { entity->vertexBuffer };
+	VkDeviceSize offsets[] = { 0 };
+	vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);
+	// vkCmdDraw(commandBuffer, static_cast<uint32_t>(vertices.size()), 1, 0, 0);
+	vkCmdDraw(commandBuffer, entity->verticesCount, 1, 0, 0);
 
 	vkCmdEndRenderPass(commandBuffer);
 
@@ -53,7 +59,7 @@ void recordCommandBuffer(
 	}
 }
 
-void drawFrame(VulkanEngine *vulkan) {
+void drawFrame(VulkanEngine *vulkan, VulkanEntity *entity) {
 	// wait until previous frame has completely finished
 	vkWaitForFences(
 		vulkan->logicalDevice,
@@ -80,7 +86,7 @@ void drawFrame(VulkanEngine *vulkan) {
 		&imageIndex);
 
 	vkResetCommandBuffer(vulkan->commandBuffers[vulkan->currentFrame],  0);
-	recordCommandBuffer(vulkan, vulkan->commandBuffers[vulkan->currentFrame], imageIndex);
+	recordCommandBuffer(vulkan, entity, vulkan->commandBuffers[vulkan->currentFrame], imageIndex);
 
 	// now we are done recording the command buffer, we can submit it
 	VkSemaphore waitSemaphores[] = {
