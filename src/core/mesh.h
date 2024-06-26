@@ -4,15 +4,18 @@
 extern "C" {
 #endif
 
+#define uindex_t unsigned int
+// #define uindex_t unsigned short
+
 typedef struct mesh_t {
-	unsigned short numVertices;
-	unsigned short numEdges;
-	unsigned short numFaces;
+	uindex_t numVertices;
+	uindex_t numEdges;
+	uindex_t numFaces;
 	float* vertices;
 	float* normals;
 	float* texCoords;
-	unsigned short* edges;
-	unsigned short* faces;
+	uindex_t* edges;
+	uindex_t* faces;
 } mesh_t;
 
 float* makeFacesNormal(mesh_t *poly);

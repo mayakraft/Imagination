@@ -45,7 +45,7 @@ int main() {
 	glDepthFunc(GL_LESS);
 
 	unsigned char pixels[RES * RES * 3];
-	GLuint texture = loadGLTexture(pixels, RES, RES);
+	GLuint texture = loadGLTexture(pixels, RES, RES, GL_RGB, GL_RGB);
 
 	float vertices[] = {
 		-1, -1, 0,
@@ -99,7 +99,7 @@ int main() {
 		}
 
 		fillTexture(pixels, RES, RES, frame);
-		updateGLTexture(texture, pixels, RES, RES);
+		updateGLTexture(texture, pixels, RES, RES, GL_RGB);
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_DEPTH_BUFFER_BIT);

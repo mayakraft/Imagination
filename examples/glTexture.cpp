@@ -16,10 +16,10 @@ int main() {
 
 	GLfloat perspective[16];
 	GLfloat lookat[16];
-	GLuint wallTexture = loadGLTextureFromFile("examples/images/wall.png");
-	GLuint bookTexture = loadGLAlphaTextureFromFile("examples/images/book.png");
-	GLuint moonTexture = loadGLTextureFromFile("examples/images/moon.png");
-	GLuint jupiterTexture = loadGLTextureFromFile("examples/images/jupiter.png");
+	GLuint wallTexture = loadGLTextureFromFileRGB("examples/images/wall.png");
+	GLuint bookTexture = loadGLTextureFromFileRGBA("examples/images/book.png");
+	GLuint moonTexture = loadGLTextureFromFileRGB("examples/images/moon.png");
+	GLuint jupiterTexture = loadGLTextureFromFileRGB("examples/images/jupiter.png");
 	mesh_t plane, circle, moon, jupiter;
 
 	makePerspectiveMatrix4(45, 1.0 / 1.0, 0.1f, 100.0f, perspective);
@@ -28,7 +28,7 @@ int main() {
 	makeUVSphere(&moon, 1);
 	makeCube(&jupiter);
 
-	for (int v = 0; v < plane.numVertices; v++) {
+	for (unsigned int v = 0; v < plane.numVertices; v++) {
 		plane.vertices[v * 3 + 0] -= 1;
 		plane.vertices[v * 3 + 1] -= 1;
 	}

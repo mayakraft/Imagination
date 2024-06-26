@@ -63,9 +63,9 @@ int main() {
 	node tree = pathMaze(&m, start);
 	std::vector<coord> path = linearizeMaze(&tree);
 
-	GLuint wallTexture = loadGLTextureFromFile("examples/images/wall.png");
-	GLuint floorTexture = loadGLTextureFromFile("examples/images/floor.png");
-	GLuint ceilingTexture = loadGLTextureFromFile("examples/images/ceiling.png");
+	GLuint wallTexture = loadGLTextureFromFileRGB("examples/images/wall.png");
+	GLuint floorTexture = loadGLTextureFromFileRGB("examples/images/floor.png");
+	GLuint ceilingTexture = loadGLTextureFromFileRGB("examples/images/ceiling.png");
 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);

@@ -3,7 +3,6 @@
 #include "glad.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
 #include "fs.h"
 
 #ifdef __cplusplus

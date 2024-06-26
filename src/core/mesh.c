@@ -7,10 +7,10 @@
 
 float* makeFacesNormal(mesh_t *poly) {
 	float* normals = (float*)malloc(sizeof(float) * poly->numFaces * 3);
-	for (int f = 0; f < poly->numFaces; f++) {
-		// unsigned short f0 = poly->faces[f * 3 + 0];
-		// unsigned short f1 = poly->faces[f * 3 + 1];
-		// unsigned short f2 = poly->faces[f * 3 + 2];
+	for (uindex_t f = 0; f < poly->numFaces; f++) {
+		// uindex_t f0 = poly->faces[f * 3 + 0];
+		// uindex_t f1 = poly->faces[f * 3 + 1];
+		// uindex_t f2 = poly->faces[f * 3 + 2];
 		float* p0 = &poly->vertices[poly->faces[f * 3 + 0] * 3];
 		float* p1 = &poly->vertices[poly->faces[f * 3 + 1] * 3];
 		float* p2 = &poly->vertices[poly->faces[f * 3 + 2] * 3];
@@ -32,7 +32,7 @@ float* makeVerticesNormal(mesh_t *poly) {
 	// normals = (float*)malloc(sizeof(float) * poly->numVertices * 3);
 	float* normals = (float*)calloc(poly->numVertices * 3, sizeof(float));
 
-	for (int f = 0; f < poly->numFaces; f++) {
+	for (uindex_t f = 0; f < poly->numFaces; f++) {
 		// float x = faceNormals[f * 3 + 0];
 		// float y = faceNormals[f * 3 + 1];
 		// float z = faceNormals[f * 3 + 2];
@@ -43,7 +43,7 @@ float* makeVerticesNormal(mesh_t *poly) {
 			normals[v * 3 + 2] += faceNormals[f * 3 + 2];
 		}
 	}
-	for (int v = 0; v < poly->numVertices; v++) {
+	for (uindex_t v = 0; v < poly->numVertices; v++) {
 		normalize3(&normals[v * 3]);
 	}
 	return normals;
@@ -51,7 +51,7 @@ float* makeVerticesNormal(mesh_t *poly) {
 
 float* makeRegularPolyhedraTexCoords(mesh_t *poly) {
 	float* texCoords = (float*)malloc(sizeof(float) * poly->numVertices * 2);
-	for (int v = 0; v < poly->numVertices; v++) {
+	for (uindex_t v = 0; v < poly->numVertices; v++) {
 		float vec[3];
 		memcpy(vec, &poly->vertices[v * 3], sizeof(float) * 3);
 		normalize3(vec);

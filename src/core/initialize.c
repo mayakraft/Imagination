@@ -1,6 +1,5 @@
 #include "initialize.h"
 #include "../vulkan/initialize.h"
-#include "SDL2/SDL_vulkan.h"
 
 float getRendererPixelScale(SDL_Window* window, SDL_Renderer *renderer) {
 	int winW, winH, renW, renH;

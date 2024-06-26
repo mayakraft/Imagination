@@ -13,13 +13,27 @@
 extern "C" {
 #endif
 
-GLuint loadGLTexture(unsigned char *data, int width, int height);
-GLuint loadGLTextureFromFile(const char* path);
+GLuint loadGLTexture(
+	unsigned char *data,
+	int width,
+	int height,
+	GLuint inputFormat,
+	GLuint storageFormat
+);
 
-GLuint loadGLAlphaTexture(unsigned char *data, int width, int height);
-GLuint loadGLAlphaTextureFromFile(const char* path);
+GLuint updateGLTexture(
+	GLuint texture,
+	unsigned char *data,
+	int width,
+	int height,
+	GLuint glImageFormat
+);
 
-GLuint updateGLTexture(GLuint texture, unsigned char *data, int width, int height);
+GLuint loadGLTextureFromFileRGB(const char* path);
+
+GLuint loadGLTextureFromFileRGBA(const char* path);
+
+GLuint loadGLTextureFromFileGrayscale(const char* path);
 
 SDL_Texture* loadSDLTexture(SDL_Renderer *renderer, const char* path);
 

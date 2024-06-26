@@ -15,7 +15,7 @@ void makeOctahedron(mesh_t *octahedron);
 void makeCube(mesh_t *cube);
 void makeIcosahedron(mesh_t *icosahedron);
 void makeDodecahedron(mesh_t *dodecahedron);
-void makeQuadPlane(mesh_t *plane, int width, int height);
+void makeQuadPlane(mesh_t *plane, unsigned int width, unsigned int height);
 void makeCircle(mesh_t *circle);
 void makeUVSphere(mesh_t *sphere, float radius);
 
