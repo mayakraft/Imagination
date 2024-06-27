@@ -26,21 +26,45 @@ char *readFile(const char *filename, long *bufferLength) {
 	return buffer;
 }
 
+char* joinPath(const char* path, const char* filename) {
+	// Calculate the total length needed, including the null terminator
+	size_t path_len = strlen(path);
+	size_t filename_len = strlen(filename);
+	size_t total_len = path_len + filename_len + 1; // +1 for the null terminator
+	char* result = (char*)malloc(total_len * sizeof(char));
+	strcpy(result, path);
+	strcat(result, filename);
+	return result;
+}
+
 #ifdef __APPLE__
 
 // malloc resourcePath to be larger than whatever we will put inside of it
-void getMacBundleResourcesPath(char *resourcePath) {
+const char* getMacBundleResourcesPath() {
+	// // This makes relative paths work in C++ in Xcode by changing
+	// // directory to the Resources folder inside the .app bundle
+	// CFBundleRef mainBundle = CFBundleGetMainBundle();
+	// CFURLRef resourcesURL = CFBundleCopyResourcesDirectoryURL(mainBundle);
+	// char path[4096];
+	// if (!CFURLGetFileSystemRepresentation(resourcesURL, TRUE, (UInt8 *)path, 4096)) {
+	// 	fputs("CFURLGetFileSystemRepresentation error", stderr);
+	// }
+	// CFRelease(resourcesURL);
+	// size_t len = strlen(path);
+	// memcpy(resourcePath, path, len);
+
 	// This makes relative paths work in C++ in Xcode by changing
 	// directory to the Resources folder inside the .app bundle
 	CFBundleRef mainBundle = CFBundleGetMainBundle();
 	CFURLRef resourcesURL = CFBundleCopyResourcesDirectoryURL(mainBundle);
 	char path[4096];
-	if (!CFURLGetFileSystemRepresentation(resourcesURL, TRUE, (UInt8 *)path, 4096)) {
+	if (!CFURLGetFileSystemRepresentation(resourcesURL, TRUE, (UInt8 *)path, sizeof(path))) {
 		fputs("CFURLGetFileSystemRepresentation error", stderr);
+		CFRelease(resourcesURL);
+		return NULL;
 	}
 	CFRelease(resourcesURL);
-	size_t len = strlen(path);
-	memcpy(resourcePath, path, len);
+	return strdup(path);
 }
 
 // void macBundlePath() {

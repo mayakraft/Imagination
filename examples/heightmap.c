@@ -48,9 +48,11 @@ int main() {
 	lights[0] = (Light){{ 0.0f, 0.0f, 0.0f }, { 0.8f, 0.8f, 0.8f }};
 	lights[1] = (Light){{ 0.0f, 0.0f, 0.0f }, { 0.8f, 0.8f, 0.8f }};
 
+	// const char *shaderPath = "./examples/shaders";
+	const char *shaderPath = getMacBundleResourcesPath();
 	ShaderProgram shaderProgram = createProgram(
-		readFile("./examples/shaders/heightmap.vert", NULL),
-		readFile("./examples/shaders/heightmap.frag", NULL));
+	readFile(joinPath(shaderPath, "/heightmap.vert"), NULL),
+	readFile(joinPath(shaderPath, "/heightmap.frag"), NULL));
 	glUseProgram(shaderProgram.programID);
 
 	GLint vertexAttrib = getAttrib(&shaderProgram, "position");
@@ -62,8 +64,10 @@ int main() {
 	GLint numLightsUniform = getUniform(&shaderProgram, "u_numLights");
 	GLint displaceOnUniform = getUniform(&shaderProgram, "u_doDisplace");
 
-	GLuint texture = loadGLTextureFromFileRGB("./examples/images/wall.png");
-	GLuint heightmap = loadGLTextureFromFileGrayscale("./examples/images/wall-heightmap.png");
+	// const char *resources = "./examples/images";
+	const char *resources = getMacBundleResourcesPath();
+	GLuint texture = loadGLTextureFromFileRGB(joinPath(resources, "/wall.png"));
+	GLuint heightmap = loadGLTextureFromFileGrayscale(joinPath(resources, "/wall-heightmap.png"));
 
 	glUniform1i(numLightsUniform, numLights);
 

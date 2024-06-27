@@ -19,6 +19,8 @@ extern "C" {
 // second parameter can be null if you don't need to know the size
 char *readFile(const char *filename, long *bufferLength);
 
+char* joinPath(const char* path, const char* filename);
+
 // char directory_separator[] = "/";
 // #ifdef WIN32
 // directory_separator[0] = '\\';
@@ -29,7 +31,7 @@ char *readFile(const char *filename, long *bufferLength);
 // this will fill the input variable with a path, something like
 // /Users/Maya/Applications/My-App.app/Contents/Resources
 // (with no trailing /)
-void getMacBundleResourcesPath(char *resourcePath);
+const char* getMacBundleResourcesPath();
 
 #endif
 
