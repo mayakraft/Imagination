@@ -53,6 +53,7 @@ float altitude(vec2 coord) {
 void main() {
 	float value = altitude(u_offset + position.xy);
 	vec3 newPos = vec3(position.xy, value);
+	vec3 clampedNewPos = vec3(position.xy, max(value, 0));
 
 	vec2 up = vec2(0, 1);
 	vec2 side = vec2(1, 0);
@@ -66,5 +67,5 @@ void main() {
 
 	v_normal = normal;
 	v_position = newPos;
-	gl_Position = u_projection * u_modelView * vec4(newPos, 1.0);
+	gl_Position = u_projection * u_modelView * vec4(clampedNewPos, 1.0);
 }

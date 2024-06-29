@@ -120,6 +120,17 @@ GameEngine initGLEngine(InitParams params) {
 		fputs(SDL_GetError(), stderr);
 	}
 
+	// in OpenGL version 3.2 and above, using VAOs is mandatory.
+	// Even if we don't use a VAO, we can simply call this and everything
+	// will still work, and this particular VAO will just go unused.
+	// https://discourse.libsdl.org/t/lazy-foo-sdl-and-modern-opengl-tutorial-vao/23020
+	if (!params.useLegacy) {
+		GLuint vao = 0;
+		glGenVertexArrays(1, &vao);
+		glBindVertexArray(vao);
+	}
+	// only problem is, we aren't calling glDeleteVertexArrays(1, &vao);
+
 	// initialize SDL_image
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {

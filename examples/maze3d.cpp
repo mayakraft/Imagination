@@ -50,8 +50,11 @@ int main() {
 		.height = SCREEN,
 		.useLegacy = true,
 	};
+	printf("this tererere\n");
+
 	GameEngine engine = initGLEngine(params);
 
+	printf("this owrks\n");
 	// board m = buildMaze(MAZE_SIZE);
 	maze m = maze(MAZE_SIZE);
 	printf("%s", m.toString().c_str());

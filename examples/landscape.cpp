@@ -12,11 +12,11 @@
 int main() {
 	srand(time(NULL));
 	unsigned int frame = 0;
-	GLfloat projection[16];
-	GLfloat modelView[16];
 	const int WIDTH = 512;
 	const int HEIGHT = 512;
 	const int numTriangles = (WIDTH - 1) * (HEIGHT - 1) * 2;
+	GLfloat projection[16];
+	GLfloat modelView[16];
 
 	InitParams params = InitParams {
 		.flags = SDL_INIT_VIDEO,
@@ -30,21 +30,6 @@ int main() {
 	glDepthFunc(GL_LESS);
 
 	glDebugInfo();
-
-	char shaderPath[256] = "./examples/shaders";
-
-	// for building in xcode
-	// getMacBundleResourcesPath(shaderPath);
-
-	std::string vertexPath = std::string(shaderPath) + "/landscape.vert";
-	std::string fragmentPath = std::string(shaderPath) + "/landscape.frag";
-
-	char* vertex = readFile(vertexPath.c_str(), NULL);
-	char* fragment = readFile(fragmentPath.c_str(), NULL);
-
-	makePerspectiveMatrix4(45, 1.0 / 1.0, 1.0f, 3000.0f, projection);
-	// makeOrthographicMatrix4(380, 380, -380, -380, 1, 2048.0, projection);
-	makeLookAtMatrix4(480, 480, 600, 0, 0, 0, 0, 0, 1, modelView);
 
 	float offset[2] = {
 		(float)(rand() % 1000),
@@ -77,25 +62,33 @@ int main() {
 		}
 	}
 
-	ShaderProgram program = createProgram(vertex, fragment);
+	char shaderPath[256] = "./examples/shaders";
+	// char shaderPath[256] = getMacBundleResourcesPath();
+	std::string vertexPath = std::string(shaderPath) + "/landscape.vert";
+	std::string fragmentPath = std::string(shaderPath) + "/landscape.frag";
+	char* vertex = readFile(vertexPath.c_str(), NULL);
+	char* fragment = readFile(fragmentPath.c_str(), NULL);
 
-	GLint vertexAttrib = getAttrib(&program, "position");
-	GLint timeLocation = getUniform(&program, "u_time");
-	GLint offsetLocation = getUniform(&program, "u_offset");
-	GLint projectionLocation = getUniform(&program, "u_projection");
-	GLint modelViewLocation = getUniform(&program, "u_modelView");
+	GLuint program = createShaderProgram(vertex, fragment);
+	GLuint vbo = makeArrayBuffer(vertices, 3 * WIDTH * HEIGHT * sizeof(GLshort));
+	GLuint ebo = makeElementBuffer(indices, numTriangles * 3 * sizeof(GLuint));
+	GLint vertexAttrib = getAttrib(program, "position");
+	GLint timeLocation = getUniform(program, "u_time");
+	GLint offsetLocation = getUniform(program, "u_offset");
+	GLint projectionLocation = getUniform(program, "u_projection");
+	GLint modelViewLocation = getUniform(program, "u_modelView");
 
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
+	// makePerspectiveMatrix4(45, 1.0 / 1.0, 1.0f, 5000.0f, projection);
+	makeOrthographicMatrix4(380, 380, -380, -380, 1, 2048.0, projection);
+	makeLookAtMatrix4(480, 480, 600, 0, 0, 0, 0, 0, 1, modelView);
+
+	// fill the VAO
+	GLuint vao = beginVAO();
+	glEnableVertexAttribArray(vertexAttrib);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, 3 * WIDTH * HEIGHT * sizeof(GLshort), vertices, GL_STATIC_DRAW);
-	program.vbo = vbo;
-
-	GLuint ebo;
-	glGenBuffers(1, &ebo);
+	glVertexAttribPointer(vertexAttrib, 3, GL_SHORT, GL_FALSE, 0, NULL);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, numTriangles * 3 * sizeof(GLuint), indices, GL_STATIC_DRAW);
-	program.ebo = ebo;
+	endVAO();
 
 	SDL_Event e;
 	bool quit = false;
@@ -107,7 +100,8 @@ int main() {
 					case SDLK_f:
 					float aspect;
 					setFullscreenGL(&engine, &aspect);
-					makePerspectiveMatrix4(45, aspect, 1.0f, 3000.0f, projection);
+					// makePerspectiveMatrix4(45, aspect, 1.0f, 5000.0f, projection);
+					makeOrthographicMatrix4(320, 320 * aspect, -320, -320 * aspect, 1, 2048.0, projection);
 					break;
 				}
 			}
@@ -118,30 +112,27 @@ int main() {
 		offset[1] -= 1;
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_DEPTH_BUFFER_BIT);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-		glUseProgram(program.programID);
-		glEnableVertexAttribArray(vertexAttrib);
-		glBindBuffer(GL_ARRAY_BUFFER, program.vbo);
-		glVertexAttribPointer(vertexAttrib, 3, GL_SHORT, GL_FALSE, 0, NULL);
+		glUseProgram(program);
 
+		// uniforms
 		glUniform1f(timeLocation, time);
 		glUniform2f(offsetLocation, offset[0], offset[1]);
 		glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, projection);
 		glUniformMatrix4fv(modelViewLocation, 1, GL_FALSE, modelView);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, program.ebo);
+		// draw
+		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, numTriangles * 3, GL_UNSIGNED_INT, NULL);
-		glDisableVertexAttribArray(vertexAttrib);
-		glUseProgram(0);
+		glBindVertexArray(0);
 
 		SDL_GL_SwapWindow(engine.window);
 
 		frame += 1;
 	}
 
-	deallocProgram(&program);
+	deallocProgram(program);
 	dealloc(&engine);
 	return 0;
 }

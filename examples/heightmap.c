@@ -48,26 +48,28 @@ int main() {
 	lights[0] = (Light){{ 0.0f, 0.0f, 0.0f }, { 0.8f, 0.8f, 0.8f }};
 	lights[1] = (Light){{ 0.0f, 0.0f, 0.0f }, { 0.8f, 0.8f, 0.8f }};
 
-	// const char *shaderPath = "./examples/shaders";
-	const char *shaderPath = getMacBundleResourcesPath();
-	ShaderProgram shaderProgram = createProgram(
+	const char *shaderPath = "./examples/shaders";
+	// char *shaderPath = getMacBundleResourcesPath();
+	GLuint shaderProgram = createShaderProgram(
 	readFile(joinPath(shaderPath, "/heightmap.vert"), NULL),
 	readFile(joinPath(shaderPath, "/heightmap.frag"), NULL));
-	glUseProgram(shaderProgram.programID);
+	glUseProgram(shaderProgram);
+	// free(shaderPath);
 
-	GLint vertexAttrib = getAttrib(&shaderProgram, "position");
-	GLint texCoordAttrib = getAttrib(&shaderProgram, "texCoord");
-	GLint projectionUniform = getUniform(&shaderProgram, "u_projection");
-	GLint modelViewUniform = getUniform(&shaderProgram, "u_modelView");
-	GLint textureUniform = getUniform(&shaderProgram, "u_texture");
-	GLint heightmapUniform = getUniform(&shaderProgram, "u_heightmap");
-	GLint numLightsUniform = getUniform(&shaderProgram, "u_numLights");
-	GLint displaceOnUniform = getUniform(&shaderProgram, "u_doDisplace");
+	GLint vertexAttrib = getAttrib(shaderProgram, "position");
+	GLint texCoordAttrib = getAttrib(shaderProgram, "texCoord");
+	GLint projectionUniform = getUniform(shaderProgram, "u_projection");
+	GLint modelViewUniform = getUniform(shaderProgram, "u_modelView");
+	GLint textureUniform = getUniform(shaderProgram, "u_texture");
+	GLint heightmapUniform = getUniform(shaderProgram, "u_heightmap");
+	GLint numLightsUniform = getUniform(shaderProgram, "u_numLights");
+	GLint displaceOnUniform = getUniform(shaderProgram, "u_doDisplace");
 
-	// const char *resources = "./examples/images";
-	const char *resources = getMacBundleResourcesPath();
+	const char *resources = "./examples/images";
+	// char *resources = getMacBundleResourcesPath();
 	GLuint texture = loadGLTextureFromFileRGB(joinPath(resources, "/wall.png"));
 	GLuint heightmap = loadGLTextureFromFileGrayscale(joinPath(resources, "/wall-heightmap.png"));
+	// free(resources);
 
 	glUniform1i(numLightsUniform, numLights);
 
@@ -78,32 +80,9 @@ int main() {
 	glBindTexture(GL_TEXTURE_2D, heightmap);
 	glUniform1i(heightmapUniform, 1);
 
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(
-		GL_ARRAY_BUFFER,
-		plane.numVertices * 3 * sizeof(GLfloat),
-		plane.vertices,
-		GL_STATIC_DRAW);
-
-	GLuint tbo;
-	glGenBuffers(1, &tbo);
-	glBindBuffer(GL_ARRAY_BUFFER, tbo);
-	glBufferData(
-		GL_ARRAY_BUFFER,
-		plane.numVertices * 2 * sizeof(GLfloat),
-		plane.texCoords,
-		GL_STATIC_DRAW);
-
-	GLuint ebo;
-	glGenBuffers(1, &ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(
-		GL_ELEMENT_ARRAY_BUFFER,
-		plane.numFaces * 3 * sizeof(GLuint),
-		plane.faces,
-		GL_STATIC_DRAW);
+	GLuint vbo = makeArrayBuffer(plane.vertices, plane.numVertices * 3 * sizeof(GLfloat));
+	GLuint tbo = makeArrayBuffer(plane.texCoords, plane.numVertices * 2 * sizeof(GLfloat));
+	GLuint ebo = makeElementBuffer(plane.faces, plane.numFaces * 3 * sizeof(GLuint));
 
 	SDL_Event e;
 	bool quit = false;
@@ -140,7 +119,7 @@ int main() {
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-		glUseProgram(shaderProgram.programID);
+		glUseProgram(shaderProgram);
 
 		glUniformMatrix4fv(projectionUniform, 1, GL_FALSE, projection);
 		glUniformMatrix4fv(modelViewUniform, 1, GL_FALSE, modelView);
@@ -158,11 +137,11 @@ int main() {
 			char uniformName[256];
 			// Position
 			snprintf(uniformName, sizeof(uniformName), "u_lights[%d].position", i);
-			GLint lightPosUniform = getUniform(&shaderProgram, uniformName);
+			GLint lightPosUniform = getUniform(shaderProgram, uniformName);
 			glUniform3f(lightPosUniform, lights[i].position[0], lights[i].position[1], lights[i].position[2]);
 			// Color
 			snprintf(uniformName, sizeof(uniformName), "u_lights[%d].color", i);
-			GLint lightColorLoc = getUniform(&shaderProgram, uniformName);
+			GLint lightColorLoc = getUniform(shaderProgram, uniformName);
 			glUniform3f(lightColorLoc, lights[i].color[0], lights[i].color[1], lights[i].color[2]);
 		}
 
@@ -183,6 +162,7 @@ int main() {
 		frame += 1;
 	}
 
+	deallocProgram(shaderProgram);
 	dealloc(&engine);
 	return 0;
 }

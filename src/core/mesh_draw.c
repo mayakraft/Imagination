@@ -7,7 +7,7 @@ void drawMeshFaces(mesh_t *poly) {
 	glVertexPointer(3, GL_FLOAT, 0, poly->vertices);
 	glNormalPointer(GL_FLOAT, 0, poly->normals);
 	glTexCoordPointer(2, GL_FLOAT, 0, poly->texCoords);
-	glDrawElements(GL_TRIANGLES, poly->numFaces * 3, GL_UNSIGNED_SHORT, poly->faces);
+	glDrawElements(GL_TRIANGLES, poly->numFaces * 3, glindex_t, poly->faces);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
@@ -18,7 +18,7 @@ void drawMeshLines(mesh_t *poly) {
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, poly->vertices);
 	glNormalPointer(GL_FLOAT, 0, poly->vertices);
-	glDrawElements(GL_LINES, poly->numEdges * 2, GL_UNSIGNED_SHORT, poly->edges);
+	glDrawElements(GL_LINES, poly->numEdges * 2, glindex_t, poly->edges);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }

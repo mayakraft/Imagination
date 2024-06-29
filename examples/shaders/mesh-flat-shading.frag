@@ -18,17 +18,21 @@ in vec3 v_fragPos;
 out vec4 outColor;
 
 void main() {
-	vec3 ambient = u_ambientColor * u_materialColor;
-	vec3 norm = normalize(v_normal);
-	vec3 resultColor = ambient;
+	// Calculate the normal per face using derivatives
+	vec3 dFdx = dFdx(v_fragPos);
+	vec3 dFdy = dFdy(v_fragPos);
+	vec3 normal = normalize(cross(dFdx, dFdy));
 
-	for (int i = 0; i < u_numLights; i++) {
+	vec3 ambient = u_ambientColor * u_materialColor;
+	vec3 result = ambient;
+
+	for (int i = 0; i < u_numLights; ++i) {
 		vec3 lightDir = normalize(u_lights[i].position - v_fragPos);
-		float diff = max(dot(norm, lightDir), 0.0);
-		// vec3 diffuse = diff * u_lights[i].color * 0.5; // this looks cool, but is wrong
+		float diff = max(dot(normal, lightDir), 0.0);
+		// vec3 diffuse = diff * u_lights[i].color * 0.5; // not correct, but looks nice
 		vec3 diffuse = diff * u_lights[i].color * u_materialColor;
-		resultColor += diffuse;
+		result += diffuse;
 	}
 
-	outColor = vec4(resultColor, 1.0);
+	outColor = vec4(result, 1.0);
 }

@@ -7,6 +7,7 @@
 #endif
 
 #include "./primitives.h"
+#include "./mesh.h"
 
 #ifdef __cplusplus
 extern "C" {

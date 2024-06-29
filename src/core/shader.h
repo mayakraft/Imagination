@@ -10,9 +10,9 @@ extern "C" {
 #endif
 
 typedef struct ShaderProgram {
-	GLuint programID;
-	GLuint vbo;
-	GLuint ebo;
+	GLuint id;
+	// GLuint vbo;
+	// GLuint ebo;
 } ShaderProgram;
 
 //GLuint loadShader(char *vertex_path, char *fragment_path);
@@ -23,15 +23,19 @@ void printShaderLog(GLuint shader);
 // GL_FRAGMENT_SHADER 0x8B30, GL_VERTEX_SHADER 0x8B31
 GLuint compileShader(unsigned short type, const GLchar* shaderSource);
 
-ShaderProgram createProgram(const GLchar* vertex, const GLchar* fragment);
+GLuint createShaderProgram(const GLchar* vertex, const GLchar* fragment);
 
-void deallocProgram(ShaderProgram *program);
+void deallocProgram(GLuint program);
 
-GLint getAttrib(ShaderProgram *program, const char* name);
-GLint getUniform(ShaderProgram *program, const char* name);
+GLint getAttrib(GLuint program, const char* name);
+GLint getUniform(GLuint program, const char* name);
 
-GLuint generateVertexBuffer(const void* data, size_t length);
-GLuint generateElementBuffer(const void* data, size_t length);
+// length is the array size in bytes. for example: sizeof(GLuint) * 21 * 3
+GLuint makeArrayBuffer(const void* data, size_t length);
+GLuint makeElementBuffer(const void* data, size_t length);
+
+GLuint beginVAO();
+void endVAO();
 
 #ifdef __cplusplus
 }

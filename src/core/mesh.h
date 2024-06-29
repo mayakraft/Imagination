@@ -6,6 +6,8 @@ extern "C" {
 
 #define uindex_t unsigned int
 // #define uindex_t unsigned short
+#define glindex_t GL_UNSIGNED_INT
+// #define glindex_t GL_UNSIGNED_SHORT
 
 typedef struct mesh_t {
 	uindex_t numVertices;

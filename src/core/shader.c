@@ -97,73 +97,74 @@ GLuint compileShader(unsigned short type, const GLchar* shaderSource) {
 	return shader;
 }
 
-ShaderProgram createProgram(const GLchar* vertex, const GLchar* fragment) {
-	// https://discourse.libsdl.org/t/lazy-foo-sdl-and-modern-opengl-tutorial-vao/23020
-	GLuint vaoId = 0;
-	glGenVertexArrays(1, &vaoId);
-	glBindVertexArray(vaoId);
+GLuint createShaderProgram(const GLchar* vertex, const GLchar* fragment) {
 	// Generate program
-	GLuint gProgramID = glCreateProgram();
+	GLuint program = glCreateProgram();
 	// create and attach vertex shader to program
 	GLuint vertexShader = compileShader(GL_VERTEX_SHADER, vertex);
-	glAttachShader(gProgramID, vertexShader);
+	glAttachShader(program, vertexShader);
 	// create and attach fragment shader to program
 	GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER, fragment);
-	glAttachShader(gProgramID, fragmentShader);
+	glAttachShader(program, fragmentShader);
 	// Link program
-	glLinkProgram(gProgramID);
+	glLinkProgram(program);
 	// Check for errors
 	GLint programSuccess = GL_TRUE;
-	glGetProgramiv(gProgramID, GL_LINK_STATUS, &programSuccess);
+	glGetProgramiv(program, GL_LINK_STATUS, &programSuccess);
 	if (programSuccess != GL_TRUE) {
-		printProgramLog(gProgramID);
+		printProgramLog(program);
 		fputs("Error linking program", stderr);
 	}
-	glDetachShader(gProgramID, vertexShader);
-	glDetachShader(gProgramID, fragmentShader);
+	glDetachShader(program, vertexShader);
+	glDetachShader(program, fragmentShader);
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
-
-	// idk if we should auto use the program
-	// glUseProgram(gProgramID);
-
-	ShaderProgram shader;
-	shader.programID = gProgramID;
-	shader.vbo = -1;
-	shader.ebo = -1;
-	return shader;
+	// i don't think we should automatically use the program.
+	// glUseProgram(program);
+	return program;
 }
 
-GLint getAttrib(ShaderProgram *program, const char* name) {
-	GLint attribute = glGetAttribLocation(program->programID, name);
+GLint getAttrib(GLuint program, const char* name) {
+	GLint attribute = glGetAttribLocation(program, name);
 	if (attribute == -1) { fputs("invalid attrib name", stderr); }
 	return attribute;
 }
 
-GLint getUniform(ShaderProgram *program, const char* name) {
-	GLint uniform = glGetUniformLocation(program->programID, name);
+GLint getUniform(GLuint program, const char* name) {
+	GLint uniform = glGetUniformLocation(program, name);
 	if (uniform == -1) { fputs("invalid uniform name", stderr); }
 	return uniform;
 }
 
 // length: for example, 2 * 4 * sizeof(GLfloat)
-GLuint generateVertexBuffer(const void* data, size_t length) {
-	GLuint vbo = 0;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+GLuint makeArrayBuffer(const void* data, size_t length) {
+	GLuint bufferObject = 0;
+	glGenBuffers(1, &bufferObject);
+	glBindBuffer(GL_ARRAY_BUFFER, bufferObject);
 	glBufferData(GL_ARRAY_BUFFER, length, data, GL_STATIC_DRAW);
-	return vbo;
+	return bufferObject;
 }
 
 // length: for example, sizeof(GLuint) * 21 * 3
-GLuint generateElementBuffer(const void* data, size_t length) {
-	GLuint ebo = 0;
-	glGenBuffers(1, &ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+GLuint makeElementBuffer(const void* data, size_t length) {
+	GLuint bufferObject = 0;
+	glGenBuffers(1, &bufferObject);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferObject);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, length, data, GL_STATIC_DRAW);
-	return ebo;
+	return bufferObject;
 }
 
-void deallocProgram(ShaderProgram *program) {
-	glDeleteProgram(program->programID);
+void deallocProgram(GLuint program) {
+	glDeleteProgram(program);
+}
+
+GLuint beginVAO() {
+	GLuint vao;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+	return vao;
+}
+
+void endVAO() {
+	glBindVertexArray(0);
 }

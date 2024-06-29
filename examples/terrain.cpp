@@ -99,17 +99,17 @@ int main() {
 	// char* polyVertex = readFile(polyVertexPath.c_str(), NULL);
 	// char* polyFragment = readFile(polyFragmentPath.c_str(), NULL);
 
-	ShaderProgram landProgram = createProgram(terrainVertex, terrainFragment);
-	glUseProgram(landProgram.programID);
+	GLuint landProgram = createShaderProgram(terrainVertex, terrainFragment);
+	glUseProgram(landProgram);
 
-	GLint vertexAttrib = getAttrib(&landProgram, "position");
-	GLint texLocation = getUniform(&landProgram, "tex");
-	GLint widthLocation = getUniform(&landProgram, "u_width");
-	GLint heightLocation = getUniform(&landProgram, "u_height");
-	// GLint timeLocation = getUniform(&landProgram, "u_time");
-	// GLint offsetLocation = getUniform(&landProgram, "u_offset");
-	GLint projectionLocation = getUniform(&landProgram, "u_projection");
-	GLint modelViewLocation = getUniform(&landProgram, "u_modelView");
+	GLint vertexAttrib = getAttrib(landProgram, "position");
+	GLint texLocation = getUniform(landProgram, "tex");
+	GLint widthLocation = getUniform(landProgram, "u_width");
+	GLint heightLocation = getUniform(landProgram, "u_height");
+	// GLint timeLocation = getUniform(landProgram, "u_time");
+	// GLint offsetLocation = getUniform(landProgram, "u_offset");
+	GLint projectionLocation = getUniform(landProgram, "u_projection");
+	GLint modelViewLocation = getUniform(landProgram, "u_modelView");
 
 	GLuint vbo;
 	glGenBuffers(1, &vbo);
@@ -119,17 +119,15 @@ int main() {
 		terrain.numVertices * 3 * sizeof(GLfloat),
 		terrain.vertices,
 		GL_STATIC_DRAW);
-	landProgram.vbo = vbo;
 
-	GLuint ibo;
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	GLuint ebo;
+	glGenBuffers(1, &ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(
 		GL_ELEMENT_ARRAY_BUFFER,
 		terrain.numFaces * 3 * sizeof(GLuint),
 		terrain.faces,
 		GL_STATIC_DRAW);
-	landProgram.ebo = ibo;
 
 	GLuint texture = loadGLTexture(pixels, WIDTH, HEIGHT, GL_RGB, GL_RGB);
 	// unsigned int texture;
@@ -144,7 +142,7 @@ int main() {
 
 
 	// ShaderProgram ballProgram = createProgram(polyVertex, polyFragment);
-	// glUseProgram(ballProgram.programID);
+	// glUseProgram(ballProgram);
 
 	// GLint ballVertexAttrib = getAttrib(&ballProgram, "position");
 	// GLint ballProjectionLocation = getUniform(&ballProgram, "u_projection");
@@ -152,7 +150,7 @@ int main() {
 
 	// mesh_t icosahedron;
 	// makeIcosahedron(&icosahedron);
-	// // generateVertexBuffer(&ballProgram, vertices, 3 * WIDTH * HEIGHT * sizeof(GLfloat));
+	// // makeVertexBuffer(&ballProgram, vertices, 3 * WIDTH * HEIGHT * sizeof(GLfloat));
 	// GLuint vbo2;
 	// glGenBuffers(1, &vbo2);
 	// glBindBuffer(GL_ARRAY_BUFFER, vbo2);
@@ -166,7 +164,7 @@ int main() {
 	// glBufferData(GL_ELEMENT_ARRAY_BUFFER, 20 * 3 * sizeof(GLushort), icosahedron.faces, GL_STATIC_DRAW);
 	// ballProgram.ebo = ibo2;
 
-	glUseProgram(landProgram.programID);
+	glUseProgram(landProgram);
 
 	SDL_Event e;
 	bool quit = false;
@@ -261,9 +259,9 @@ int main() {
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-		glUseProgram(landProgram.programID);
+		glUseProgram(landProgram);
 		glEnableVertexAttribArray(vertexAttrib);
-		glBindBuffer(GL_ARRAY_BUFFER, landProgram.vbo);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glVertexAttribPointer(vertexAttrib, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 		// glUniform1f(timeLocation, time);
 		// glUniform2f(offsetLocation, offset[0], offset[1]);
@@ -276,11 +274,11 @@ int main() {
 		glBindTexture(GL_TEXTURE_2D, texture);
 		glUniform1i(texLocation, 0);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, landProgram.ebo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 		glDrawElements(GL_TRIANGLES, terrain.numFaces * 3, GL_UNSIGNED_INT, NULL);
 		glDisableVertexAttribArray(vertexAttrib);
 
-		// glUseProgram(ballProgram.programID);
+		// glUseProgram(ballProgram);
 		// glEnableVertexAttribArray(ballVertexAttrib);
 		// glBindBuffer(GL_ARRAY_BUFFER, ballProgram.vbo);
 		// glVertexAttribPointer(ballVertexAttrib, 3, GL_FLOAT, GL_FALSE, 0, NULL);
@@ -299,7 +297,7 @@ int main() {
 		// frame += 1;
 	}
 
-	deallocProgram(&landProgram);
+	deallocProgram(landProgram);
 	// deallocProgram(&ballProgram);
 	dealloc(&engine);
 	return 0;

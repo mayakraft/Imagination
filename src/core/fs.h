@@ -1,11 +1,7 @@
 #pragma once
 
-// #include <unistd.h> // for chdir
-// #include <libgen.h> // for dirname
-// #include <mach-o/dyld.h> // for _NSGetExecutablePath
-// #include <limits.h> // for PATH_MAX?
-
 #include <string.h>
+
 #ifdef __APPLE__
 #include <CoreFoundation/CoreFoundation.h>
 #endif
@@ -27,17 +23,8 @@ char* joinPath(const char* path, const char* filename);
 // #endif
 
 #ifdef __APPLE__
-
-// this will fill the input variable with a path, something like
-// /Users/Maya/Applications/My-App.app/Contents/Resources
-// (with no trailing /)
-const char* getMacBundleResourcesPath();
-
+char* getMacBundleResourcesPath();
 #endif
-
-// filename should be something like "simple.frag"
-// or, "shaders/simple.frag" if you intend there to be a "shaders"
-// directory inside of the bundle
 
 #ifdef __cplusplus
 }

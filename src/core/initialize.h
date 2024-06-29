@@ -47,9 +47,6 @@ void setFullscreenGL(GameEngine *engine, float *aspect);
 
 void glDebugInfo();
 
-// void setFullScreen(GameEngine *engine);
-// void drawLoop(GameEngine* engine);
-
 #ifdef __cplusplus
 }
 #endif

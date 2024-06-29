@@ -18,7 +18,7 @@ int main(void) {
 
 	char* vertex = readFile("./examples/shaders/simple.vert", NULL);
 	char* fragment = readFile("./examples/shaders/kaleidoscope.frag", NULL);
-	ShaderProgram program = createProgram(vertex, fragment);
+	GLuint program = createShaderProgram(vertex, fragment);
 	free(vertex);
 	free(fragment);
 
@@ -30,11 +30,11 @@ int main(void) {
 	};
 	GLuint indexData[] = { 0, 1, 2, 3 };
 
-	program.vbo = generateVertexBuffer(vertexData, sizeof(GLfloat) * 4 * 2);
-	program.ebo = generateElementBuffer(indexData, sizeof(GLuint) * 4);
-	GLint vertexAttrib = getAttrib(&program, "position");
-	GLint timeUniform = getUniform(&program, "u_time");
-	GLint resUniform = getUniform(&program, "u_resolution");
+	GLuint vbo = makeArrayBuffer(vertexData, sizeof(GLfloat) * 4 * 2);
+	GLuint ebo = makeElementBuffer(indexData, sizeof(GLuint) * 4);
+	GLint vertexAttrib = getAttrib(program, "position");
+	GLint timeUniform = getUniform(program, "u_time");
+	GLint resUniform = getUniform(program, "u_resolution");
 
 	SDL_Event e;
 	char quit = 0;
@@ -51,9 +51,9 @@ int main(void) {
 
 		// begin rendering
 		glClear(GL_COLOR_BUFFER_BIT);
-		glUseProgram(program.programID);
-		glBindBuffer(GL_ARRAY_BUFFER, program.vbo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, program.ebo);
+		glUseProgram(program);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
 		// Enable vertex position
 		glEnableVertexAttribArray(vertexAttrib);
@@ -75,7 +75,7 @@ int main(void) {
 		frame++;
 	}
 
-	deallocProgram(&program);
+	deallocProgram(program);
 	dealloc(&engine);
 	return 0;
 }
