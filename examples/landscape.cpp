@@ -36,30 +36,16 @@ int main() {
 		(float)(rand() % 1000),
 	};
 
-	unsigned int indices[numTriangles * 3];
-	short vertices[WIDTH * HEIGHT * 3];
+	mesh_t plane;
+	makeUVPlane(&plane, WIDTH - 1, HEIGHT - 1);
 
-	for (int y = 0; y < HEIGHT; y++) {
-		for (int x = 0; x < WIDTH; x++) {
-			int index = x + y * WIDTH;
-			vertices[index * 3 + 0] = x - (WIDTH / 2);
-			vertices[index * 3 + 1] = y - (HEIGHT / 2);
-			vertices[index * 3 + 2] = 0;
-		}
+	short vertices[plane.numVertices * 3];
+	for (unsigned int i = 0; i < plane.numVertices * 3; i++) {
+		vertices[i] = plane.vertices[i];
 	}
-
-	for (int i = 0; i < numTriangles * 3; i++) { indices[i] = 0; }
-	for (int y = 0; y < HEIGHT - 1; y++) {
-		for (int x = 0; x < WIDTH - 1; x++) {
-			int index = x + y * (WIDTH - 1);
-			int index2 = x + y * WIDTH;
-			indices[index * 6 + 0] = index2;
-			indices[index * 6 + 1] = index2 + WIDTH;
-			indices[index * 6 + 2] = index2 + 1;
-			indices[index * 6 + 3] = index2 + WIDTH;
-			indices[index * 6 + 4] = index2 + WIDTH + 1;
-			indices[index * 6 + 5] = index2 + 1;
-		}
+	for (unsigned int i = 0; i < plane.numVertices; i++) {
+		vertices[i * 3 + 0] -= (WIDTH / 2);
+		vertices[i * 3 + 1] -= (HEIGHT / 2);
 	}
 
 	char shaderPath[256] = "./examples/shaders";
@@ -70,8 +56,8 @@ int main() {
 	char* fragment = readFile(fragmentPath.c_str(), NULL);
 
 	GLuint program = createShaderProgram(vertex, fragment);
-	GLuint vbo = makeArrayBuffer(vertices, 3 * WIDTH * HEIGHT * sizeof(GLshort));
-	GLuint ebo = makeElementBuffer(indices, numTriangles * 3 * sizeof(GLuint));
+	GLuint vbo = makeArrayBuffer(vertices, plane.numVertices * 3 * sizeof(GLshort));
+	GLuint ebo = makeElementBuffer(plane.faces, plane.numFaces * 3 * sizeof(GLuint));
 	GLint vertexAttrib = getAttrib(program, "position");
 	GLint timeLocation = getUniform(program, "u_time");
 	GLint offsetLocation = getUniform(program, "u_offset");

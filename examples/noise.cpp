@@ -45,24 +45,10 @@ int main() {
 	glDepthFunc(GL_LESS);
 
 	unsigned char pixels[RES * RES * 3];
-	GLuint texture = loadGLTexture(pixels, RES, RES, GL_RGB, GL_RGB);
+	GLuint texture = loadGLTexture(pixels, RES, RES, GL_RGB, GL_RGB, GL_NEAREST);
 
-	float vertices[] = {
-		-1, -1, 0,
-		1, -1, 0,
-		1, 1, 0,
-		1, 1, 0,
-		-1, 1, 0,
-		-1, -1, 0,
-	};
-	float texCoords[] = {
-		0, 0,
-		1, 0,
-		1, 1,
-		1, 1,
-		0, 1,
-		0, 0,
-	};
+	mesh_t plane;
+	makeRect(&plane, -1, -1, 2, 2);
 
 	SDL_Event e;
 	bool quit = false;
@@ -99,7 +85,7 @@ int main() {
 		}
 
 		fillTexture(pixels, RES, RES, frame);
-		updateGLTexture(texture, pixels, RES, RES, GL_RGB);
+		updateGLTexture(texture, pixels, RES, RES, GL_RGB, GL_NEAREST);
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_DEPTH_BUFFER_BIT);
@@ -116,8 +102,9 @@ int main() {
 
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glVertexPointer(3, GL_FLOAT, 0, vertices);
-		glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
+		glVertexPointer(3, GL_FLOAT, 0, plane.vertices);
+		glTexCoordPointer(2, GL_FLOAT, 0, plane.texCoords);
+		glDrawElements(GL_TRIANGLES, plane.numFaces * 3, GL_UNSIGNED_INT, plane.faces);
 		glDrawArrays(GL_TRIANGLES, 0, 2 * 3);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);

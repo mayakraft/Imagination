@@ -5,19 +5,20 @@ GLuint loadGLTexture(
 	int width,
 	int height,
 	GLuint inputFormat,
-	GLuint storageFormat
+	GLuint storageFormat,
+	unsigned short blendMode
 ) {
 	GLuint texture;
 	glEnable(GL_TEXTURE_2D);
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, blendMode); // GL_NEAREST); GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	// if mipmaps are not used, this is required
 	// https://stackoverflow.com/a/13867751/1956418
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, blendMode);
 	glTexImage2D(
 		GL_TEXTURE_2D,
 		0,
@@ -33,7 +34,7 @@ GLuint loadGLTexture(
 	return texture;
 }
 
-GLuint loadGLTextureFromFileRGB(const char* path) {
+GLuint loadGLTextureFromFileRGBWithBlend(const char* path, unsigned short blendMode) {
 	SDL_Surface* surface = IMG_Load(path);
 	SDL_Surface* surfaceConverted = SDL_ConvertSurfaceFormat(
 		surface,
@@ -44,13 +45,18 @@ GLuint loadGLTextureFromFileRGB(const char* path) {
 		surfaceConverted->w,
 		surfaceConverted->h,
 		GL_RGB,
-		GL_RGB);
+		GL_RGB,
+		blendMode);
 	SDL_FreeSurface(surface);
 	SDL_FreeSurface(surfaceConverted);
 	return texture;
 }
 
-GLuint loadGLTextureFromFileRGBA(const char* path) {
+GLuint loadGLTextureFromFileRGB(const char* path) {
+	return loadGLTextureFromFileRGBWithBlend(path, GL_LINEAR);
+}
+
+GLuint loadGLTextureFromFileRGBAWithBlend(const char* path, unsigned short blendMode) {
 	SDL_Surface* surface = IMG_Load(path);
 	SDL_Surface* surfaceConverted = SDL_ConvertSurfaceFormat(
 		surface,
@@ -61,13 +67,18 @@ GLuint loadGLTextureFromFileRGBA(const char* path) {
 		surfaceConverted->w,
 		surfaceConverted->h,
 		GL_RGBA,
-		GL_RGBA);
+		GL_RGBA,
+		blendMode);
 	SDL_FreeSurface(surface);
 	SDL_FreeSurface(surfaceConverted);
 	return texture;
 }
 
-GLuint loadGLTextureFromFileGrayscale(const char* path) {
+GLuint loadGLTextureFromFileRGBA(const char* path) {
+	return loadGLTextureFromFileRGBAWithBlend(path, GL_LINEAR);
+}
+
+GLuint loadGLTextureFromFileGrayscaleWithBlend(const char* path, unsigned short blendMode) {
 	SDL_Surface* surface = IMG_Load(path);
 	SDL_Surface* surfaceConverted = SDL_ConvertSurfaceFormat(
 		surface,
@@ -88,11 +99,16 @@ GLuint loadGLTextureFromFileGrayscale(const char* path) {
 		surfaceConverted->w,
 		surfaceConverted->h,
 		GL_RED,
-		GL_RED);
+		GL_RED,
+		blendMode);
 	free(grayscaleData);
 	SDL_FreeSurface(surface);
 	SDL_FreeSurface(surfaceConverted);
 	return texture;
+}
+
+GLuint loadGLTextureFromFileGrayscale(const char* path) {
+	return loadGLTextureFromFileGrayscaleWithBlend(path, GL_LINEAR);
 }
 
 GLuint updateGLTexture(
@@ -100,16 +116,17 @@ GLuint updateGLTexture(
 	unsigned char *data,
 	int width,
 	int height,
-	GLuint glImageFormat
+	GLuint glImageFormat,
+	unsigned short blendMode
 ) {
 	glBindTexture(GL_TEXTURE_2D, texture);
 	// glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST); // GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, blendMode); // GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	// if mipmaps are not used, this is required
 	// https://stackoverflow.com/questions/13867219/opengl-renders-texture-all-white
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, blendMode);
 	glTexImage2D(
 		GL_TEXTURE_2D,
 		0,

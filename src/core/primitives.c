@@ -171,10 +171,47 @@ void makeDodecahedron(mesh_t *polyhedron) {
 	polyhedron->texCoords = makeRegularPolyhedraTexCoords(polyhedron);
 };
 
+void makeRect(mesh_t *mesh, float x, float y, float width, float height) {
+	if (width < 0) {
+		x += width;
+		width = -width;
+	}
+	if (height < 0) {
+		y += height;
+		height = -height;
+	}
+	const uindex_t numV = 4;
+	const uindex_t numE = 4;
+	const uindex_t numF = 2;
+	mesh->numVertices = numV;
+	mesh->numEdges = numE;
+	mesh->numFaces = numF;
+	mesh->vertices = (float*)malloc(sizeof(float) * numV * 3);
+	mesh->normals = (float*)malloc(sizeof(float) * numV * 3);
+	mesh->texCoords = (float*)malloc(sizeof(float) * numV * 2);
+	mesh->edges = (uindex_t*)malloc(sizeof(uindex_t) * numE * 2);
+	mesh->faces = (uindex_t*)malloc(sizeof(uindex_t) * numF * 3);
+	float v[] = {
+		x, y, 0,
+		x + width, y, 0,
+		x + width, y + height, 0,
+		x, y + height, 0
+	};
+	float norm[] = { 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 };
+	float tex[] = { 0, 0, 1, 0, 1, 1, 0, 1 };
+	uindex_t e[] = { 0, 1, 1, 2, 2, 3, 3, 0 };
+	uindex_t f[] = { 0, 1, 2, 2, 3, 0 };
+	memcpy(mesh->vertices, v, sizeof(float) * numV * 3);
+	memcpy(mesh->normals, norm, sizeof(float) * numV * 3);
+	memcpy(mesh->texCoords, tex, sizeof(float) * numV * 2);
+	memcpy(mesh->edges, e, sizeof(uindex_t) * numE * 2);
+	memcpy(mesh->faces, f, sizeof(uindex_t) * numF * 3);
+};
+
 // width and height are the number of subdivisions in each direction,
 // as well as the width and height in the XY plane.
 // each quad is 1x1 unit.
-void makeQuadPlane(mesh_t *plane, unsigned int width, unsigned int height) {
+void makeUVPlane(mesh_t *plane, unsigned int width, unsigned int height) {
 	const uindex_t numV = (width + 1) * (height + 1);
 	const uindex_t numE = width * (height + 1) + (width + 1) * height;
 	const uindex_t numF = width * height * 2;

@@ -14,23 +14,23 @@ typedef struct particle {
 	coord velocity;
 } particle;
 
-void particleUpdate(particle *p, GameEngine *engine) {
+void particleUpdate(particle *p, int xMin, int yMin, int xMax, int yMax) {
 	p->position.x += p->velocity.x;
 	p->position.y += p->velocity.y;
-	if (p->position.x < 0) {
-		p->position.x = 0;
+	if (p->position.x < xMin) {
+		p->position.x = xMin;
 		p->velocity.x = +abs(p->velocity.x);
 	}
-	if (p->position.y < 0) {
-		p->position.y = 0;
+	if (p->position.y < yMin) {
+		p->position.y = yMin;
 		p->velocity.y = +abs(p->velocity.y);
 	}
-	if (p->position.x > engine->width) {
-		p->position.x = engine->width;
+	if (p->position.x > xMax) {
+		p->position.x = xMax;
 		p->velocity.x = -abs(p->velocity.x);
 	}
-	if (p->position.y > engine->height) {
-		p->position.y = engine->height;
+	if (p->position.y > yMax) {
+		p->position.y = yMax;
 		p->velocity.y = -abs(p->velocity.y);
 	}
 }
@@ -84,8 +84,7 @@ int main(void) {
 		frame += 1;
 
 		for (int i = 0; i < NUM_DOTS; i += 1) {
-			particleUpdate(&pts[i], &engine);
-			// pts[i].update(&engine);
+			particleUpdate(&pts[i], 0, 0, engine.width, engine.height);
 		}
 
 		SDL_SetRenderDrawColor(engine.renderer, 0x00, 0x00, 0x00, 0xFF);

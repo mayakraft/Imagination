@@ -18,7 +18,8 @@ GLuint loadGLTexture(
 	int width,
 	int height,
 	GLuint inputFormat,
-	GLuint storageFormat
+	GLuint storageFormat,
+	unsigned short blendMode
 );
 
 GLuint updateGLTexture(
@@ -26,14 +27,18 @@ GLuint updateGLTexture(
 	unsigned char *data,
 	int width,
 	int height,
-	GLuint glImageFormat
+	GLuint glImageFormat,
+	unsigned short blendMode
 );
 
 GLuint loadGLTextureFromFileRGB(const char* path);
+GLuint loadGLTextureFromFileRGBWithBlend(const char* path, unsigned short blendMode);
 
 GLuint loadGLTextureFromFileRGBA(const char* path);
+GLuint loadGLTextureFromFileRGBAWithBlend(const char* path, unsigned short blendMode);
 
 GLuint loadGLTextureFromFileGrayscale(const char* path);
+GLuint loadGLTextureFromFileGrayscaleWithBlend(const char* path, unsigned short blendMode);
 
 SDL_Texture* loadSDLTexture(SDL_Renderer *renderer, const char* path);
 

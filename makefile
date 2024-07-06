@@ -1,6 +1,6 @@
 LIB_NAME := libGameEngine.a
 
-USE_VULKAN := 1
+USE_VULKAN := 0
 
 SRC_DIR := ./src
 LIB_DIR := ./lib
@@ -37,7 +37,7 @@ else
 	LIBS += -lGL
 endif
 
-ifdef USE_VULKAN
+ifeq ($(USE_VULKAN), 1)
 	INCLUDE += -I$(VULKAN_SDK_PATH)/include
 	LIBS += -L$(VULKAN_SDK_PATH)/lib -lvulkan
 endif

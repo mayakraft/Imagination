@@ -26,7 +26,7 @@ int main(void) {
 	// makeOrthographicMatrix4(380, 380, -380, -380, 1, 2048.0, projection);
 	makeLookAtMatrix4(3, 0, 0, 0, 0, 0, 0, 0, 1, view);
 	makeDodecahedron(&polyhedron);
-	makeQuadPlane(&quad, 1, 1);
+	makeRect(&quad, 0, 0, 1, 1);
 
 	Light lights[MAX_LIGHTS];
 	int numLights = 4;

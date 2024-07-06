@@ -23,7 +23,7 @@ int main() {
 	mesh_t plane, circle, moon, jupiter;
 
 	makePerspectiveMatrix4(45, 1.0 / 1.0, 0.1f, 100.0f, perspective);
-	makeQuadPlane(&plane, 2, 2);
+	makeUVPlane(&plane, 2, 2);
 	makeCircle(&circle);
 	makeUVSphere(&moon, 1);
 	makeCube(&jupiter);
